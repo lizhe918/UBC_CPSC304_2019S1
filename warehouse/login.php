@@ -11,20 +11,24 @@
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
-
-        $salt = 'XyZzy12*_';
-        $stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1';
-        $md5 = hash('md5', $salt . $pswd);
+        $pdo=new PDO('mysql:host=localhost;dbname=zyxwstorage','lizhe1313','yxsy0102');
 
         if ($name == "" || $pswd == "") {
             $message = "User name and password are required";
-        } else if ($md5 === $stored_hash) {
-            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
         } else {
+          $sql = "SELECT password FROM Customer WHERE username = '$name'";
+          // $stmt = $pdo->query($sql);
+          // $storedpswd = $stmt->fetch();
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute();
+          $storedpswd = $stmt->fetch();
+          if ($storedpswd['password'] == $pswd) {
+            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+          } else {
             $message = "Incorrect password";
+          }
         }
-    }
-
+      }
 ?>
 
 
@@ -98,7 +102,7 @@ form {
   margin-left:auto;
   margin-right: auto;
   margin-top: 10em;
-  
+
 }
 
 .button {
@@ -152,9 +156,9 @@ form {
   <input id = "cancel" class="button" type="submit" name="button2" value="Cancel">
   </div>
   <h4>OR</h4>
-  <a href="">Forget your account?</a> 
+  <a href="">Forget your account?</a>
   <p></p>
-    Not a member yet? <a href="">Sign Up!</a> 
+    Not a member yet? <a href="">Sign Up!</a>
 </form>
 </div>
 </body>
