@@ -1,4 +1,6 @@
 <?php
+    $pdo=new PDO('mysql:host=mysql.practices.isaaczheli.com;dbname=zyxwstorage','lizhe1313','yxsy0102');
+
     if (isset($_POST['button2'])) {
         header("Location: index.html");
     }
@@ -11,14 +13,10 @@
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
-        $pdo=new PDO('mysql:host=localhost;dbname=zyxwstorage','lizhe1313','yxsy0102');
-
         if ($name == "" || $pswd == "") {
             $message = "User name and password are required";
         } else {
           $sql = "SELECT password FROM Customer WHERE username = '$name'";
-          // $stmt = $pdo->query($sql);
-          // $storedpswd = $stmt->fetch();
           $stmt = $pdo->prepare($sql);
           $stmt->execute();
           $storedpswd = $stmt->fetch();
@@ -39,99 +37,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
-  background-color: #ddd;
-  position: relative;
-  top: 0;
-  opacity: 1;
-  width: 100%;
-  display:block;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  background-color: #ddd;
-  color: #002145;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  transition-duration: 0.4s;
-  width: auto;
-  font-weight: bold;
-}
-
-li a:hover:not(.active) {
-  background-color: white;
-  text-decoration: underline;
-}
-
-li a.active {
-  color: white;
-  background-color: #002145;
-}
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-form {
-  width: 360px;
-  position: relative;
-  /*top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);*/
-  margin-left:auto;
-  margin-right: auto;
-  margin-top: 10em;
-
-}
-
-.button {
-  background-color: #002145;
-  border: #002145;
-  color: white;
-  padding: 1em;
-  margin-bottom: 1em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width: 100px;
-  transition-duration: 0.4s;
-}
-
-.button:hover {
-  background-color: #0055B7;
-  color: white;
-}
-
-#cancel:hover {
-  background-color: red;
-  color: white;
-}
-
-
-
-</style>
+<link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
 <ul>
