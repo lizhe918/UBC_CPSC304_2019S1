@@ -68,7 +68,7 @@ form .button {
 
 
 @media screen and (max-width: 1080px) {
-  input[type=text], input[type=tel], input[type=email], input[type="date"],input[type="password"], select, textarea {
+  input[type=text], input[type=tel],input[type=date], input[type=email], input[type="password"], select, textarea {
     width: 100%;
   }
 

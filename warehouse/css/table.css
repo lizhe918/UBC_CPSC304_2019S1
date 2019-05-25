@@ -10,6 +10,11 @@ body {
   text-align: center;
 }
 
+.entities {
+  border-collapse: collapse;
+  text-align: center;
+}
+
 .tableblock h1 {
   margin: 0;
   padding-top: 4em;
