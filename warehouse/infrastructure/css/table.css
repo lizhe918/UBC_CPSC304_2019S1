@@ -25,6 +25,10 @@ body {
   
 }
 
+.entities {
+  border-collapse: collapse;
+}
+
 .entities td, .entities th{
   margin: 0;
   border: 1px solid #ddd;
