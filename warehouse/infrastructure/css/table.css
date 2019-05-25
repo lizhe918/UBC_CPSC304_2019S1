@@ -8,6 +8,7 @@ body {
   background-color: #97D4E9;
   color: #002145;
   text-align: center;
+  overflow-x: auto;
 }
 
 .entities {
