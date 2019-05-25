@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type="password"], select, textarea, input[type="email"], input[type="date"], input[type="number"], input[type="tel"], .short {
+  width: auto;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form {
+  width: 50%;
+  position: relative;
+  margin-left:auto;
+  margin-right: auto;
+  margin-top: 10em;
+  margin-bottom: 5em;
+  background-color: rgb(230, 230, 230);
+  border: 1px solid white;
+  border-radius: 1em;
+  
+}
+
+.form-content {
+  padding: 2em;
+}
+
+@media screen and (max-width: 1080px) {
+  input[type=text], input[type="password"], select, textarea {
+    width: 100%;
+  }
+
+  form {
+    width: 80%;
+  }
+}
+
+form .medium {
+  width: 66%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form .long {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+form .button {
+  background-color: #002145;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  color: white;
+  height: 3em;
+  width: 9em;
+  border: none;
+  margin-bottom: 1em;
+}
+
+.button:hover {
+  background-color: #0055B7;
+}
+
+.cancel:hover {
+  background-color: rgba(255, 0, 0, 0.856);
+}
