@@ -55,7 +55,7 @@
     </div>
     </div>
     <div class="form-container">
-    <form method="post" style="width: 25em;">
+    <form method="post" style="width: 25em; background-color: white;">
       <div class="form-content">
         <h2 style="color: #002145;">CPSC304 Group 1 Project</h2>
         <h3 style="color: #002145;">Login to your management:</h3>
