@@ -13,8 +13,7 @@ input[type="password"], select, textarea, input[type="email"], input[type="date"
 }
 
 .form-container {
-  padding-top: 10em;
-  padding-bottom: 10em;
+  padding-top: 5em;
 }
 
 form {
