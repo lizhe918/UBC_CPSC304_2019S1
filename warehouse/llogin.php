@@ -78,8 +78,6 @@
       <div style="padding: 2em; padding-top:0;">
       <h4 style="margin-top:0;">OR</h4>
       <a href="">Forget your account?</a>
-      <p></p>
-      New worker? <a href="">Sign Up!</a>
       </div>
     </form>
         </div>
