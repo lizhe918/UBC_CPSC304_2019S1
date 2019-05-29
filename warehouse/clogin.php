@@ -9,8 +9,8 @@
     $name = "";
     $pswd = "";
     $message = false;
-
-    if (isset($_POST['who']) and isset($_POST['password'])) {
+    if (!isset($_COOKIE['zyxwuser']) and !isset($_COOKIE['zyxwpswd'])) {
+      if (isset($_POST['who']) and isset($_POST['password'])) {
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
@@ -22,12 +22,28 @@
           $stmt->execute();
           $storedpswd = $stmt->fetch();
           if ($storedpswd['password'] == $pswd) {
+            setcookie("zyxwuser", $name, time() + 3600);
+            setcookie("zyxwpswd", $pswd, time() + 3600);
             header("Location: RPS/game.php?name=".urlencode($_POST['who']));
           } else {
             $message = "Incorrect username or password";
           }
         }
       }
+    } else {
+      $name = $_COOKIE['zyxwuser'];
+      $pswd = $_COOKIE['zyxwpswd'];
+      $sql = "SELECT password FROM Customer WHERE username = '$name'";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $storedpswd = $stmt->fetch();
+      if ($storedpswd['password'] == $pswd) {
+        header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+      } else {
+        $message = "Incorrect username or password";
+      }
+    }
+
 ?>
 
 <!DOCTYPE html>
