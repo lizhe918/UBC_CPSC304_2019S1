@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+.tableblock {
+  background-color: #97D4E9;
+  color: #002145;
+  text-align: center;
+}
+
+.entities {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.tableblock h1 {
+  margin: 0;
+  padding-top: 4em;
+  padding-bottom: 2em;
+}
+
+.thetable {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0;
+  width: 80%;
+  padding-bottom: 8em;
+  overflow-x: auto;
+}
+
+.entities td, .entities th{
+  margin: 0;
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: white;
+}
+
+.entities th {
+  background-color: #002145;
+  color: white;
+}

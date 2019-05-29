@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form Template</title>
+    <link rel="stylesheet" href="./css/form.css">
+  </head>
+  <body>
+    <div class="form-container">
+      <form method="post">
+        <div class="form-content">
+            <h2 style="color: #002145;">Header</h2>
+            <h3 style="color: #002145;">Sub-Header</h3>
+            <p>Short:<br>
+               <input class="short" type="text" name="who">
+            </p>
+            <p>Medium:<br>
+              <input class="medium" type="text" name="who">
+            </p>
+            <p>Long:<br>
+              <input class="long" type="text" name="who">
+            </p>
+            <p>Password:<br>
+              <input type="password" name="password">
+            </p>
+            <p>Email:<br>
+              <input type="email" name="email">
+            </p>
+            <p>Date:<br>
+              <input type="date" name="date">
+            </p>
+            <p>Number:<br>
+              <input type="number" name="quantity" min="1" max="5">
+            </p>
+            <p>Phone Number:<br>
+              <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+              
+            </p>
+            <p>
+              <select id="country" name="country">
+                <option value="australia">Australia</option>
+                <option value="canada">Canada</option>
+                <option value="usa">USA</option>
+              </select>
+            </p>
+          <div>
+            <input class="button confirm" type="submit" name="button1" value="Sign In">
+            <input class="button cancel" type="submit" name="button2" value="Cancel">
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

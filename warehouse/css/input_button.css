@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+  background-color: #002145;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  color: white;
+  height: 3em;
+  width: 9em;
+  border: none;
+  margin-bottom: 1em;
+}
+
+.button:hover {
+  background-color: #0055B7;
+}
+
+.cancel:hover {
+  background-color: rgba(255, 0, 0, 0.856);
+}
+
+.linkbutton {
+  background-color: #002145;
+  border: #002145;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 150px;
+  transition-duration: 0.4s;
+  margin-bottom: 1em;
+}
+
+.linkbutton:hover {
+  background-color: #0055B7; 
+  color: white;
+}
