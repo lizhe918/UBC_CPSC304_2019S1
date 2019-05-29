@@ -28,9 +28,7 @@
       </a>
     </div>
     </section>
-
-
-    <section class="tableblock">
+    <section class="tableblock" style="background-color:white;">
       <h1>Our Plans</h1>
       <div class="thetable">
         <table class="entities" style="width:100%">
@@ -38,9 +36,7 @@
             <th>Type Name</th>
             <th>Rate</th>
           </tr>
-
       <?php
-
       $sql="SELECT * FROM ItemType";
       $stmt = $pdo->prepare($sql);
       $stmt->execute();
@@ -51,15 +47,10 @@
         echo($row['rate']);
         echo ("</td></tr>");
       }
-
       ?>
         </table>
       </div>
     </section>
-
-
-
-
     <script>
     function mobileExpand() {
       var x = document.getElementById("thebar");
@@ -70,6 +61,5 @@
       }
     }
     </script>
-
   </body>
 </html>
