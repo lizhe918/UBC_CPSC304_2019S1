@@ -22,7 +22,7 @@
         $firstName = $_POST['fName'];
         $lastName = $_POST['lName'];
         $idType = $_POST['IDType'];
-        $idNum = $_POST['lDNumber'];
+        $idNum = $_POST['IDNumber'];
         $phoneN = $_POST['phoneNumber'];
         $address = $_POST['address'];
         $email = $_POST['emailaddress'];
@@ -40,11 +40,11 @@
             $email = "NULL";
         }
         if($idType == "StudentID"){
-            $idNum = STUD . '$idNum';
+            $idNum = 'STUD' . '$idNum';
         }else if ($idType == "Passport"){
-            $idNum = PSPT . '$idNum';
+            $idNum = 'PSPT' . '$idNum';
         }else if ($idType == "Dlicence"){
-            $idNum = DLCE . '$idNum';
+            $idNum = 'DLCE' . '$idNum';
         }
         
         //check uniqueness
