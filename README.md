@@ -12,3 +12,9 @@ The source code for this project can be found in the folder: warehouse. All the 
 The folder, infrastructure, contains all the html and css templates that are used to develop this website. When developing the website, to use the html template, please copy the entire div right under the body tag and link all the stylesheet in the header part of the html. You may modify, add, or delete the content of the template, but please do so according to the format showing in the orginal template to keep the stylesheet working properly. The two php template files are well documented, intending to provide basic examples for operations that may be frequently used in this project.
 </p>
 <h2>The Database:</h2>
+<p>
+The file, warehouse.sql, in the folder, warehouse, provides the source code for the database. For development purpose, please construct your own local mySQL database on the local mySQL server. You can do so by using the phpMyAdmin in XAMPP or MAMP. To let your file get access to your database, please check the comment in pdo_constructor.php and pdo_common_operations.php inside the infrastructure folder. 
+</p>
+<h2>Development</h2>
+<p>
+When developing this project, please make sure your commit will not influence other files because many of the html and php files share the css.  
