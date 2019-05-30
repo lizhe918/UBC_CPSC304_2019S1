@@ -1,12 +1,6 @@
-# This repo:
-This is a personal repository for the resource used in the group project of UBC CPSC304, 2019S1. This project intends to construct a database to manage a storage company and a website which allow employees and customers of the company to do business and manage the storage. Enter the folder, warehouse, to see the source code for the project.
+<h1>CPSC304 Group 1 Project</h1>
+<p>
+#Introduction:
+This repository is for the project of CPSC304 Group 1. It contains the website source code including html, css, sql, and php files. The project intends to provide a storage company the basic database and online graphic user interface for the customers and employees. The project requirement description can be found here: https://piazza.com/class_profile/get_resource/jv5ovaxtmtx3o/jvcxman0reh69f.
+</p>
 
-# warehouse:
-This folder contains the code used for the group project.  The index.html is the home page to start with, and the zyxwstorage.sql is the database backing up this website. Other html and php files are source code of websites used in this project. 
-
-# infrastructure:
-Inside the warehouse folder is the infrastructure used for this project. The infrastructures are created to simplify high-level development and unify the style of the website design because this project has four members involved. 
-
-# notes:
-1. The website is now online at practices.isaaczheli.com
-2. The database system used is mySQL. Oracle and other database management systems are also ok to use, but minor modification of the code may be required.
