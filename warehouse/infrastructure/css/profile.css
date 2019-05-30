@@ -5,7 +5,6 @@ body {
 
 .profile {
 	margin-left: 2em;
-	width: 20%;
 	background-color: white;
 	color: #002145;
 }
@@ -22,14 +21,6 @@ body {
 .profile-content {
 	padding-left: 1em;
 	padding-bottom: 2em;
-}
-
-@media screen and (max-width: 1080px) {
-	.profile {
-		width: 80%;
-		margin-left: auto;
-		margin-right: auto;
-	}
 }
 
 .username {
