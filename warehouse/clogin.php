@@ -38,7 +38,7 @@
       $stmt->execute();
       $storedpswd = $stmt->fetch();
       if ($storedpswd['password'] == $pswd) {
-        header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+        header("Location: cmain.html");
       } else {
         $message = "Incorrect username or password";
       }
