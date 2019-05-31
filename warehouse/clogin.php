@@ -24,7 +24,7 @@
           if ($storedpswd['password'] == $pswd) {
             setcookie("zyxwuser", $name, time() + 3600);
             setcookie("zyxwpswd", $pswd, time() + 3600);
-            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+            header("Location: cmain.html");
           } else {
             $message = "Incorrect username or password";
           }
