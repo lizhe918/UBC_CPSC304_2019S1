@@ -36,7 +36,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.html#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
 			<a  href="./elogin.html">EMPLOYEE</a>
-			<a  href="./clogin.php">MY ACCOUNT</a>
+			<a  href="./logout.php">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
 			</a>
@@ -59,18 +59,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
-
 					<?php
 					echo($user['phoneNum']);
 					?>
-
-
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
 					echo($user['address']);
 					?>
-
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
@@ -88,10 +84,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="">Saved Items</a>
-					<a href="">Reservations</a>
-					<a href="">Payment Method</a>
-					<a href="">Make Reservation</a>
+					<a href="citem.php">Saved Items</a>
+					<a href="crsrv.php">Reservations</a>
+					<a href="cagrmt.php">Agreements</a>
+					<a href="cmrsrv.php">Make Reservation</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
@@ -107,12 +103,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>RoomNumber</th>
 							<th>BranchNumber</th>
 							<th>Size</th>
-
 						</tr>
-
-
 						<?php
-
 						$sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
 						$agreements = $pdo->prepare($sql);
 						$agreements->execute();
