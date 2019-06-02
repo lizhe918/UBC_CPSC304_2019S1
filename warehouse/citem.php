@@ -122,11 +122,11 @@
             echo($item['itemNum']);
             echo ("</td><td>");
             echo($item['agrmtNum']);
-            echo ("</td></td>");
+            echo ("</td><td>");
    echo($agreement['roomNum']);
-            echo ("</td></td>");
+            echo ("</td><td>");
    echo($agreement['branch']);
-            echo ("</td></td>");
+            echo ("</td><td>");
    echo($item['size']);
             echo ("</td></tr>");
   }
