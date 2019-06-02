@@ -24,7 +24,7 @@
           if ($storedpswd['password'] == $pswd) {
             setcookie("zyxwuser", $name, time() + 3600);
             setcookie("zyxwpswd", $pswd, time() + 3600);
-            header("Location: cmain.html");
+            header("Location: citem.php");
           } else {
             $message = "Incorrect username or password";
           }
@@ -38,7 +38,7 @@
       $stmt->execute();
       $storedpswd = $stmt->fetch();
       if ($storedpswd['password'] == $pswd) {
-        header("Location: cmain.html");
+        header("Location: citem.php");
       } else {
         $message = "Incorrect username or password";
       }
