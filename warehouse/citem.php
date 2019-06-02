@@ -1,10 +1,10 @@
 <?php
- require_once "pdo_constructor.php";
- $username = $_COOKIE['zyxwuser'];
- $sql = "SELECT * FROM Customer WHERE username = '$username'";
- $stmt = $pdo->prepare($sql);
- $stmt->execute();
- $user = $stmt->fetch(PDO::FETCH_ASSOC);
+require_once "pdo_constructor.php";
+$username = $_COOKIE['zyxwuser'];
+$sql = "SELECT * FROM Customer WHERE username = '$username'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -12,7 +12,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>CSS Template</title>
+	<title>
+		<?php
+		echo $username . "'s Storage: Items";
+		?>
+	</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="./css/usermain.css">
@@ -38,45 +42,45 @@
 			</a>
 		</div>
 	</section>
-	<div class="row">
+	<section class="row">
 		<div class="column profile">
 			<h1>Welcome!</h1>
 			<div class="username">
 				<h2>
-          <?php
-            echo($user['fName'] . " " . $user['lName']);
-          ?>
-        </h2>
+					<?php
+					echo($user['fName'] . " " . $user['lName']);
+					?>
+				</h2>
 				<p>
-          <?php
-            echo($_COOKIE['zyxwuser']);
-          ?>
-        </p>
+					<?php
+					echo($_COOKIE['zyxwuser']);
+					?>
+				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 
-          <?php
-            echo($user['phoneNum']);
-          ?>
+					<?php
+					echo($user['phoneNum']);
+					?>
 
 
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
-          <?php
-            echo($user['address']);
-          ?>
+					<?php
+					echo($user['address']);
+					?>
 
-      </p>
+				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
-          <?php
-            echo($user['IDNum']);
-          ?>
+					<?php
+					echo($user['IDNum']);
+					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
-          <?php
-            echo($user['email']);
-          ?>
+					<?php
+					echo($user['email']);
+					?>
 				</p>
 				<a class="linkbutton" href="">Edit Profile</a>
 			</div>
@@ -94,50 +98,51 @@
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<p><br></p>
-				<div class="thetable">
+				<h2>Items</h2>
+				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
 							<th>ItemNumber</th>
 							<th>AgreementNumber</th>
-              <th>RoomNumber</th>
-              <th>BranchNumber</th>
-              <th>Size</th>
+							<th>RoomNumber</th>
+							<th>BranchNumber</th>
+							<th>Size</th>
 
 						</tr>
 
 
-            <?php
+						<?php
 
-            $sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
-            $agreements = $pdo->prepare($sql);
-            $agreements->execute();
-           while ($agreement = $agreements->fetch(PDO::FETCH_ASSOC)) {
-          $agrmtNum = $agreement['agrmtNum'];
-  $sql = "SELECT * FROM Item WHERE agrmtNum = '$agrmtNum'";
-  $items = $pdo->prepare($sql);
-  $items->execute();
-  while ($item = $items->fetch(PDO::FETCH_ASSOC)) {
-   echo "<tr><td>";
-            echo($item['itemNum']);
-            echo ("</td><td>");
-            echo($item['agrmtNum']);
-            echo ("</td><td>");
-   echo($agreement['roomNum']);
-            echo ("</td><td>");
-   echo($agreement['branch']);
-            echo ("</td><td>");
-   echo($item['size']);
-            echo ("</td></tr>");
-  }
- }
+						$sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
+						$agreements = $pdo->prepare($sql);
+						$agreements->execute();
+						while ($agreement = $agreements->fetch(PDO::FETCH_ASSOC)) {
+							$agrmtNum = $agreement['agrmtNum'];
+							$sql = "SELECT * FROM Item WHERE agrmtNum = '$agrmtNum'";
+							$items = $pdo->prepare($sql);
+							$items->execute();
+							while ($item = $items->fetch(PDO::FETCH_ASSOC)) {
+								echo "<tr><td>";
+								echo($item['itemNum']);
+								echo ("</td><td>");
+								echo($item['agrmtNum']);
+								echo ("</td><td>");
+								echo($agreement['roomNum']);
+								echo ("</td><td>");
+								echo($agreement['branch']);
+								echo ("</td><td>");
+								echo($item['size']);
+								echo ("</td></tr>");
+							}
+						}
+						?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            ?>
-              </table>
-            </div>
-          </section>
-
-	<div class="footer-container" >
+	<section class="footer-container" >
 		<div class="footer">
 			<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
 				<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
@@ -149,7 +154,7 @@
 				<img src = "https://avatars0.githubusercontent.com/u/22601447?s=200&v=4" >
 			</a>
 		</div>
-	</div>
+	</section>
 	<script>
 		function mobileExpandMain() {
 			var x = document.getElementById("mainbar");
