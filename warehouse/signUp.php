@@ -1,8 +1,6 @@
 <?php
-
     require_once "pdo_constructor.php";
-
-
+    
     $name = "";
     $pswd = "";
     $cmfir = "";
@@ -14,46 +12,84 @@
     $address ="";
     $email = "";
     $message = false;
+    if(isset($_POST) & !empty($_POST)){
 
-    if (isset($_POST['who']) and isset($_POST['password']) and isset($_POST['fName']) and isset($_POST['lName']) and isset($_POST['IDType']) and isset($_POST['IDNumber']) and isset($_POST['phoneNumber']) and isset($_POST['phoneNumber']) and isset($_POST['address']) and isset($_POST['emailaddress'])) {
-        $name = $_POST['who'];
-        $pswd =  $_POST['password'];
-        $cmfir = $_POST['confirm'];
-        $firstName = $_POST['fName'];
-        $lastName = $_POST['lName'];
-        $idType = $_POST['IDType'];
-        $idNum = $_POST['IDNumber'];
-        $phoneN = $_POST['phoneNumber'];
-        $address = $_POST['address'];
-        $email = $_POST['emailaddress'];
-    }
-    if ($name == "" || $pswd == ""|| $cmfir =="" || $firstName="" || $lastName =="" || $idType=="" || $idNum == "" || $phoneN == ""|| $address ==""|| $email == "") {
-        $message = "Please Complete All Required fields";
-    }else if ($pswd != $cmfir){
-        $message = "Those passwords didn't match. Try Again";
-    }else {
-        //check values
-        if ($lastName == ""){
-            $lastName = "NULL";
+        if (isset($_POST['who']) and isset($_POST['password']) and isset($_POST['fName']) and isset($_POST['lName']) and isset($_POST['IDType']) and isset($_POST['IDNumber']) and isset($_POST['phoneNumber']) and isset($_POST['phoneNumber']) and    isset($_POST['address']) and isset($_POST['emailaddress'])) {
+            $name = $_POST['who'];
+            $pswd =  $_POST['password'];
+            $cmfir = $_POST['confirm'];
+            $firstName = $_POST['fName'];
+            $lastName = $_POST['lName'];
+            $idType = $_POST['IDType'];
+            $idNum = $_POST['IDNumber'];
+            $phoneN = $_POST['phoneNumber'];
+            $address = $_POST['address'];
+            $email = $_POST['emailaddress'];
         }
-        if ($email == ""){
-            $email = "NULL";
-        }
-        if($idType == "StudentID"){
-            $idNum = 'STUD' . '$idNum';
-        }else if ($idType == "Passport"){
-            $idNum = 'PSPT' . '$idNum';
-        }else if ($idType == "Dlicence"){
-            $idNum = 'DLCE' . '$idNum';
-        }
+        if ($name == "" || $pswd == ""|| $cmfir =="" || $firstName=""  || $idType=="" || $idNum     == "" || $phoneN == ""|| $address =="") {
+            $message = "Please Complete All Required fields";
+        }else if ($pswd != $cmfir){
+            $message = "Those passwords didn't match. Try Again";
+        }else {
+            // should insert
+            $success = 1;
         
-        //check uniqueness
-
+            //check values
         
-        // insert
-        $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName', '$firstName', '$phoneN', '$address', '$email');";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+            if ($lastName == ""){
+                $lastName = "NULL";
+            }
+            if ($email == ""){
+                $email = "NULL";
+            }
+            if($idType == "StudentID"){
+                $idNum = 'STUD' . $idNum;
+            }else if ($idType == "Passport"){
+                $idNum = 'PSPT' . $idNum;
+            }else if ($idType == "Dlicence"){
+                $idNum = 'DLCE' . $idNum;
+            }
+        
+            //check uniqueness
+            $sql = "select * from Customer where username = '$name'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0){
+                  $message = "Username Already Exist. Try Again";
+                  $success = 0;
+            }
+        
+            $sql = "select * from Customer where phoneNum = '$phoneN'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0){
+                $message = "Phone Number Already Exist. Try Again";
+                $success = 0;
+            }
+            if ($email != "NULL"){
+                $sql = "select * from Customer where email = '$email'";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                if ($stmt->rowCount() > 0){
+                    $message = "Email Already Exist. Try Again";
+                    $success = 0;
+                }
+            }
+        
+            // insert
+            if ($success == 1){
+            $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName',       '$firstName', '$phoneN', '$address', '$email');";
+            $stmt = $pdo->prepare($sql);
+            try {
+            $stmt->execute();
+            } catch (PDOException $e) {
+                print $e->getMessage ();
+            }
+            header("Location:clogin.php");
+            exit;
+            
+            }
+        }
     }
   ?>
 
@@ -93,7 +129,7 @@
             <input type="password" name="password" style="width: 100%" required>
         </p>
         <p>Comfirm your Password*:<br>
-            <input class="long" type="text" name="confirm" required>
+            <input class="long" type="password" name="confirm" required>
         </p>
         <p>First Name*:<br>
             <input class="long" type="text" name="fName" required>
