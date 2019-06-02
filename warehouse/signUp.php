@@ -1,6 +1,7 @@
 <?php
     require_once "pdo_constructor.php";
-    
+
+
     $name = "";
     $pswd = "";
     $cmfir = "";
@@ -12,7 +13,7 @@
     $address ="";
     $email = "";
     $message = false;
-    if(isset($_POST) & !empty($_POST)){
+    if (isset($_POST) & !empty($_POST)) {
 
         if (isset($_POST['who']) and isset($_POST['password']) and isset($_POST['fName']) and isset($_POST['lName']) and isset($_POST['IDType']) and isset($_POST['IDNumber']) and isset($_POST['phoneNumber']) and isset($_POST['phoneNumber']) and    isset($_POST['address']) and isset($_POST['emailaddress'])) {
             $name = $_POST['who'];
@@ -26,16 +27,17 @@
             $address = $_POST['address'];
             $email = $_POST['emailaddress'];
         }
-        if ($name == "" || $pswd == ""|| $cmfir =="" || $firstName=""  || $idType=="" || $idNum     == "" || $phoneN == ""|| $address =="") {
+
+        if ($name == "" || $pswd == ""|| $cmfir =="" || $firstName==""  || $idType=="" || $idNum     == "" || $phoneN == ""|| $address =="") {
             $message = "Please Complete All Required fields";
         }else if ($pswd != $cmfir){
-            $message = "Those passwords didn't match. Try Again";
+            $message = "Two passwords do not match";
         }else {
             // should insert
             $success = 1;
-        
+
             //check values
-        
+
             if ($lastName == ""){
                 $lastName = "NULL";
             }
@@ -49,21 +51,21 @@
             }else if ($idType == "Dlicence"){
                 $idNum = 'DLCE' . $idNum;
             }
-        
+
             //check uniqueness
             $sql = "select * from Customer where username = '$name'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             if ($stmt->rowCount() > 0){
-                  $message = "Username Already Exist. Try Again";
+                  $message = "Username Already Exist";
                   $success = 0;
             }
-        
+
             $sql = "select * from Customer where phoneNum = '$phoneN'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             if ($stmt->rowCount() > 0){
-                $message = "Phone Number Already Exist. Try Again";
+                $message = "Phone Number Already Exist";
                 $success = 0;
             }
             if ($email != "NULL"){
@@ -71,14 +73,16 @@
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 if ($stmt->rowCount() > 0){
-                    $message = "Email Already Exist. Try Again";
+                    $message = "Email Already Exist";
                     $success = 0;
                 }
             }
-        
+
             // insert
             if ($success == 1){
-            $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName',       '$firstName', '$phoneN', '$address', '$email');";
+                echo "at line 88";
+                echo $firstName;
+            $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName', '$firstName', '$phoneN', '$address', '$email');";
             $stmt = $pdo->prepare($sql);
             try {
             $stmt->execute();
@@ -87,7 +91,6 @@
             }
             header("Location:clogin.php");
             exit;
-            
             }
         }
     }
@@ -110,8 +113,8 @@
         <a href="./index.html#about">ABOUT</a>
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
-        <a  href="./elogin.php">EMPLOYEE</a> 
-        <a  href="./clogin.php">MY ACCOUNT</a> 
+        <a  href="./elogin.php">EMPLOYEE</a>
+        <a  href="./clogin.php">MY ACCOUNT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>
@@ -148,7 +151,7 @@
             <input class="long" type="text" name="IDNumber" required>
         </p>
         <p>Phone Number*:<br>
-            <input class="long" type="number" name="phoneNumber" required>
+            <input class="long" type="text" name="phoneNumber" required>
         </p>
         <p>Address (street address, city, province, country, postal code)*:<br>
             <input class="long" type="text" name="address" required>
@@ -163,12 +166,11 @@
         ?>
         <div>
             <input class="button confirm" type="submit" name="signUp" value="Sign Up">
-            <input class="button cancel" type="submit" name="cancel" value="Cancel">
         </div>
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="">Log in with existing account?</a>
+        <a href="clogin.php">Log in with existing account</a>
         <p></p>
         </div>
         </form>
