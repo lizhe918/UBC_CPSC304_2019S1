@@ -94,7 +94,7 @@
       <div style="padding: 2em; padding-top:0;">
       <h4 style="margin-top:0;">OR</h4>
       <p></p>
-      Not a member yet? <a href="./signUp.php">Sign Up!</a>
+      Not a member yet? <a href="./csignup.php">Sign Up!</a>
       </div>
     </form>
         </div>
