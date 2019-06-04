@@ -105,30 +105,27 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>From Reservation</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
-						$agreements = $pdo->prepare($sql);
-						$agreements->execute();
-						while ($agreement = $agreements->fetch(PDO::FETCH_ASSOC)) {
-							$agrmtNum = $agreement['agrmtNum'];
-							$sql = "SELECT DISTINCT * FROM Agreement WHERE agrmtNum = '$agrmtNum'";
-							$payments = $pdo->prepare($sql);
-							$payments ->execute();
-							while ($payment = $payments ->fetch(PDO::FETCH_ASSOC)) {
+						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement ON
+						ItemInfo.agrmtNum=Agreement.agrmtNum
+						WHERE owner = '$username'";
+						$stmt= $pdo->prepare($sql);
+						$stmt->execute();
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 								echo "<tr><td>";
-								echo($payment['agrmtNum']);
+								echo($row['agrmtNum']);
 								echo ("</td><td>");
-								echo($payment['startDay']);
+								echo($row['startDay']);
 								echo ("</td><td>");
-								echo($payment['endDay']);
+								echo($row['endDay']);
 								echo ("</td><td>");
-								echo($payment['payment']);
+								echo($row['payment']);
 								echo ("</td><td>");
-								echo($payment['pickDay']);
+								echo($row['pickDay']);
 								echo ("</td><td>");
-								echo($payment['fromResv']);
+								echo($row['fromResv']);
 								echo ("</td></tr>");
 							}
-						}
+
 						?>
 					</table>
 				</div>
