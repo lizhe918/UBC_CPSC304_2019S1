@@ -17,8 +17,8 @@
           <a href="./index.html#about">ABOUT</a>
           <a href="./index.html#contact">CONTACT</a>
           <a href="./plans.php">PLANS</a>
-          <a  href="./elogin.php">EMPLOYEE</a> 
-          <a  href="./clogin.php">MY ACCOUNT</a> 
+          <a  href="./elogin.php">EMPLOYEE</a>
+          <a  href="./clogin.php">MY ACCOUNT</a>
         <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
           <i class="fa fa-bars"></i>
         </a>
@@ -32,6 +32,7 @@
         <p></p>
         <span class="subtitle">Greetings to all our employees</span>
         <p></p>
+        <a class="linkbutton" href="./dlogin.php">Company Director</a>
         <a class="linkbutton" href="./mlogin.php">Branch Manager</a>
         <a class="linkbutton" href="./llogin.php">Storage Worker</a>
       </div>

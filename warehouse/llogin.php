@@ -1,5 +1,5 @@
 <?php
-    
+
     require_once "pdo_constructor.php";
 
     if (isset($_POST['cancel'])) {
@@ -47,8 +47,8 @@
         <a href="./index.html#about">ABOUT</a>
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
-        <a  href="./elogin.php">EMPLOYEE</a> 
-        <a  href="./clogin.php">MY ACCOUNT</a> 
+        <a  href="./elogin.php">EMPLOYEE</a>
+        <a  href="./clogin.php">MY ACCOUNT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>
@@ -67,7 +67,7 @@
         </p>
         <?php
           if ($message != false) {
-            echo "<p style='color: red; font-weight: bold;'>$message</p>";  
+            echo "<p style='color: red; font-weight: bold;'>$message</p>";
           }
         ?>
         <div>
@@ -76,8 +76,6 @@
         </div>
       </div>
       <div style="padding: 2em; padding-top:0;">
-      <h4 style="margin-top:0;">OR</h4>
-      <a href="">Forget your account?</a>
       </div>
     </form>
         </div>
