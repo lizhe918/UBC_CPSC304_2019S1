@@ -135,23 +135,21 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						</tr>
 						<?php
 						$branch = $user['branchID'];
-						$sql = "SELECT * FROM ItemInfo WHERE branch = '$branch'";
-						$agreements = $pdo->prepare($sql);
-						$agreements->execute();
-						while ($agreement = $agreements->fetch(PDO::FETCH_ASSOC)) {
-							$agrmtNum = $agreement['agrmtNum'];
-							$sql = "SELECT * FROM Item WHERE agrmtNum = '$agrmtNum'";
-							$items = $pdo->prepare($sql);
-							$items->execute();
-							while ($item = $items->fetch(PDO::FETCH_ASSOC)) {
+						$sql = "SELECT * FROM ItemInfo INNER JOIN Item ON
+						Item.agrmtNum = ItemInfo.agrmtNum
+						WHERE branch = '$branch'" ;
+						$stmt = $pdo->prepare($sql);
+						$stmt->execute();
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
 								echo "<tr><td>";
-								echo($item['itemNum']);
+								echo($row['itemNum']);
 								echo ("</td><td>");
-								echo($item['agrmtNum']);
+								echo($row['agrmtNum']);
 								echo ("</td><td>");
-								echo($agreement['roomNum']);
+								echo($row['roomNum']);
 								echo ("</td><td>");
-								$iNum = $item['itemNum'];
+								$iNum = $row['itemNum'];
 								$sql = "SELECT * FROM ItemClass WHERE itemNum = '$iNum'";
 								$iClasses = $pdo->prepare($sql);
 								$iClasses->execute();
@@ -159,14 +157,14 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 									echo ($iClass['typeName'] . ' ');
 								}
 								echo ("</td><td>");
-								echo ($item['size']);
+								echo ($row['size']);
 								echo ("</td><td>");
 								echo ("<form method='POST'>");
-								echo "<button type='submit' name='delete' value=".$item['itemNum']." onclick='return ConfirmDelete()'> DELETE </button>";
+								echo "<button type='submit' name='delete' value=".$row['itemNum']." onclick='return ConfirmDelete()'> DELETE </button>";
 								echo ("</form>");
 								echo ("</td></tr>");
 							}
-						}
+
 						?>
 					</table>
 				</div>
