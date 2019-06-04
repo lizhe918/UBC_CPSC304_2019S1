@@ -66,7 +66,7 @@
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 if ($stmt->rowCount() > 0){
-                    if (($stmt->rowCount() ==1) && (email == $user['email'])){
+                    if (($stmt->rowCount() ==1) && ($email == $user['email'])){
                         
                     }else{
                     $message = "Email Already Exist";
@@ -94,6 +94,11 @@
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
 
+           
+            $sql = "UPDATE Customer SET  IDNum ='$idNum' WHERE  username ='$username'";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            
             $sql = "UPDATE Customer SET  email ='$email' WHERE  username ='$username'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
