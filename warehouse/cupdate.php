@@ -5,6 +5,14 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $userOrigIDType = "";
+    if(substr($user['IDNum'],0,4) == "STUD"){
+        $userOrigIDType = "StudentID";
+    }else if (substr($user['IDNum'],0,4) == "PSPT"){
+        $userOrigIDType = "Passport";
+    }else if (substr($user['IDNum'],0,4) == "DLCE"){
+        $userOrigIDType = 'Dlicence';
+    }
     
     $firstName = "";
     $lastName = "";
@@ -102,7 +110,6 @@
             $sql = "UPDATE Customer SET  email ='$email' WHERE  username ='$username'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            var_dump($_POST);
             header("Location:citem.php");
             exit;
             }
@@ -163,10 +170,10 @@
             <input class="short" type="text" name="phoneNumber" value = <?php echo $user['phoneNum']; ?>>
         </p>
         <p>Please Select One of the Following Identification: <br>
-            <select class="short" style="height:4em" name="IDType" value = <?php echo substr($user['IDNum'],0,4) ?>>
-                <option value="StudentID">Student ID</input>
-                <option value="Passport">Passport</input>
-                <option value="Dlicence">Driver License</input>
+            <select class="short" style="height:4em" name="IDType">
+                <option value="StudentID" selected = <?php if($userOrigIDType == 'StudentID') echo "selected" ?>>Student ID</input>
+                <option value="Passport" selected = <?php if($userOrigIDType == 'Passort') echo "selected" ?>>Passport</input>
+                <option value="Dlicence" selected = <?php if($userOrigIDType == 'Dlicence') echo "selected" ?>>Driver License</input>
             </select>
         </p>
 
