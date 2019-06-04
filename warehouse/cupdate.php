@@ -53,17 +53,25 @@
             $sql = "SELECT * FROM Customer WHERE phoneNum = '$phoneN'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-            if ($stmt->rowCount() > 1){
-                $message = "Phone Number Already Exist";
-                $success = 0;
+            if ($stmt->rowCount() > 0){
+                if (($stmt->rowCount() ==1) && ($phoneN == $user['phoneNum'])){
+ 
+                }else{
+                    $message = "Phone Number Already Exist";
+                    $success = 0;
+                }
             }
             if ($email != "NULL"){
                 $sql = "SELECT * FROM Customer WHERE email = '$email'";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
-                if ($stmt->rowCount() > 1){
+                if ($stmt->rowCount() > 0){
+                    if (($stmt->rowCount() ==1) && (email == $user['email'])){
+                        
+                    }else{
                     $message = "Email Already Exist";
                     $success = 0;
+                    }
                 }
             }
 
