@@ -171,9 +171,9 @@
         </p>
         <p>Please Select One of the Following Identification: <br>
             <select class="short" style="height:4em" name="IDType">
-                <option value="StudentID" selected = <?php if($userOrigIDType == 'StudentID') echo "selected" ?>>Student ID</input>
-                <option value="Passport" selected = <?php if($userOrigIDType == 'Passort') echo "selected" ?>>Passport</input>
-                <option value="Dlicence" selected = <?php if($userOrigIDType == 'Dlicence') echo "selected" ?>>Driver License</input>
+                <option value="StudentID" selected = <?php if($userOrigIDType == 'StudentID') echo "selected" ?>>Student ID</option>
+                <option value="Passport" selected = <?php if($userOrigIDType == 'Passort') echo "selected" ?>>Passport</option>
+                <option value="Dlicence" selected = <?php if($userOrigIDType == 'Dlicence') echo "selected" ?>>Driver License</option>
             </select>
         </p>
 
