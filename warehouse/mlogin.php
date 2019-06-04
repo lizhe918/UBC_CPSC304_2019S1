@@ -10,7 +10,8 @@
     $pswd = "";
     $message = false;
 
-    if (isset($_POST['who']) and isset($_POST['password'])) {
+    if (!isset($_COOKIE['zyxwmanager']) and !isset($_COOKIE['zyxwmpswd'])) {
+      if (isset($_POST['who']) and isset($_POST['password'])) {
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
@@ -22,12 +23,27 @@
           $stmt->execute();
           $storedpswd = $stmt->fetch();
           if ($storedpswd['password'] == $pswd) {
-            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+            setcookie("zyxwmanager", $name, time() + 3600);
+            setcookie("zyxwmpswd", $pswd, time() + 3600);
+            header("Location: mviewi.php");
           } else {
             $message = "Incorrect username or password";
           }
         }
       }
+    } else {
+      $name = $_COOKIE['zyxwmanager'];
+      $pswd = $_COOKIE['zyxwmpswd'];
+      $sql = "SELECT password FROM Manager WHERE username = '$name'";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $storedpswd = $stmt->fetch();
+      if ($storedpswd['password'] == $pswd) {
+        header("Location: mviewi.php");
+      } else {
+        $message = "Incorrect username or password";
+      }
+    }
 ?>
 
 <!DOCTYPE html>

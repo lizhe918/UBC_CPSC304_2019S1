@@ -75,7 +75,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 					echo($user['email']);
 					?>
 				</p>
-				<a class="linkbutton" href="">Edit Profile</a>
+				<a class="linkbutton" href="cupdate.php">Edit Profile</a>
 			</div>
 		</div>
 		<div class="column function">

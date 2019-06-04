@@ -78,7 +78,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 					echo($user['email']);
 					?>
 				</p>
-				<a class="linkbutton" href="">Edit Profile</a>
+				<a class="linkbutton" href="cupdate.php">Edit Profile</a>
 			</div>
 		</div>
 		<div class="column function">
@@ -102,7 +102,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>AgreementNumber</th>
 							<th>RoomNumber</th>
 							<th>BranchNumber</th>
-							<th>Size</th>
+							<th>Size (m<sup>3</sup>)</th>
 						</tr>
 						<?php
 						$sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
