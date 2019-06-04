@@ -80,8 +80,6 @@
 
             // insert
             if ($success == 1){
-                echo "at line 88";
-                echo $firstName;
             $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName', '$firstName', '$phoneN', '$address', '$email');";
             $stmt = $pdo->prepare($sql);
             try {
