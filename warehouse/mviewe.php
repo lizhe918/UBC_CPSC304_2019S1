@@ -34,7 +34,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Management: Items";
+		echo $username . "'s Management: Workers";
 		?>
 	</title>
 	<meta charset="utf-8">
