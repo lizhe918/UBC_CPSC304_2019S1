@@ -5,8 +5,6 @@ $sql = "SELECT * FROM Customer WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +33,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.html#about">ABOUT</a>
 			<a href="./index.html#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a  href="./elogin.html">EMPLOYEE</a>
+			<a  href="./elogin.php">EMPLOYEE</a>
 			<a  href="./logout.php">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
@@ -105,27 +103,23 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Size (m<sup>3</sup>)</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM ItemInfo WHERE owner = '$username'";
-						$agreements = $pdo->prepare($sql);
-						$agreements->execute();
-						while ($agreement = $agreements->fetch(PDO::FETCH_ASSOC)) {
-							$agrmtNum = $agreement['agrmtNum'];
-							$sql = "SELECT * FROM Item WHERE agrmtNum = '$agrmtNum'";
-							$items = $pdo->prepare($sql);
-							$items->execute();
-							while ($item = $items->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($item['itemNum']);
-								echo ("</td><td>");
-								echo($item['agrmtNum']);
-								echo ("</td><td>");
-								echo($agreement['roomNum']);
-								echo ("</td><td>");
-								echo($agreement['branch']);
-								echo ("</td><td>");
-								echo($item['size']);
-								echo ("</td></tr>");
-							}
+						$sql = "SELECT * FROM Item INNER JOIN ItemInfo
+								 ON Item.agrmtNum = ItemInfo.agrmtNum
+								 WHERE owner = '$username'";
+						$stmt = $pdo->prepare($sql);
+						$stmt->execute();
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+							echo "<tr><td>";
+							echo $row['itemNum'];
+							echo "</td><td>";
+							echo $row['agrmtNum'];
+							echo "</td><td>";
+							echo $row['roomNum'];
+							echo "</td><td>";
+							echo $row['branch'];
+							echo "</td><td>";
+							echo $row['size'];
+							echo "</td></tr>";
 						}
 						?>
 					</table>
