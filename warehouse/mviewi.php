@@ -1,5 +1,15 @@
 <?php
 require_once "pdo_constructor.php";
+
+
+if (isset($_POST['delete'])) {
+	$itemtobedelete =  $_POST['delete'];
+	$sql = "DELETE FROM Item WHERE itemNum = '$itemtobedelete'";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+}
+
+
 $username = $_COOKIE['zyxwmanager'];
 $sql = "SELECT * FROM Manager WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
@@ -100,6 +110,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="tableblock" style="background-color: white;">
 				<h2>Items</h2>
 				<div class="thetable" style="width: 90%;">
+
 					<table class="entities" style="width:100%">
 						<tr>
 							<th>Item Number</th>
@@ -107,6 +118,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Room Number</th>
 							<th>Type</th>
 							<th>Size (m<sup>3</sup>)</th>
+							<th></th>
 						</tr>
 						<?php
 						$branch = $user['branchID'];
@@ -134,7 +146,11 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 									echo ($iClass['typeName'] . ' ');
 								}
 								echo ("</td><td>");
-								echo($item['size']);
+								echo ($item['size']);
+								echo ("</td><td>");
+								echo ("<form method='POST'>");
+								echo "<button type='submit' name='delete' value=".$item['itemNum']." onclick='return ConfirmDelete()'> DELETE </button>";
+								echo ("</form>");
 								echo ("</td></tr>");
 							}
 						}
@@ -175,6 +191,10 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			} else {
 				x.className = "items";
 			}
+		}
+
+		function ConfirmDelete() {
+  			return confirm("Are you sure you want to delete?");
 		}
 	</script>
 </body>
