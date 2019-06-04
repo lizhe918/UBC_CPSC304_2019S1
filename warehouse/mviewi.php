@@ -1,12 +1,19 @@
 <?php
 require_once "pdo_constructor.php";
 
+$msg = false;
 
 if (isset($_POST['delete'])) {
 	$itemtobedelete =  $_POST['delete'];
 	$sql = "DELETE FROM Item WHERE itemNum = '$itemtobedelete'";
 	$stmt = $pdo->prepare($sql);
-	$stmt->execute();
+	try {
+		$stmt->execute();
+		$msg = "Item numbered $itemtobedelete deleted successfully!";
+	} catch (PDOException $e) {
+		$msg = "Failed to delete the item numbered $itemtobedelete";
+	}
+
 }
 
 
@@ -109,8 +116,14 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 			<div class="tableblock" style="background-color: white;">
 				<h2>Items</h2>
+				<?php
+				if ($msg != false) {
+					echo "<p style='color: red;''>";
+					echo "$msg";
+					echo "</p>";
+				}
+				?>
 				<div class="thetable" style="width: 90%;">
-
 					<table class="entities" style="width:100%">
 						<tr>
 							<th>Item Number</th>
