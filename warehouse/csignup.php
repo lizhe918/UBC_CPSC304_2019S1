@@ -82,11 +82,7 @@
             if ($success == 1){
             $sql = "insert into Customer values ('$name', '$pswd', '$idNum', '$lastName', '$firstName', '$phoneN', '$address', '$email');";
             $stmt = $pdo->prepare($sql);
-            try {
             $stmt->execute();
-            } catch (PDOException $e) {
-                print $e->getMessage ();
-            }
             header("Location:clogin.php");
             exit;
             }
@@ -99,7 +95,7 @@
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Customer Sign</title>
+    <title>Customer Sign Up</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
