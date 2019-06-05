@@ -16,7 +16,7 @@
         $pswd =  $_POST['password'];
 
         if ($name == "" || $pswd == "") {
-            $message = "Username and password are required";
+            $message = "Employee ID and internal security number are required";
         } else {
           $sql = "SELECT innerPIN FROM Labourer WHERE employID = '$name'";
           $stmt = $pdo->prepare($sql);
@@ -27,7 +27,7 @@
             setcookie("zyxwwpswd", $pswd, time() + 3600);
             header("Location: lviewm.php");
           } else {
-            $message = "Incorrect username or password";
+            $message = "Incorrect employee ID or internal security number";
           }
         }
       }
@@ -41,7 +41,7 @@
       if ($storedpswd['password'] == $pswd) {
         header("Location: lviewm.php");
       } else {
-        $message = "Incorrect username or password";
+        $message = "Incorrect employee ID or internal security number";
       }
     }
 ?>
@@ -73,7 +73,7 @@
     <form method="post" style="width: 25em; background-color: white;">
       <div class="form-content">
         <h2 style="color: #002145;">CPSC304 Group 1 Project</h2>
-        <h3 style="color: #002145;">Login to your account:</h3>
+        <h3 style="color: #002145;">Login to your workspace:</h3>
         <p>Employee ID:<br>
           <input class="long" type="text" name="who">
         </p>
