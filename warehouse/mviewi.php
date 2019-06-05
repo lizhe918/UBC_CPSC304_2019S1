@@ -106,6 +106,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					<a href="mviewi.php">View Items</a>
 					<a href="mviewe.php">Workers</a>
 					<a href="mviewa.php">Agreements</a>
+					<a href="mviewp.php">Transactions</a>
 					<a href="mkagrmt.php">Make Agreement</a>
 					<a href="mcheck.php">Storerooms</a>
 					<a href="mkrsrv.php">Make Reservation</a>
