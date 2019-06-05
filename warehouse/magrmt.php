@@ -91,6 +91,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					<a href="mviewi.php">View Items</a>
 					<a href="mviewe.php">Workers</a>
 					<a href="mviewa.php">Agreements</a>
+					<a href="mviewp.php">Transactions</a>
 					<a href="mkagrmt.php">Make Agreement</a>
 					<a href="mcheck.php">Storerooms</a>
 					<a href="mkrsrv.php">Make Reservation</a>
@@ -101,22 +102,17 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 			<div class="tableblock" style="background-color: white;">
 				<h2>Items</h2>
-				<?php
-				if ($msg != false) {
-					echo "<p style='color: red;''>";
-					echo "$msg";
-					echo "</p>";
-				}
-				?>
+				
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Item Number</th>
 							<th>Agreement Number</th>
-							<th>Room Number</th>
-							<th>Type</th>
-							<th>Size (m<sup>3</sup>)</th>
-							<th></th>
+							<th>Customer</th>
+							<th>Value</th>
+							<th>Transaction</th>
+							<th>Start Day</th>
+							<th>End Day</th>
+							<th>Pickup Day</th>
 						</tr>
 						<?php
 						$branch = $user['branchID'];
@@ -128,26 +124,22 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
 								echo "<tr><td>";
 								echo($row['agrmtNum']);
 								echo ("</td><td>");
 								echo($row['owner']);
 								echo ("</td><td>");
 								echo($row['amount']);
-                echo ("</td><td>");
+                						echo ("</td><td>");
 								echo($row['payNum']);
-                echo ("</td><td>");
+               						 	echo ("</td><td>");
 								echo($row['startDay']);
-                echo ("</td><td>");
+                						echo ("</td><td>");
 								echo($row['endDay']);
 								echo ("</td><td>");
 								echo($row['pickDay']);
 								echo ("</td></tr>");
-
-
-
-							}
+						}
 
 						?>
 					</table>
@@ -186,10 +178,6 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			} else {
 				x.className = "items";
 			}
-		}
-
-		function ConfirmDelete() {
-  			return confirm("Are you sure you want to delete?");
 		}
 	</script>
 </body>
