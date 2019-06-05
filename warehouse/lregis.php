@@ -87,7 +87,7 @@
                 $sql = "INSERT INTO Labourer VALUES ('$eID','$innerPin','$branchID')";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
-                header("Location:mlogin.php");
+                header("Location:elogin.php");
                 exit;
             }
         }
