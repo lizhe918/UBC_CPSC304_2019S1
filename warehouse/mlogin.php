@@ -64,7 +64,7 @@
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
-        <a  href="./clogin.php">MY ACCOUNT</a>
+        
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>

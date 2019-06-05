@@ -1,6 +1,7 @@
 <?php
 require_once "pdo_constructor.php";
 
+$sum = 0;
 $count = 0;
 
 $username = $_COOKIE['zyxwmanager'];
@@ -20,7 +21,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Management: Agreements";
+		echo $username . "'s Management: Transactions";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -102,51 +103,51 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
+				<h2>Transactions</h2>
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Customer</th>
-							<th>Value</th>
-							<th>Transaction</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pickup Day</th>
+							<th>Payment Number</th>
+							<th>Value(CND)</th>
+							<th>Method</th>
+							<th>Card Number</th>
 						</tr>
 						<?php
 						$branch = $user['branchID'];
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement ON
-						ItemInfo.agrmtNum = Agreement.agrmtNum
-						INNER JOIN Payment ON
-						Payment.payNum =Agreement.payment
-						WHERE branch = '$branch'" ;
-						$stmt = $pdo->prepare($sql);
-						$stmt->execute();
-						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($row['agrmtNum']);
+						$sql = "SELECT payment FROM Agreement INNER JOIN ItemInfo ON
+								Agreement.agrmtNum = ItemInfo.agrmtNum
+								WHERE branch = '$branch'
+								UNION
+								SELECT payment FROM Reservation
+								WHERE branch = '$branch'" ;
+						$payNums = $pdo->prepare($sql);
+						$payNums->execute();
+						while ($payNum = $payNums->fetch(PDO::FETCH_ASSOC)) {
+							$count++;
+							$num = $payNum['payment'];
+							$sql = "SELECT * FROM Payment INNER JOIN Card
+							ON Payment.cardNum =Card.cardNum
+							WHERE payNum ='$num'";
+							$stmt = $pdo->prepare($sql);
+							$stmt->execute();
+							$payment = $stmt->fetch(PDO::FETCH_ASSOC);
+							  echo "<tr><td>";
+								echo($payment['payNum']);
 								echo ("</td><td>");
-								echo($row['owner']);
+								echo($payment['amount']);
+								$sum += $payment['amount'];
 								echo ("</td><td>");
-								echo($row['amount']);
-                						echo ("</td><td>");
-								echo($row['payNum']);
-               						 	echo ("</td><td>");
-								echo($row['startDay']);
-                						echo ("</td><td>");
-								echo($row['endDay']);
-								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
+								echo($payment['method']);
+                				echo ("</td><td>");
+								echo($payment['cardNum']);
 								echo ("</td></tr>");
-						}
-
+							}
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
+					<?php
+						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " tranctions.</p>";
+						echo "<p style='text-align: left; color: #002145;'>Total value: $" . $sum . ".</p>";
+					?>
 				</div>
 			</div>
 		</div>
@@ -183,6 +184,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				x.className = "items";
 			}
 		}
+
 	</script>
 </body>
 </html>

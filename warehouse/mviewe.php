@@ -2,6 +2,7 @@
 require_once "pdo_constructor.php";
 
 $msg = false;
+$count = 0;
 
 if (isset($_POST['delete'])) {
 	$employeetofired =  $_POST['delete'];
@@ -105,7 +106,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				<div class="items" id="funcbar">
 					<a href="mviewi.php">View Items</a>
 					<a href="mviewe.php">Workers</a>
-					<a href="mviewa.php">Agreements</a>
+					<a href="magrmt.php">Agreements</a>
 					<a href="mviewp.php">Transactions</a>
 					<a href="mkagrmt.php">Make Agreement</a>
 					<a href="mcheck.php">Storerooms</a>
@@ -116,7 +117,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Items</h2>
+				<h2>Workers</h2>
 				<?php
 				if ($msg != false) {
 					echo "<p style='color: red;''>";
@@ -127,46 +128,44 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Item Number</th>
-							<th>Agreement Number</th>
-							<th>Room Number</th>
-							<th>Type</th>
-							<th>Size (m<sup>3</sup>)</th>
-							<th></th>
+							<th>Employee ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>SIN</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Operation</th>
 						</tr>
 						<?php
 						$branch = $user['branchID'];
 						$sql = "SELECT * FROM Labourer INNER JOIN Employee ON
 						Labourer.employID = Employee.employID
-						WHERE branch = '$branch'" ;
+						WHERE branchID = '$branch'" ;
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
+								$count++;
 								echo "<tr><td>";
 								echo($row['employID']);
 								echo ("</td><td>");
-								echo($row['lName']);
-								echo ("</td><td>");
 								echo($row['fName']);
-                echo ("</td><td>");
-								echo($row['SINNum']);
-                echo ("</td><td>");
-								echo($row['phoneNum']);
-                echo ("</td><td>");
-								echo($row['email']);
 								echo ("</td><td>");
-
-
+								echo($row['lName']);
+                				echo ("</td><td>");
+								echo($row['SINNum']);
+                				echo ("</td><td>");
+								echo($row['phoneNum']);
+                				echo ("</td><td>");
+								echo($row['email']);
 								echo ("</td><td>");
 								echo ("<form method='POST'>");
 								echo "<button type='submit' name='delete' value=".$row['employID']." onclick='return ConfirmDelete()'> DELETE </button>";
 								echo ("</form>");
 								echo ("</td></tr>");
 							}
-
 						?>
 					</table>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " workers.</p>"; ?>
 				</div>
 			</div>
 		</div>

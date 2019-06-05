@@ -10,24 +10,40 @@
     $pswd = "";
     $message = false;
 
-    if (isset($_POST['who']) and isset($_POST['password'])) {
+    if (!isset($_COOKIE['zyxwworker']) and !isset($_COOKIE['zyxwwpswd'])) {
+      if (isset($_POST['who']) and isset($_POST['password'])) {
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
         if ($name == "" || $pswd == "") {
-            $message = "Employee ID and password are required";
+            $message = "Username and password are required";
         } else {
           $sql = "SELECT innerPIN FROM Labourer WHERE employID = '$name'";
           $stmt = $pdo->prepare($sql);
           $stmt->execute();
           $storedpswd = $stmt->fetch();
-          if ($storedpswd['password'] == $pswd) {
-            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+          if ($storedpswd['innerPIN'] == $pswd) {
+            setcookie("zyxwworker", $name, time() + 3600);
+            setcookie("zyxwwpswd", $pswd, time() + 3600);
+            header("Location: lviewm.php");
           } else {
-            $message = "Incorrect employee ID or password";
+            $message = "Incorrect username or password";
           }
         }
       }
+    } else {
+      $name = $_COOKIE['zyxwworker'];
+      $pswd = $_COOKIE['zyxwwpswd'];
+      $sql = "SELECT innerPIN FROM Labourer WHERE employID = '$name'";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $storedpswd = $stmt->fetch();
+      if ($storedpswd['password'] == $pswd) {
+        header("Location: lviewm.php");
+      } else {
+        $message = "Incorrect username or password";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +51,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manager Login</title>
+    <title>Worker Login</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -48,7 +64,6 @@
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
-        <a  href="./clogin.php">MY ACCOUNT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>

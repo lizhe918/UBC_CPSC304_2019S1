@@ -5,6 +5,9 @@
     } else if (isset($_COOKIE['zyxwmanager']) and isset($_COOKIE['zyxwmpswd'])) {
         setcookie("zyxwmanager", "", time() - 3600);
         setcookie("zyxwmpswd", "", time() - 3600);
+    } else if (isset($_COOKIE['zyxwdirector']) and isset($_COOKIE['zyxwmdpswd'])) {
+        setcookie("zyxwdirector", "", time() - 3600);
+        setcookie("zyxwdpswd", "", time() - 3600);
     }
     header("Location: index.html");
 ?>

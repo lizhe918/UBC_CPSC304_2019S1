@@ -10,24 +10,40 @@
     $pswd = "";
     $message = false;
 
-    if (isset($_POST['who']) and isset($_POST['password'])) {
+    if (!isset($_COOKIE['zyxwdirector']) and !isset($_COOKIE['zyxwdpswd'])) {
+      if (isset($_POST['who']) and isset($_POST['password'])) {
         $name = $_POST['who'];
         $pswd =  $_POST['password'];
 
         if ($name == "" || $pswd == "") {
             $message = "Username and password are required";
         } else {
-          $sql = "SELECT password FROM Manager WHERE username = '$name'";
+          $sql = "SELECT password FROM Director WHERE username = '$name'";
           $stmt = $pdo->prepare($sql);
           $stmt->execute();
           $storedpswd = $stmt->fetch();
           if ($storedpswd['password'] == $pswd) {
-            header("Location: RPS/game.php?name=".urlencode($_POST['who']));
+            setcookie("zyxwdirector", $name, time() + 3600);
+            setcookie("zyxwdpswd", $pswd, time() + 3600);
+            header("Location: dviewe.php");
           } else {
             $message = "Incorrect username or password";
           }
         }
       }
+    } else {
+      $name = $_COOKIE['zyxwdirector'];
+      $pswd = $_COOKIE['zyxwdpswd'];
+      $sql = "SELECT password FROM Director WHERE username = '$name'";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute();
+      $storedpswd = $stmt->fetch();
+      if ($storedpswd['password'] == $pswd) {
+        header("Location: dviewe.php");
+      } else {
+        $message = "Incorrect username or password";
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +51,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manager Login</title>
+    <title>Director Login</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -48,7 +64,6 @@
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
-        <a  href="./clogin.php">MY ACCOUNT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>
