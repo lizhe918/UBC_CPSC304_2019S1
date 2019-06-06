@@ -104,13 +104,12 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="mviewi.php">View Items</a>
-					<a href="mviewe.php">Workers</a>
-					<a href="magrmt.php">Agreements</a>
-					<a href="mviewp.php">Transactions</a>
-					<a href="mkagrmt.php">Make Agreement</a>
-					<a href="mcheck.php">Storerooms</a>
-					<a href="mkrsrv.php">Make Reservation</a>
+				<a href="magrmt.php">Agreements</a>
+				<a href="mviewr.php">Reservations</a>
+				<a href="mviewp.php">Transactions</a>
+				<a href="mviewi.php">View Items</a>
+				<a href="mcheck.php">Storerooms</a>
+				<a href="mviewe.php">Workers</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>

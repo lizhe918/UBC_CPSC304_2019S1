@@ -1,7 +1,7 @@
 <?php
 require_once "pdo_constructor.php";
 
-$count = 0;
+
 
 $username = $_COOKIE['zyxwmanager'];
 $sql = "SELECT * FROM Manager WHERE username = '$username'";
@@ -20,7 +20,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Management: Agreements";
+		echo $username . "'s Management: Transactions";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -89,68 +89,61 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-				<a href="magrmt.php">Agreements</a>
-				<a href="mviewr.php">Reservations</a>
-				<a href="mviewp.php">Transactions</a>
-				<a href="mviewi.php">View Items</a>
-				<a href="mcheck.php">Storerooms</a>
-				<a href="mviewe.php">Workers</a>
+					<a href="mviewi.php">View Items</a>
+					<a href="mviewe.php">Workers</a>
+					<a href="mviewa.php">Agreements</a>
+					<a href="mviewp.php">Transactions</a>
+					<a href="mkagrmt.php">Make Agreement</a>
+					<a href="mcheck.php">Storerooms</a>
+					<a href="mkrsrv.php">Make Reservation</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
+				<h2>Items</h2>
+				<?php
+				if ($msg != false) {
+					echo "<p style='color: red;''>";
+					echo "$msg";
+					echo "</p>";
+				}
+				?>
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Customer</th>
+							<th>Payment Number</th>
 							<th>Value</th>
-							<th>Transaction</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pickup Day</th>
-							<th>From Reservation</th>
+							<th>Method</th>
+							<th>Card Number</th>
 						</tr>
 						<?php
 						$branch = $user['branchID'];
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement ON
-						ItemInfo.agrmtNum = Agreement.agrmtNum
-						INNER JOIN Payment ON
-						Payment.payNum =Agreement.payment
+						$sql = "SELECT * FROM Agreement INNER JOIN ItemInfo ON
+						Payment.agrmtNum = ItemInfo.agrmtNum
 						WHERE branch = '$branch'" ;
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($row['agrmtNum']);
-								echo ("</td><td>");
-								echo($row['owner']);
+							$iagree = $row['payment'];
+							$sql = "SELECT * FROM Payment INNER JOIN Card
+							WHERE Payment.cardNum =Card.cardNum
+							where PayNum ='$iagree";
+							  echo "<tr><td>";
+								echo($row['payNum']);
 								echo ("</td><td>");
 								echo($row['amount']);
-                						echo ("</td><td>");
-								echo($row['payNum']);
-               						 	echo ("</td><td>");
-								echo($row['startDay']);
-                						echo ("</td><td>");
-								echo($row['endDay']);
 								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
-								echo ("</td><td>");
-								echo($row['fromResv']);
+								echo($row['method']);
+                echo ("</td><td>");
+								echo($row['cardNum']);
 								echo ("</td></tr>");
-						}
+							}
 
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
 				</div>
-				<a class="linkbutton" href="mkagrmt.php">New Agreement</a>
 			</div>
 		</div>
 	</section>
@@ -186,6 +179,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				x.className = "items";
 			}
 		}
+
 	</script>
 </body>
 </html>

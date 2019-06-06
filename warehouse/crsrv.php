@@ -84,7 +84,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 					<a href="citem.php">Saved Items</a>
 					<a href="crsrv.php">Reservations</a>
 					<a href="cagrmt.php">Agreements</a>
-					<a href="cmrsrv.php">Make Reservation</a>
+					<a href="ctrans.php">Transactions</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
@@ -98,13 +98,16 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Confirmation Number</th>
 							<th>Start Day</th>
 							<th>End Day</th>
-							<th>Reserved Space</th>
-							<th>Branch</th>
+							<th>Space (m<sup>3</sup>)</th>
+							<th>Branch Address</th>
+							<th>Branch Phone#</th>
 							<th>Room Number</th>
 							<th>Payment Number</th>
 						</tr>
 						<?php
-						$sql="SELECT * FROM Reservation WHERE reserver= '$username'";
+						$sql="SELECT * FROM Reservation INNER JOIN Branch
+								ON Reservation.branch = Branch.branchID
+								WHERE reserver= '$username'";
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
@@ -117,7 +120,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							echo ("</td><td>");
 							echo($row['rsvSpace']);
 							echo ("</td><td>");
-							echo($row['branch']);
+							echo($row['address']);
+							echo ("</td><td>");
+							echo($row['phoneNum']);
 							echo ("</td><td>");
 							echo($row['roomNum']);
 							echo ("</td><td>");
@@ -127,6 +132,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 						?>
 					</table>
 				</div>
+				<a class="linkbutton" href="ckrsrv.php">New Reservation</a>
 			</div>
 		</div>
 	</section>

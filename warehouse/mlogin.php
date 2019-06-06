@@ -25,7 +25,7 @@
           if ($storedpswd['password'] == $pswd) {
             setcookie("zyxwmanager", $name, time() + 3600);
             setcookie("zyxwmpswd", $pswd, time() + 3600);
-            header("Location: mviewi.php");
+            header("Location: magrmt.php");
           } else {
             $message = "Incorrect username or password";
           }
@@ -39,7 +39,7 @@
       $stmt->execute();
       $storedpswd = $stmt->fetch();
       if ($storedpswd['password'] == $pswd) {
-        header("Location: mviewi.php");
+        header("Location: magrmt.php");
       } else {
         $message = "Incorrect username or password";
       }

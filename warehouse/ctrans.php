@@ -1,13 +1,14 @@
 <?php
 require_once "pdo_constructor.php";
+
+$count = 0;
+$sum = 0;
+
 $username = $_COOKIE['zyxwuser'];
 $sql = "SELECT * FROM Customer WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-$count = 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ $count = 0;
 <head>
 	<title>
 		<?php
-		echo $username . "'s Storage: Agreements";
+		echo $username . "'s Storage: Items";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -27,6 +28,7 @@ $count = 0;
 	<link rel="stylesheet" type="text/css" href="./css/navbar.css">
 	<link rel="stylesheet" type="text/css" href="./css/input_button.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 	<section class="navbar">
@@ -94,54 +96,45 @@ $count = 0;
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
+				<h2>Transactions</h2>
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pick-Up Day</th>
-							<th>Branch Address</th>
-							<th>Branch Phone#</th>
-							<th>Payment</th>
-							<th>Value</th>
+							<th>Confirmation Number</th>
+							<th>Value(CND)</th>
+                            <th>Card Number</th>
+                            <th>Method</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement 
-						ON ItemInfo.agrmtNum=Agreement.agrmtNum
-						INNER JOIN Branch
-						ON ItemInfo.branch = Branch.branchID
-						INNER JOIN Payment
-						ON Agreement.payment = Payment.payNum
-						WHERE owner = '$username'";
-						$stmt= $pdo->prepare($sql);
+						$sql = "SELECT P.payNum, P.amount, P.cardNum, C.method FROM Iteminfo I, Agreement A, Payment P, Card C 
+                                WHERE I.agrmtNum = A.agrmtNum 
+                                    AND A.payment = P.payNum 
+                                    AND P.cardNum = C.cardNum 
+                                    AND I.owner = '$username'
+                                UNION
+                                SELECT P.payNum, P.amount, P.cardNum, C.method FROM Reservation R, Payment P, Card C 
+                                WHERE R.payment = P.payNum
+                                    AND P.cardNum = C.cardNum
+                                    AND R.reserver = '$username'";
+						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($row['agrmtNum']);
-								echo ("</td><td>");
-								echo($row['startDay']);
-								echo ("</td><td>");
-								echo($row['endDay']);
-								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
-								echo ("</td><td>");
-								echo($row['address']);
-								echo ("</td><td>");
-								echo($row['phoneNum']);
-								echo ("</td><td>");
-								echo($row['payment']);
-								echo ("</td><td>");
-								echo($row['amount']);
-								echo ("</td></tr>");
-							}
+                            $count++;
+							echo "<tr><td>";
+							echo $row['payNum'];
+							echo "</td><td>";
+                            echo $row['amount'];
+                            $sum += $row['amount'];
+							echo "</td><td>";
+							echo $row['cardNum'];
+							echo "</td><td>";
+							echo $row['method'];
+							echo "</td></tr>";
+						}
 						?>
-					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
+                    </table>
+                    <?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " transactions.</p>"; ?>
+                    <?php echo "<p style='text-align: left; color: #002145;'>Total value: $" . $sum . ".</p>"; ?>
 				</div>
 			</div>
 		</div>
@@ -160,7 +153,6 @@ $count = 0;
 			</a>
 		</div>
 	</section>
-
 	<script>
 		function mobileExpandMain() {
 			var x = document.getElementById("mainbar");

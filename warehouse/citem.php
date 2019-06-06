@@ -85,7 +85,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 					<a href="citem.php">Saved Items</a>
 					<a href="crsrv.php">Reservations</a>
 					<a href="cagrmt.php">Agreements</a>
-					<a href="cmrsrv.php">Make Reservation</a>
+					<a href="ctrans.php">Transactions</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
@@ -96,15 +96,17 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>ItemNumber</th>
-							<th>AgreementNumber</th>
-							<th>RoomNumber</th>
-							<th>BranchNumber</th>
+							<th>Item Number</th>
+							<th>Agreement Number</th>
+							<th>Start Day</th>
+							<th>End Day</th>
 							<th>Size (m<sup>3</sup>)</th>
 						</tr>
 						<?php
 						$sql = "SELECT * FROM Item INNER JOIN ItemInfo
 								 ON Item.agrmtNum = ItemInfo.agrmtNum
+								 INNER JOIN Agreement
+								 ON ItemInfo.agrmtNum = Agreement.agrmtNum
 								 WHERE owner = '$username'";
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
@@ -114,9 +116,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							echo "</td><td>";
 							echo $row['agrmtNum'];
 							echo "</td><td>";
-							echo $row['roomNum'];
+							echo $row['startDay'];
 							echo "</td><td>";
-							echo $row['branch'];
+							echo $row['endDay'];
 							echo "</td><td>";
 							echo $row['size'];
 							echo "</td></tr>";

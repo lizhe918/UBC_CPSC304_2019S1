@@ -1,13 +1,18 @@
 <?php
 require_once "pdo_constructor.php";
-$username = $_COOKIE['zyxwuser'];
-$sql = "SELECT * FROM Customer WHERE username = '$username'";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $count = 0;
 
+$username = $_COOKIE['zyxwmanager'];
+$sql = "SELECT * FROM Manager WHERE username = '$username'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$eid = $user['employID'];
+$sql = "SELECT * FROM Employee WHERE employID = '$eid'";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$manager = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +20,7 @@ $count = 0;
 <head>
 	<title>
 		<?php
-		echo $username . "'s Storage: Agreements";
+		echo $username . "'s Management: Reservations";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -27,6 +32,7 @@ $count = 0;
 	<link rel="stylesheet" type="text/css" href="./css/navbar.css">
 	<link rel="stylesheet" type="text/css" href="./css/input_button.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 	<section class="navbar">
@@ -35,7 +41,6 @@ $count = 0;
 			<a href="./index.html#about">ABOUT</a>
 			<a href="./index.html#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a  href="./elogin.php">EMPLOYEE</a>
 			<a  href="./logout.php">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
@@ -48,106 +53,104 @@ $count = 0;
 			<div class="username">
 				<h2>
 					<?php
-					echo($user['fName'] . " " . $user['lName']);
+					echo($manager['fName'] . " " . $manager['lName']);
 					?>
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwuser']);
+					echo($_COOKIE['zyxwmanager']);
 					?>
 				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo($user['phoneNum']);
+					echo($manager['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo($user['address']);
+					echo($manager['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo($user['IDNum']);
+					echo($manager['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo($user['email']);
+					echo($manager['email']);
 					?>
 				</p>
-				<a class="linkbutton" href="cupdate.php">Edit Profile</a>
+				<a class="linkbutton" href="mupdate.php">Edit Profile</a>
 			</div>
 		</div>
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="citem.php">Saved Items</a>
-					<a href="crsrv.php">Reservations</a>
-					<a href="cagrmt.php">Agreements</a>
-					<a href="ctrans.php">Transactions</a>
+                <a href="magrmt.php">Agreements</a>
+				<a href="mviewr.php">Reservations</a>
+				<a href="mviewp.php">Transactions</a>
+				<a href="mviewi.php">View Items</a>
+				<a href="mcheck.php">Storerooms</a>
+				<a href="mviewe.php">Workers</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
+				<h2>Reservations</h2>
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pick-Up Day</th>
-							<th>Branch Address</th>
-							<th>Branch Phone#</th>
+							<th>Confirmation Number</th>
+							<th>Reserver</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Storeroom</th>
+							<th>Space</th>
+                            <th>Phone #</th>
 							<th>Payment</th>
-							<th>Value</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement 
-						ON ItemInfo.agrmtNum=Agreement.agrmtNum
-						INNER JOIN Branch
-						ON ItemInfo.branch = Branch.branchID
-						INNER JOIN Payment
-						ON Agreement.payment = Payment.payNum
-						WHERE owner = '$username'";
-						$stmt= $pdo->prepare($sql);
+						$branch = $user['branchID'];
+						$sql = "SELECT * FROM Reservation INNER JOIN Customer ON
+						Reservation.reserver = Customer.username
+						WHERE branch = '$branch'" ;
+						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+								$count++;
 								echo "<tr><td>";
-								echo($row['agrmtNum']);
+								echo($row['confNum']);
+								echo ("</td><td>");
+								echo($row['reserver']);
 								echo ("</td><td>");
 								echo($row['startDay']);
-								echo ("</td><td>");
+                				echo ("</td><td>");
 								echo($row['endDay']);
+                				echo ("</td><td>");
+								echo($row['roomNum']);
+                				echo ("</td><td>");
+								echo($row['rsvSpace']);
+                                echo ("</td><td>");
+                                echo($row['phoneNum']);
 								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
-								echo ("</td><td>");
-								echo($row['address']);
-								echo ("</td><td>");
-								echo($row['phoneNum']);
-								echo ("</td><td>");
-								echo($row['payment']);
-								echo ("</td><td>");
-								echo($row['amount']);
+                                echo($row['payment']);
 								echo ("</td></tr>");
 							}
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " reservations.</p>"; ?>
 				</div>
+				<a class="linkbutton" href="mkrsrv.php">New Reservation</a>
 			</div>
 		</div>
 	</section>
 
-	<section class="footer-container" >
+	<section class="footer-container">
 		<div class="footer">
 			<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
 				<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
@@ -160,7 +163,6 @@ $count = 0;
 			</a>
 		</div>
 	</section>
-
 	<script>
 		function mobileExpandMain() {
 			var x = document.getElementById("mainbar");
@@ -178,6 +180,10 @@ $count = 0;
 			} else {
 				x.className = "items";
 			}
+		}
+
+		function ConfirmDelete() {
+  			return confirm("Are you sure you want to delete?");
 		}
 	</script>
 </body>
