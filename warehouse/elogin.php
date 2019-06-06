@@ -15,6 +15,7 @@ require_once "pdo_constructor.php";
     <link rel="stylesheet" href="./css/input_button.css">
     <link rel="stylesheet" href="./css/paragraph.css">
     <link rel="stylesheet" href="./css/table.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
@@ -102,6 +103,20 @@ require_once "pdo_constructor.php";
         </table>
       </div>        
     </section>
+
+    <section class="footer-container" >
+        <div class="footer">
+          <a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
+            <img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
+          </a>
+          <a  href="https://www.ubc.ca/">
+            <img src = "https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png" >
+          </a>
+          <a  href="https://www.cs.ubc.ca/">
+            <img src = "https://avatars0.githubusercontent.com/u/22601447?s=200&v=4" >
+          </a>
+        </div>
+      </section>
     <script>
       function mobileExpand() {
         var x = document.getElementById("thebar");
