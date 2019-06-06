@@ -1,10 +1,25 @@
 <?php
 require_once "pdo_constructor.php";
 
-$count = 0;
+$sum = 0;
+$countb = 0;
+$msg = false;
 
-$username = $_COOKIE['zyxwmanager'];
-$sql = "SELECT * FROM Manager WHERE username = '$username'";
+if (isset($_POST['delete'])) {
+	$employeetofired =  $_POST['delete'];
+	$sql = "DELETE FROM Branch WHERE branchID = '$employeetofired'";
+	$stmt = $pdo->prepare($sql);
+	try {
+		$stmt->execute();
+		$msg = "Branch numbered $employeetofired has been dismissed!";
+	} catch (PDOException $e) {
+		$msg = "Failed to dismiss the branch numbered $employeetofired";
+	}
+
+}
+
+$username = $_COOKIE['zyxwdirector'];
+$sql = "SELECT * FROM Director WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,7 +35,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Management: Agreements";
+		echo $username . "'s Management: Branches";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -35,7 +50,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </head>
 <body>
-	<section class="navbar">
+	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>
@@ -58,7 +73,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwmanager']);
+					echo($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
@@ -89,69 +104,102 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-				<a href="magrmt.php">Agreements</a>
-				<a href="mviewr.php">Reservations</a>
-				<a href="mviewp.php">Transactions</a>
-				<a href="mviewi.php">View Items</a>
-				<a href="mcheck.php">Storerooms</a>
-				<a href="mviewe.php">Workers</a>
+					<a href="dviewe.php ">Employees</a >
+					<a href="dviewb.php">Branches</a >
+					<a href="dviews.php">Storerooms</a >
+					<a href="dviewc.php">Customers</a >
+					<a href="dviewt.php">Transactions</a >
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
+				<h2>Branches</h2>
+				<?php
+				if ($msg != false) {
+					echo "<p style='color: red;''>";
+					echo "$msg";
+					echo "</p>";
+				}
+				?>
+
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Customer</th>
-							<th>Value</th>
-							<th>Transaction</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pickup Day</th>
-							<th>From Reservation</th>
+							<th>Branch ID</th>
+							<th>Address</th>
+							<th>Phone#</th>
+							<th>Manager ID</th>
+							<th>Labourer Number</th>
+							<th>Revenue(CAD)</th>
+							<th>Operation</th>
 						</tr>
 						<?php
-						$branch = $user['branchID'];
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement ON
-						ItemInfo.agrmtNum = Agreement.agrmtNum
-						INNER JOIN Payment ON
-						Payment.payNum =Agreement.payment
-						WHERE branch = '$branch'" ;
-						$stmt = $pdo->prepare($sql);
-						$stmt->execute();
-						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($row['agrmtNum']);
-								echo ("</td><td>");
-								echo($row['owner']);
-								echo ("</td><td>");
-								echo($row['amount']);
-                						echo ("</td><td>");
-								echo($row['payNum']);
-               						 	echo ("</td><td>");
-								echo($row['startDay']);
-                						echo ("</td><td>");
-								echo($row['endDay']);
-								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
-								echo ("</td><td>");
-								echo($row['fromResv']);
-								echo ("</td></tr>");
-						}
 
+						$sql = "SELECT * FROM Branch" ;
+						$lbranchs = $pdo->prepare($sql);
+						$lbranchs->execute();
+
+						while ($lbranch= $lbranchs->fetch(PDO::FETCH_ASSOC)) {
+							$countb++;
+							$lmanager= $lbranch['branchID'];
+							$sql = "SELECT employID FROM Manager
+							WHERE branchID ='$lmanager'";
+							$stmt = $pdo->prepare($sql);
+							$stmt->execute();
+							$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+							$count = "SELECT COUNT(*) FROM Labourer
+							WHERE branchID ='$lmanager'";
+							$stmts = $pdo->prepare($count);
+							$stmts->execute();
+							$counts = $stmts->fetch(PDO::FETCH_ASSOC);
+
+							$sql = "SELECT SUM(amount) FROM ItemInfo I, Agreement A, Payment P
+									WHERE 
+									I.agrmtNum = A.agrmtNum AND 
+									A.payment = P.payNum AND
+									I.branch = '$lmanager'";
+							$stmt = $pdo->prepare($sql);
+							$stmt->execute();
+							$arevenue = $stmt->fetch(PDO::FETCH_ASSOC);
+
+							$sql = "SELECT SUM(amount) FROM Reservation R, Payment P
+									WHERE 
+									R.payment = P.payNum AND
+									R.branch = '$lmanager'";
+							$stmt = $pdo->prepare($sql);
+							$stmt->execute();
+							$rrevenue = $stmt->fetch(PDO::FETCH_ASSOC);
+
+							$income = $arevenue['SUM(amount)'] + $rrevenue['SUM(amount)'];
+							$sum += $income;
+
+							echo "<tr><td>";
+							echo($lbranch['branchID']);
+							echo ("</td><td>");
+							echo($lbranch['address']);
+							echo ("</td><td>");
+							echo($lbranch['phoneNum']);
+							echo ("</td><td>");
+							echo($row['employID']);
+							echo ("</td><td>");
+							echo($counts['COUNT(*)']);
+							echo ("</td><td>");
+							echo($income);
+							echo ("</td><td>");
+							echo ("<form method='POST'>");
+							echo "<button type='submit' name='delete' value=".$lbranch['branchID']." onclick='return ConfirmDelete()'> DELETE </button>";
+							echo ("</form>");
+							echo ("</td></tr>");
+						}
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $countb . " branches.</p>"; 
+							$avg = $sum / $countb;
+							echo "<p style='text-align: left; color: #002145;'>Average revenue: $" . $avg . " per branch.</p>"; ?>
 				</div>
-				<a class="linkbutton" href="mrtoa.php">From Reservation</a>
-				<a class="linkbutton" href="mkagrmt.php">New Agreement</a>
 			</div>
 		</div>
 	</section>
@@ -187,6 +235,11 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				x.className = "items";
 			}
 		}
+
+		function ConfirmDelete() {
+			return confirm("Are you sure you want to delete?");
+		}
+
 	</script>
 </body>
 </html>

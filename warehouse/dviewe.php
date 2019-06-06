@@ -1,10 +1,25 @@
 <?php
 require_once "pdo_constructor.php";
 
+$msg = false;
 $count = 0;
 
-$username = $_COOKIE['zyxwmanager'];
-$sql = "SELECT * FROM Manager WHERE username = '$username'";
+if (isset($_POST['delete'])) {
+	$employeetofired =  $_POST['delete'];
+	$sql = "DELETE FROM Employee WHERE employID = '$employeetofired'";
+	$stmt = $pdo->prepare($sql);
+	try {
+		$stmt->execute();
+		$msg = "Worker numbered $employeetofired has been dismissed!";
+	} catch (PDOException $e) {
+		$msg = "Failed to dismiss the worker numbered $employeetofired";
+	}
+
+}
+
+
+$username = $_COOKIE['zyxwdirector'];
+$sql = "SELECT * FROM Director WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -20,7 +35,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Management: Agreements";
+		echo $username . "'s Management: Employees";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -35,7 +50,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </head>
 <body>
-	<section class="navbar">
+	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>
@@ -58,7 +73,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwmanager']);
+					echo($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
@@ -89,74 +104,121 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-				<a href="magrmt.php">Agreements</a>
-				<a href="mviewr.php">Reservations</a>
-				<a href="mviewp.php">Transactions</a>
-				<a href="mviewi.php">View Items</a>
-				<a href="mcheck.php">Storerooms</a>
-				<a href="mviewe.php">Workers</a>
+					<a href="dviewe.php">Employees</a>
+					<a href="dviewb.php">Branches</a>
+					<a href="dviews.php">Storerooms</a>
+					<a href="dviewc.php">Customers</a>
+					<a href="dviewt.php">Transactions</a>
+
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Agreements</h2>
-				<div class="thetable" style="width: 90%;">
+				<h2>Managers</h2>
+				<?php
+				if ($msg != false) {
+					echo "<p style='color: red;''>";
+					echo "$msg";
+					echo "</p>";
+				}
+				?>
+				<div class="thetable" style="width: 90%; padding-bottom: 0;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Agreement Number</th>
-							<th>Customer</th>
-							<th>Value</th>
-							<th>Transaction</th>
-							<th>Start Day</th>
-							<th>End Day</th>
-							<th>Pickup Day</th>
-							<th>From Reservation</th>
+							<th>Employee ID</th>
+							<th>Name</th>
+							<th>Branch</th>
+							<th>SIN</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Operation</th>
 						</tr>
 						<?php
-						$branch = $user['branchID'];
-						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement ON
-						ItemInfo.agrmtNum = Agreement.agrmtNum
-						INNER JOIN Payment ON
-						Payment.payNum =Agreement.payment
-						WHERE branch = '$branch'" ;
+
+						$sql = "SELECT * FROM Manager M, Employee E
+								WHERE M.employID = E.employID";
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-								echo "<tr><td>";
-								echo($row['agrmtNum']);
-								echo ("</td><td>");
-								echo($row['owner']);
-								echo ("</td><td>");
-								echo($row['amount']);
-                						echo ("</td><td>");
-								echo($row['payNum']);
-               						 	echo ("</td><td>");
-								echo($row['startDay']);
-                						echo ("</td><td>");
-								echo($row['endDay']);
-								echo ("</td><td>");
-								echo($row['pickDay']);
-								if (is_null($row['pickDay'])) {
-									$count++;
-								}
-								echo ("</td><td>");
-								echo($row['fromResv']);
-								echo ("</td></tr>");
+							$count++;
+							echo "<tr><td>";
+							echo($row['employID']);
+							echo ("</td><td>");
+							echo($row['fName'] . " " . $row['lName']);
+							echo ("</td><td>");
+							echo($row['branchID']);
+							echo ("</td><td>");
+							echo($row['SINNum']);
+							echo ("</td><td>");
+							echo($row['phoneNum']);
+							echo ("</td><td>");
+							echo($row['email']);
+							echo ("</td><td>");
+							echo ("<form method='POST'>");
+							echo "<button type='submit' name='delete' value=".$row['employID']." onclick='return ConfirmDelete()'> DELETE </button>";
+							echo ("</form>");
+							echo ("</td></tr>");
 						}
-
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " managers .</p>"; 
+						  $count = 0;?>
 				</div>
-				<a class="linkbutton" href="mrtoa.php">From Reservation</a>
-				<a class="linkbutton" href="mkagrmt.php">New Agreement</a>
+
+				
+				<h2>Workers</h2>
+				<div class="thetable" style="width: 90%; padding-bottom: 0;">
+					<table class="entities" style="width:100%">
+						<tr>
+							<th>Employee ID</th>
+							<th>Name</th>
+							<th>Branch</th>
+							<th>SIN</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Operation</th>
+						</tr>
+						<?php
+						$sql = "SELECT * FROM Labourer L INNER JOIN Employee E ON L.employID = E.employID";
+						$stmt = $pdo->prepare($sql);
+						$stmt->execute();
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+							$count++;
+							echo "<tr><td>";
+							echo($row['employID']);
+							echo ("</td><td>");
+							echo($row['fName'] . " " . $row['lName']);
+							echo ("</td><td>");
+							echo($row['branchID']);
+							echo ("</td><td>");
+							echo($row['SINNum']);
+							echo ("</td><td>");
+							echo($row['phoneNum']);
+							echo ("</td><td>");
+							echo($row['email']);
+							echo ("</td><td>");
+							echo ("<form method='POST'>");
+							echo "<button type='submit' name='delete' value=".$row['employID']." onclick='return ConfirmDelete()'> DELETE </button>";
+							echo ("</form>");
+							echo ("</td></tr>");
+						}
+						?>
+					</table>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " workers.</p>"; ?>
+				</div>
+				<a class="linkbutton" href="lregis.php">New Managers</a>
+				<a class="linkbutton" href="lregis.php">New Worker</a>
 			</div>
 		</div>
 	</section>
 
-	<section class="footer-container" >
+
+	
+
+
+	<section class="footer-container">
 		<div class="footer">
 			<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
 				<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
@@ -186,6 +248,10 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			} else {
 				x.className = "items";
 			}
+		}
+
+		function ConfirmDelete() {
+			return confirm("Are you sure you want to delete?");
 		}
 	</script>
 </body>
