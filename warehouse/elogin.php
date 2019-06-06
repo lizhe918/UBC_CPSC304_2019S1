@@ -1,3 +1,10 @@
+<?php
+require_once "pdo_constructor.php";
+?>
+
+
+
+
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -38,6 +45,63 @@
       </div>
     </section>
 
+    <section class="tableblock" style="background-color: #002145;">
+      <h1 style="color: white;">Our Directors</h1>
+      <div class="thetable">
+        <table class="entities" style="width:100%">
+          <tr>
+            <th>Name</th> 
+            <th>Phone#</th>
+            <th>Email</th>
+          </tr>
+          <?php
+          $sql = "SELECT E.fName, E.lName, E.phoneNum, E.email FROM Director D INNER JOIN Employee E
+                  ON D.employID = E.employID";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute();
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          ?>
+          <tr>
+            <td><?php echo $row["fName"]." ".$row["lName"];?></td>
+            <td> <?php echo $row["phoneNum"];?></td>
+            <td> <?php echo $row["email"];?></td>
+          </tr><?php
+          }
+          ?>
+        </table>
+      </div>        
+    </section>
+
+    <section class="tableblock" style="background-color: white;">
+      <h1>Our Managers</h1>
+      <div class="thetable">
+        <table class="entities" style="width:100%">
+          <tr>
+            <th>Branch Address</th>
+            <th>Person</th> 
+            <th>Phone#</th>
+            <th>Email</th>
+          </tr>
+          <?php
+          $sql = "SELECT B.address, E.fName, E.lName, E.phoneNum, E.email FROM Manager M INNER JOIN Employee E
+                  ON M.employID = E.employID 
+                  INNER JOIN Branch B
+                  ON M.branchID = B.branchID";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute();
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          ?>
+          <tr>
+            <td><?php echo $row["address"];?></td>
+            <td><?php echo $row["fName"]." ".$row["lName"];?></td>
+            <td> <?php echo $row["phoneNum"];?></td>
+            <td> <?php echo $row["email"];?></td>
+          </tr><?php
+          }
+          ?>
+        </table>
+      </div>        
+    </section>
     <script>
       function mobileExpand() {
         var x = document.getElementById("thebar");
