@@ -169,7 +169,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 
 				
 				<h2>Workers</h2>
-				<div class="thetable" style="width: 90%; padding-bottom: 0;">
+				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
 							<th>Employee ID</th>
@@ -207,9 +207,11 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						?>
 					</table>
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " workers.</p>"; ?>
+					<br>
+					<a class="linkbutton" href="lregis.php">New Managers</a>
+					<a class="linkbutton" href="lregis.php">New Worker</a>
 				</div>
-				<a class="linkbutton" href="lregis.php">New Managers</a>
-				<a class="linkbutton" href="lregis.php">New Worker</a>
+				
 			</div>
 		</div>
 	</section>

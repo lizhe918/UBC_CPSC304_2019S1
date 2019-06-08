@@ -27,7 +27,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </head>
 <body>
-	<section class="navbar">
+	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>

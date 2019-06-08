@@ -35,8 +35,8 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </head>
 <body>
-	<section class="navbar">
-		<div class="items" id="mainbar">
+	<section class="navbar" style="z-index: 101;">
+		<div class="items" id="mainbar" >
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>
 			<a href="./index.html#contact">CONTACT</a>

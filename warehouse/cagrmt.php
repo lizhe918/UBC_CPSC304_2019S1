@@ -29,7 +29,7 @@ $count = 0;
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<section class="navbar">
+	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>
@@ -105,7 +105,7 @@ $count = 0;
 							<th>Branch Address</th>
 							<th>Branch Phone#</th>
 							<th>Payment</th>
-							<th>Value</th>
+							<th>Value (CAD)</th>
 						</tr>
 						<?php
 						$sql = "SELECT * FROM ItemInfo INNER JOIN Agreement 

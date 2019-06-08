@@ -110,7 +110,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>ID Number</th>
 							<th>Phone#</th>
 							<th>Email</th>
-							<th>Value(CAD)</th>
+							<th>Value (CAD)</th>
 						</tr>
 						<?php
 						$sql = "SELECT * FROM Customer";
@@ -124,6 +124,15 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							$amount = $pdo->prepare($sql);
 							$amount->execute();
 							$value = $amount->fetch(PDO::FETCH_ASSOC);
+
+							$sql = "SELECT SUM(amount) FROM Reservation R, Payment P
+									WHERE
+									R.payment = P.payNum AND
+									R.reserver = '$cuser'";
+							$amount = $pdo->prepare($sql);
+							$amount->execute();
+							$rvalue = $amount->fetch(PDO::FETCH_ASSOC);
+							$value['SUM(amount)'] += $rvalue['SUM(amount)']; 
 							$sum += $value['SUM(amount)'];
 							$count++;
 						?>

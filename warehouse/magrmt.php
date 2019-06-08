@@ -35,7 +35,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 
 </head>
 <body>
-	<section class="navbar">
+	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
 			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
 			<a href="./index.html#about">ABOUT</a>
@@ -107,7 +107,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						<tr>
 							<th>Agreement Number</th>
 							<th>Customer</th>
-							<th>Value</th>
+							<th>Value (CAD)</th>
 							<th>Transaction</th>
 							<th>Start Day</th>
 							<th>End Day</th>

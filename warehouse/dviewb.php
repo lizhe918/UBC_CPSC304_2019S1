@@ -199,7 +199,10 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $countb . " branches.</p>"; 
 							$avg = $sum / $countb;
 							echo "<p style='text-align: left; color: #002145;'>Average revenue: $" . $avg . " per branch.</p>"; ?>
+							<br>
+					<a class="linkbutton" href="bregis.php">New Branch</a>
 				</div>
+
 			</div>
 		</div>
 	</section>

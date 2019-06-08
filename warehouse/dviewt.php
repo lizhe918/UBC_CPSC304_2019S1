@@ -1,9 +1,11 @@
 <?php
 require_once "pdo_constructor.php";
 
+$count = 0;
+$sum = 0;
 
-$username = $_COOKIE['zyxwworker'];
-$sql = "SELECT * FROM Labourer WHERE employID = '$username'";
+$username = $_COOKIE['zyxwdirector'];
+$sql = "SELECT * FROM Director WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -11,7 +13,7 @@ $eid = $user['employID'];
 $sql = "SELECT * FROM Employee WHERE employID = '$eid'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
-$worker = $stmt->fetch(PDO::FETCH_ASSOC);
+$director = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,7 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
 	<title>
 		<?php
-		echo $username . "'s Workspace";
+		echo $username . "'s Management: Transactions";
 		?>
 	</title>
 	<meta charset="utf-8">
@@ -52,83 +54,121 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="username">
 				<h2>
 					<?php
-					echo($worker['fName'] . " " . $worker['lName']);
+					echo($director['fName'] . " " . $director['lName']);
 					?>
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwworker']);
+					echo($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo($worker['phoneNum']);
+					echo($director['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo($worker['address']);
+					echo($director['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo($worker['SINNum']);
+					echo($director['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo($worker['email']);
+					echo($director['email']);
 					?>
 				</p>
-				<a class="linkbutton" href="lupdate.php">Edit Profile</a>
+				<a class="linkbutton" href="dupdate.php">Edit Profile</a>
 			</div>
 		</div>
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="lviewm.php">My Branch</a>
-					<a href="lviewi.php">View Items</a>
+					<a href="dviewe.php">Employees</a>
+					<a href="dviewb.php">Branches</a>
+					<a href="dviews.php">Storerooms</a>
+					<a href="dviewc.php">Customers</a>
+					<a href="dviewt.php">Transactions</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
 				</div>
 			</div>
 			<div class="tableblock" style="background-color: white;">
-				<h2>Your Branch</h2>
+				<h2>Transactions by Methods</h2>
+				<div class="thetable" style="width: 90%; padding-bottom: 0;">
+					<table class="entities" style="width:100%">
+						<tr>
+							<th>Method</th>
+							<th>Total Value (CAD)</th>
+						</tr>
+						<?php
+						$sql = "SELECT method, SUM(amount) FROM Payment P INNER JOIN Card C
+						ON P.cardNum = C.cardNum
+						GROUP BY C.method";
+						$amounts = $pdo->prepare($sql);
+						$amounts->execute();
+						while ($amount = $amounts->fetch(PDO::FETCH_ASSOC)) {
+							$sum += $amount['SUM(amount)'];
+							?>
+							<tr>
+								<td><?php echo $amount['method']; ?></td>
+								<td><?php echo $amount['SUM(amount)']; ?></td>
+							<?php }?>
+						</tr>
+					</table>
+					<?php
+						echo "<p style='text-align: left; color: #002145;'>There are $" . $sum . " from all transactions.</p>";
+					?>
+				</div>
+			</div>
+			<div class="tableblock" style="background-color: white;">
+				<h2>All Transactions</h2>
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Branch Number</th>
-							<th>Manager Name</th>
-							<th>Manager Phone#</th>
-							<th>Manager Email</th>
-							<th>Manager Address</th>
+							<th>Payment Number</th>
+							<th>Customer</th>
+							<th>Card Number</th>
+							<th>Method</th>
+							<th>Value (CAD)</th>
 						</tr>
 						<?php
-						$branch = $user['branchID'];
-						$sql = "SELECT * FROM Manager INNER JOIN Employee ON
-						Manager.employID = Employee.employID
-						WHERE branchID = '$branch'" ;
-						$stmt = $pdo->prepare($sql);
-						$stmt->execute();
-						$row = $stmt->fetch(PDO::FETCH_ASSOC);
-								echo "<tr><td>";
-								echo($branch);
-								echo ("</td><td>");
-								echo($row['fName'] . " " . $row['lName']);
-								echo ("</td><td>");
-								echo($row['phoneNum']);
-								echo ("</td><td>");
-								echo($row['email']);
-								echo ("</td><td>");
-								echo($row['address']);
-								echo ("</td></tr>");
-
-						?>
+						$sql = "SELECT P.payNum, I.owner, C.cardNum, C.method, P.amount
+								FROM ItemInfo I, Agreement A, Payment P, Card C
+								WHERE 
+								I.agrmtNum = A.agrmtNum AND
+								A.payment = P.payNum AND
+								P.cardNum = C.cardNum
+								UNION
+								SELECT P.payNum, R.reserver, C.cardNum, C.method, P.amount
+								FROM Reservation R, Payment P, Card C
+								WHERE
+								R.payment = P.payNum AND
+								P.cardNum = C.cardNum";
+						$transactions = $pdo->prepare($sql);
+						$transactions->execute();
+						while ($transaction = $transactions->fetch(PDO::FETCH_ASSOC)) {
+							$count++;
+							?>
+							<tr>
+								<td><?php echo $transaction['payNum']; ?></td>
+								<td><?php echo $transaction['owner']; ?></td>
+								<td><?php echo $transaction['cardNum']; ?></td>
+								<td><?php echo $transaction['method']; ?></td>
+								<td><?php echo $transaction['amount']; ?></td>
+							<?php }?>
+						</tr>
 					</table>
-
+					<?php
+						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " transactions.</p>";
+					?>
 				</div>
 			</div>
 		</div>
@@ -167,7 +207,7 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 		}
 
 		function ConfirmDelete() {
-  			return confirm("Are you sure you want to delete?");
+			return confirm("Are you sure you want to delete?");
 		}
 	</script>
 </body>
