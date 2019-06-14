@@ -52,11 +52,13 @@ rate INT
 
 CREATE TABLE Branch( 
 
-branchID INTEGER(5) PRIMARY KEY, 
+branchID INTEGER(5) AUTO_INCREMENT, 
 
 address VARCHAR(128) UNIQUE NOT NULL, 
 
 phoneNum CHAR(10) UNIQUE NOT NULL 
+ 
+PRIMARY KEY(branchID)
 
 ); 
 
@@ -83,8 +85,27 @@ PRIMARY KEY(employID)
 
 ); 
 
- 
- 
+
+
+
+CREATE TABLE Director(
+
+employID INTEGER(4) PRIMARY KEY,
+
+username VARCHAR(12) UNIQUE NOT NULL,
+
+password VARCHAR(16) NOT NULL,
+
+FOREIGN KEY(employID) REFERENCES Employee(employID)
+
+ON DELETE CASCADE
+
+ON UPDATE CASCADE
+
+);
+
+
+
 
 CREATE TABLE Manager( 
 
@@ -195,8 +216,6 @@ branchID INTEGER(5),
 
 maxSpace REAL NOT NULL, 
 
-freSpace REAL NOT NULL, 
-
 PRIMARY KEY(roomNum, branchID), 
 
 FOREIGN KEY(branchID) REFERENCES Branch(branchID) 
@@ -247,7 +266,7 @@ ON DELETE SET NULL
 
 ON UPDATE CASCADE, 
 
-FOREIGN KEY(roomNUM) REFERENCES Storeroom(roomNUM) 
+FOREIGN KEY(roomNUM, branch) REFERENCES Storeroom(roomNUM, branchID) 
 
 ON DELETE SET NULL 
 
@@ -321,7 +340,7 @@ ON UPDATE CASCADE
  
  
 
-CREATE TABLE ItemInfo( 
+CREATE TABLE AgrmtInfo( 
 
 agrmtNum INTEGER(12) NOT NULL PRIMARY KEY, 
 
@@ -343,7 +362,7 @@ FOREIGN KEY(branch) REFERENCES Branch(branchID)
 
 ON UPDATE CASCADE, 
 
-FOREIGN KEY(roomNum) REFERENCES Storeroom(roomNUM)  
+FOREIGN KEY(roomNum, branch) REFERENCES Storeroom(roomNUM, branchID)  
 
 ON UPDATE CASCADE 
 
@@ -388,7 +407,7 @@ typeName CHAR(4) DEFAULT 'RGLR',
 
 PRIMARY KEY(branchID, roomNum, typeName), 
 
-FOREIGN KEY(roomNUM) REFERENCES Storeroom(roomNUM) 
+FOREIGN KEY(roomNUM, branchID) REFERENCES Storeroom(roomNUM, branchID) 
 
 ON DELETE CASCADE 
 
