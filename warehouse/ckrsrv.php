@@ -6,8 +6,8 @@
     $startDate = "";
     $endDate = "";
     $rsvSpace = "";
-    $branch = "";
-    $roomNum = "";
+    // $branch = "";
+    // $roomNum = "";
     $payment = "NULL";
     $message = false;
     if (isset($_POST) & !empty($_POST)) {
@@ -15,15 +15,13 @@
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
         $rsvSpace = $_POST['rsvSpace'];
-        $branch =  $_POST['branch'];
-        $roomNum = $_POST['roomNum'];
+        // $branch =  $_POST['branch'];
+        // $roomNum = $_POST['roomNum'];
 
         if ($cusername=="" || $startDate=="" || $endDate == "" || $rsvSpace== "" ) {
             $message = "Please Complete All Required fields";
         }else{
-            // $sql = queryBranchRoomsSelectedTypes($_POST['RGLR'], $_POST['FLAM'], $_POST['FRZN'], $_POST['FRGL']);
-            // $sql = queryAvailableSpaceWithinDates($branch, $roomNum, $startDate, $endDate);
-            $sql = queryFilteredRooms($branch, $roomNum, $startDate, $endDate, $_POST['RGLR'], $_POST['FLAM'], $_POST['FRZN'], $_POST['FRGL']);
+            $sql = queryFilteredRooms($startDate, $endDate, $rsvSpace, $_POST['RGLR'], $_POST['FLAM'], $_POST['FRZN'], $_POST['FRGL']);
         }
     }
   ?>
@@ -124,7 +122,7 @@
                             print_r($row);
                             echo "<br></br>";
 							echo "<tr><td>";
-							echo($row['branchID']); //address
+							echo($row['address']); //address
 							echo ("</td><td>");
 							echo($row['roomNum']);
 							echo ("</td><td>");
