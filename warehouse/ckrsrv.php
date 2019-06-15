@@ -82,10 +82,11 @@
         <p>Reserve Space*:  <span style="font-size:0.5em"> If you are concerned about how much space you need, please contact any of our branches.</span><br> 
             <input class="short" type="text" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
         </p>
-        <p>Select Item Type:<br>
+        <p>Select Item Type(s):<br>
         <input type="checkbox" name="RGLR" value="Regular">Regular<br>
         <input type="checkbox" name="FRZN" value="Frozen">Frozen<br>
         <input type="checkbox" name="FLAM" value="Flammable">Flammable<br>
+        <input type="checkbox" name="FRGL" value="Fragile">Fragile<br>
         </p>
         <?php
             if ($message != false) {
@@ -110,23 +111,29 @@
 						<tr>
 							<th>Branch</th>
 							<th>Room</th>
-							<th>Room Type</th>
+							<th>Item Type(s)</th>
 							<th>Select</th>
 							<th>Max Capacity</th>
 							<th>Available Space</th>
 						</tr>
 						<?php
 						$stmt = $pdo->prepare($sql);
-						$stmt->execute();
+                        $stmt->execute();
+                        $prev = '';
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             print_r($row);
+                            $sql = queryRoomTypes($row['branchID'], $row['roomNum']);
+                            $rtypes = $pdo->prepare($sql);
+							$rtypes->execute();
                             echo "<br></br>";
 							echo "<tr><td>";
 							echo($row['address']); //address
 							echo ("</td><td>");
 							echo($row['roomNum']);
-							echo ("</td><td>");
-							echo($row['typeName']);
+                            echo ("</td><td>");
+							while ($rtype = $rtypes->fetch(PDO::FETCH_ASSOC)) {
+								echo ($rtype['typeName'] . "<br>");
+							}
                             echo ("</td><td>");
                             echo ("<form method='POST'>");
                             echo "<button type='submit' name='select' value=".$row['employID']." onclick=''> SELECT </button>";
@@ -136,7 +143,7 @@
 							echo ("</td><td>");
 							echo($row['available']);
 							echo ("</td><td>");
-							echo ("</td></tr>");
+                            echo ("</td></tr>");
 						}
 						?>
 					</table>
