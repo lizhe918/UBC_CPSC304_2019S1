@@ -45,6 +45,10 @@ function queryBranchRoomsSelectedTypes($rglr, $flam, $frzn, $frgl)
     return $sql;
 }
 
+
+/*
+ *  Return all empty rooms that are greater than the reserve space
+ */
 function queryEmptyRooms($rsv)
 {
     $sql = "select distinct sr.branchid, sr.roomnum, sr.maxSpace, sr.maxSpace as Available
@@ -67,11 +71,12 @@ function queryFilteredRooms($start, $end, $rsv, $rglr, $flam, $frzn, $frgl)
     $q1 = queryAvailableSpaceWithinDates($start, $end, $rsv);
     $q2 = queryBranchRoomsSelectedTypes($rglr, $flam, $frzn, $frgl);
     $q3 = queryEmptyRooms($rsv);
-    $q4 = "select brr.address, c.roomNum, c.typeName, c.maxSpace, c.Available from (select b.branchID, b.roomNum, rt.typeName, b.maxSpace, b.Available from (select a.branchID, a.roomNum, a.maxSpace, a.Available from (" . $q1 . ") a inner join (" . $q2 . ") z where a.branchID = z.branchID and a.roomNum = z.roomNum";
-    $sql = $q4 . ") b inner join room_type rt where b.branchid = rt.branchid and b.roomnum = rt.roomnum
-            union		
-            select y.branchid, y.roomnum, rtt.typename, y.maxSpace, y.Available from (" . $q3 . ") y inner join room_type rtt		
-            where rtt.branchID = y.branchID and rtt.roomNum = y.roomNum) c		
-            inner join branch brr, storeroom stt where stt.branchID = brr.branchID and stt.branchID = c.branchID and stt.roomNum = c.roomNum";
-    return $sql;
+    // union $q1 and $q2, returns tuples that are available between specified dates and empty rooms
+    $q4 = $q1 . " union " . $q3;
+    // return tuples that meet the previous requirement and can store the chosen types of items
+    $q5 = "select a.branchid, a.roomnum, a.maxspace, a.available from (" . $q4 . ") a inner join (" . $q2 . ") z where a.branchid = z.branchid and a.roomnum = z.roomnum";
+    // join with room_type and return the previous attributes + the room's type
+    $q6 = "select b.branchid, b.roomnum, typename, b.maxspace, b.available from (" . $q5 . ") b inner join room_type rt where rt.branchid = b.branchid and rt.roomnum = b.roomnum";
+    $q7 = "select br.address as address, sr.roomnum as roomNum, c.typename as typeName, sr.maxspace as maxSpace, c.available as available from (" . $q6 . ") c inner join branch br, storeroom sr where br.branchid = sr.branchid and sr.branchid = c.branchid and sr.roomnum = c.roomnum";
+    return $q7;
 }

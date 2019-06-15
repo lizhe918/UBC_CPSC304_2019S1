@@ -134,7 +134,7 @@
 							echo ("</td><td>");
 							echo($row['maxSpace']);
 							echo ("</td><td>");
-							echo($row['Available']);
+							echo($row['available']);
 							echo ("</td><td>");
 							echo ("</td></tr>");
 						}
