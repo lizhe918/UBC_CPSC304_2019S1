@@ -1,12 +1,13 @@
 <?php
     require_once "pdo_constructor.php";
+    require_once 'mcheck.php';
     $username = $_COOKIE['zyxwuser'];
     $cusername = $username;
     $startDate = "";
     $endDate = "";
     $rsvSpace = "";
-    // $branch = "";
-    // $roomNum = "";
+    $branch = "";
+    $roomNum = "";
     $payment = "NULL";
     $message = false;
     if (isset($_POST) & !empty($_POST)) {
@@ -14,38 +15,15 @@
         $startDate = $_POST['startDate'];
         $endDate = $_POST['endDate'];
         $rsvSpace = $_POST['rsvSpace'];
-        // $branch =  $_POST['branch'];
-        // $roomNum = $_POST['roomNum'];
+        $branch =  $_POST['branch'];
+        $roomNum = $_POST['roomNum'];
 
         if ($cusername=="" || $startDate=="" || $endDate == "" || $rsvSpace== "" ) {
             $message = "Please Complete All Required fields";
         }else{
-            $types = "SELECT * FROM ItemType WHERE false OR ";
-            if (isset($_POST['RGLR'])) {
-                $types = $types . "typeName = 'RGLR' OR ";
-            }
-            if (isset($_POST['FLAM'])) {
-                $types = $types . "typeName = 'FLAM' OR ";
-            }
-            if (isset($_POST['FRZN'])) {
-                $types = $types . "typeName = 'FRZN' OR ";
-            }
-            if (isset($_POST['FRGL'])) {
-                $types = $types . "typeName = 'FRGL' OR ";
-            }
-            $types = $types . 'false';
-            
-            $sql = "SELECT * FROM Storeroom S
-            WHERE NOT EXISTS
-            ((SELECT T.typeName FROM (" . $types . ") T)
-             EXCEPT
-             (SELECT R.typeName FROM Room_Type R
-              WHERE R.branchID = S.branchID AND R.roomNum = S.roomNum))";
-            
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-            //$a = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+            // $sql = queryBranchRoomsSelectedTypes($_POST['RGLR'], $_POST['FLAM'], $_POST['FRZN'], $_POST['FRGL']);
+            // $sql = queryAvailableSpaceWithinDates($branch, $roomNum, $startDate, $endDate);
+            $sql = queryFilteredRooms($branch, $roomNum, $startDate, $endDate, $_POST['RGLR'], $_POST['FLAM'], $_POST['FRZN'], $_POST['FRGL']);
         }
     }
   ?>
@@ -103,10 +81,10 @@
         <p>To Date*:<br>
             <input class="short" id="theDate" type="date"  name="endDate" value=<?php echo $endDate; ?>>
         </p>
-        <p>Reserve Space*:  <span style="font-size:0.5em"> If you are concerning about how much space you need, please feel free to contact any of our branches.</span><br> 
+        <p>Reserve Space*:  <span style="font-size:0.5em"> If you are concerned about how much space you need, please contact any of our branches.</span><br> 
             <input class="short" type="text" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
         </p>
-        <p>Select Item Type*:<br>
+        <p>Select Item Type:<br>
         <input type="checkbox" name="RGLR" value="Regular">Regular<br>
         <input type="checkbox" name="FRZN" value="Frozen">Frozen<br>
         <input type="checkbox" name="FLAM" value="Flammable">Flammable<br>
@@ -128,6 +106,42 @@
         </form>
     </div>
     </div>
+    <h2>Testing</h2>
+				<div class="thetable" style="width: 90%;">
+					<table class="entities" style="width:100%">
+						<tr>
+							<th>Branch</th>
+							<th>Room</th>
+							<th>Room Type</th>
+							<th>Select</th>
+							<th>Max Capacity</th>
+							<th>Available Space</th>
+						</tr>
+						<?php
+						$stmt = $pdo->prepare($sql);
+						$stmt->execute();
+						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            print_r($row);
+                            echo "<br></br>";
+							echo "<tr><td>";
+							echo($row['branchID']); //address
+							echo ("</td><td>");
+							echo($row['roomNum']);
+							echo ("</td><td>");
+							echo($row['typeName']);
+                            echo ("</td><td>");
+                            echo ("<form method='POST'>");
+                            echo "<button type='submit' name='select' value=".$row['employID']." onclick=''> SELECT </button>";
+                            echo ("</form>");
+							echo ("</td><td>");
+							echo($row['maxSpace']);
+							echo ("</td><td>");
+							echo($row['Available']);
+							echo ("</td><td>");
+							echo ("</td></tr>");
+						}
+						?>
+					</table>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
         <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
