@@ -188,10 +188,6 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							echo($counts['COUNT(*)']);
 							echo ("</td><td>");
 							echo($income);
-							echo ("</td><td>");
-							echo ("<form method='POST'>");
-							echo "<button type='submit' name='delete' value=".$lbranch['branchID']." onclick='return ConfirmDelete()'> DELETE </button>";
-							echo ("</form>");
 							echo ("</td></tr>");
 						}
 						?>
@@ -200,7 +196,6 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							$avg = $sum / $countb;
 							echo "<p style='text-align: left; color: #002145;'>Average revenue: $" . $avg . " per branch.</p>"; ?>
 							<br>
-					<a class="linkbutton" href="bregis.php">New Branch</a>
 				</div>
 
 			</div>
