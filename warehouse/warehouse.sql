@@ -227,7 +227,7 @@ ON UPDATE CASCADE
 ); 
 
 
-CREATE TABLE FreeSpace(
+CREATE TABLE UsedSpace(
  
  roomNum INTEGER(3),
  
@@ -235,7 +235,7 @@ CREATE TABLE FreeSpace(
  
  date DATE,
  
- freSpace REAL NOT NULL,
+ space REAL NOT NULL,
  
  PRIMARY KEY (roomNum, branchID, date),
  
