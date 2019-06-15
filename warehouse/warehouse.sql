@@ -226,6 +226,32 @@ ON UPDATE CASCADE
 
 ); 
 
+
+CREATE TABLE FreeSpace(
+ 
+ roomNum INTEGER(3),
+ 
+ branchID INTEGER(5),
+ 
+ date DATE,
+ 
+ freSpace REAL NOT NULL,
+ 
+ PRIMARY KEY (roomNum, branchID, date),
+ 
+ FOREIGN KEY (roomNum, branchID) REFERENCES Storeroom(roomNum, branchID)
+ 
+ ON DELETE CASCADE
+ 
+ ON UPDATE CASCADE,
+ 
+ FOREIGN KEY (branchID) REFERENCES Branch(branchID)
+ 
+ ON DELETE CASCADE
+ 
+ ON UPDATE CASCADE
+ 
+ );
  
 
 /* 
