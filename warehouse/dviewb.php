@@ -133,7 +133,6 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Manager ID</th>
 							<th>Labourer Number</th>
 							<th>Revenue(CAD)</th>
-							<th>Operation</th>
 						</tr>
 						<?php
 
