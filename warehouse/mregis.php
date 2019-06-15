@@ -148,7 +148,7 @@
     <form method="post">
         <div class="form-content">
         <h2 style="color: #002145;">CPSC304 Group 1 Project</h2>
-        <h3 style="color: #002145;">Create New ZYXW Storage Emoplyee Labour Account:</h3>
+        <h3 style="color: #002145;">Create New ZYXW Storage Emoplyee Manager Account:</h3>
         <p>First Name*:<br>
             <input class="medium" type="text" name="fName" required>
         </p>
