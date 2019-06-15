@@ -175,7 +175,7 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="elogin.php">Back to Home Page</a>
+        <a href="index.html">Back to Home Page</a>
         <p></p>
         </div>
         </form>
