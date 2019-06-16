@@ -83,7 +83,7 @@ $isset = isset($_COOKIE['zyxwuser']);
         <table class="entities" style="width:100%">
           <tr>
             <th>Branch Address</th>
-            <th>Person</th> 
+            <th>Branch Manager</th> 
             <th>Phone#</th>
             <th>Email</th>
           </tr>

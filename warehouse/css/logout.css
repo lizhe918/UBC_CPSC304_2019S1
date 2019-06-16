@@ -9,8 +9,8 @@ body {
   vertical-align: middle;
   overflow: hidden;
   text-decoration: none;
-  color: white;
-  background-color: #c53929;
+  color: white !important;
+  background-color: #c53929 !important;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
@@ -27,4 +27,17 @@ body {
 
 #logout:active {
   opacity: 0.5;
+}
+
+@media screen and (max-width: 1080px) {
+  .items #logout {display: none;}
+}
+
+@media screen and (max-width: 1080px) {
+  .items.responsive #logout {position: relative;}
+  .items.responsive #logout {
+    float: none;
+    display: block;
+    text-align: center;
+  }
 }

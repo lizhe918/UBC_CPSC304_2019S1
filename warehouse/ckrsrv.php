@@ -34,6 +34,7 @@
     <title>Create Reservation</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/table.css">
     <link rel="stylesheet" type="text/css" href="./css/logout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -85,10 +86,10 @@
             <input class="short" type="text" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
         </p>
         <p>Select Item Type(s):<br>
-        <input type="checkbox" name="RGLR" value="Regular">Regular<br>
-        <input type="checkbox" name="FRZN" value="Frozen">Frozen<br>
-        <input type="checkbox" name="FLAM" value="Flammable">Flammable<br>
-        <input type="checkbox" name="FRGL" value="Fragile">Fragile<br>
+        <input type="checkbox" name="RGLR" value="Regular" <?php echo (isset($_POST["RGLR"])) ? 'checked="checked"' : ''?> />Regular<br>
+        <input type="checkbox" name="FRZN" value="Frozen" <?php echo (isset($_POST["FRZN"])) ? 'checked="checked"' : ''?> />Frozen<br>
+        <input type="checkbox" name="FLAM" value="Flammable" <?php echo (isset($_POST["FLAM"])) ? 'checked="checked"' : ''?> />Flammable<br>
+        <input type="checkbox" name="FRGL" value="Fragile" <?php echo (isset($_POST["FRGL"])) ? 'checked="checked"' : ''?> />Fragile<br>
         </p>
         <?php
             if ($message != false) {
@@ -114,8 +115,8 @@
 							<th>Room</th>
 							<th>Item Type(s)</th>
 							<th>Select</th>
-							<th>Max Capacity</th>
-							<th>Available Space</th>
+							<!-- <th>Max Capacity</th>
+							<th>Available Space</th> -->
 						</tr>
 						<?php
 						$stmt = $pdo->prepare($sql);
@@ -128,25 +129,20 @@
                             $sql = queryRoomTypes($row['branchID'], $row['roomNum']);
                             $rtypes = $pdo->prepare($sql);
 							$rtypes->execute();
-                            echo "<br></br>";
 							echo "<tr><td>";
-							echo($row['address']); //address
+							echo($row['address']);
 							echo ("</td><td>");
 							echo($row['roomNum']);
                             echo ("</td><td>");
 							while ($rtype = $rtypes->fetch(PDO::FETCH_ASSOC)) {
-								echo ($rtype['typeName'] . "<br>");
+								echo ($rtype['typeName'] . "<br><br>");
 							}
                             echo ("</td><td>");
-                            echo ("<form method='POST'>");
-                            echo "<button type='submit' name='select' value=".$row['employID']." onclick=''> SELECT </button>";
-                            echo ("</form>");
-							echo ("</td><td>");
-							echo($row['maxSpace']);
-							echo ("</td><td>");
-							echo($row['available']);
-							echo ("</td><td>");
-                            echo ("</td></tr>");
+                            echo '<input class="button confirm" type="submit" name="submit" value="Select">';
+							// echo ("</td><td>");
+							// echo($row['maxSpace']);
+							// echo ("</td><td>");
+							// echo($row['available']);
 						}
 						?>
 					</table>
