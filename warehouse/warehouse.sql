@@ -43,9 +43,7 @@ CREATE TABLE ItemType(
 
 typeName CHAR(4) PRIMARY KEY, 
 
-rate INT NOT NULL,
-
-comment VARCHAR(128) NOT NULL
+rate INT 
 
 ); 
 

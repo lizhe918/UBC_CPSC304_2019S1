@@ -15,7 +15,6 @@ if (isset($_POST['delete'])) {
 	} catch (PDOException $e) {
 		$msg = "Failed to dismiss the branch numbered $employeetofired";
 	}
-
 }
 
 $username = $_COOKIE['zyxwdirector'];
@@ -32,6 +31,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>
 		<?php
@@ -45,11 +45,12 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 	<link rel="stylesheet" type="text/css" href="./css/profile.css">
 	<link rel="stylesheet" type="text/css" href="./css/table.css">
 	<link rel="stylesheet" type="text/css" href="./css/navbar.css">
-    <link rel="stylesheet" type="text/css" href="./css/logout.css">
+	<link rel="stylesheet" type="text/css" href="./css/logout.css">
 	<link rel="stylesheet" type="text/css" href="./css/input_button.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <body>
 	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
@@ -57,7 +58,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.php#about">ABOUT</a>
 			<a href="./index.php#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a  href="./elogin.php">EMPLOYEE</a>
+			<a href="./elogin.php">EMPLOYEE</a>
 			<a href="./logout.php" id="logout">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
@@ -70,34 +71,34 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="username">
 				<h2>
 					<?php
-					echo($manager['fName'] . " " . $manager['lName']);
+					echo ($manager['fName'] . " " . $manager['lName']);
 					?>
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwdirector']);
+					echo ($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo($manager['phoneNum']);
+					echo ($manager['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo($manager['address']);
+					echo ($manager['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo($manager['SINNum']);
+					echo ($manager['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo($manager['email']);
+					echo ($manager['email']);
 					?>
 				</p>
 				<a class="linkbutton" href="mupdate.php">Edit Profile</a>
@@ -106,11 +107,12 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="dviewe.php ">Employees</a >
-					<a href="dviewb.php">Branches</a >
-					<a href="dviews.php">Storerooms</a >
-					<a href="dviewc.php">Customers</a >
-					<a href="dviewt.php">Transactions</a >
+					<a href="dviewa.php">Dashboard</a>
+					<a href="dviewe.php ">Employees</a>
+					<a href="dviewb.php">Branches</a>
+					<a href="dviews.php">Storerooms</a>
+					<a href="dviewc.php">Customers</a>
+					<a href="dviewt.php">Transactions</a>
 					<a href="javascript:void(0);" class="icon" onclick="mobileExpandFunc()">
 						<i class="fa fa-bars"></i>
 					</a>
@@ -138,13 +140,13 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						</tr>
 						<?php
 
-						$sql = "SELECT * FROM Branch" ;
+						$sql = "SELECT * FROM Branch";
 						$lbranchs = $pdo->prepare($sql);
 						$lbranchs->execute();
 
-						while ($lbranch= $lbranchs->fetch(PDO::FETCH_ASSOC)) {
+						while ($lbranch = $lbranchs->fetch(PDO::FETCH_ASSOC)) {
 							$countb++;
-							$lmanager= $lbranch['branchID'];
+							$lmanager = $lbranch['branchID'];
 							$sql = "SELECT employID FROM Manager
 							WHERE branchID ='$lmanager'";
 							$stmt = $pdo->prepare($sql);
@@ -178,41 +180,41 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							$sum += $income;
 
 							echo "<tr><td>";
-							echo($lbranch['branchID']);
+							echo ($lbranch['branchID']);
 							echo ("</td><td>");
-							echo($lbranch['address']);
+							echo ($lbranch['address']);
 							echo ("</td><td>");
-							echo($lbranch['phoneNum']);
+							echo ($lbranch['phoneNum']);
 							echo ("</td><td>");
-							echo($row['employID']);
+							echo ($row['employID']);
 							echo ("</td><td>");
-							echo($counts['COUNT(*)']);
+							echo ($counts['COUNT(*)']);
 							echo ("</td><td>");
-							echo($income);
+							echo ($income);
 							echo ("</td></tr>");
 						}
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $countb . " branches.</p>"; 
-							$avg = $sum / $countb;
-							echo "<p style='text-align: left; color: #002145;'>Average revenue: $" . $avg . " per branch.</p>"; ?>
-							<br>
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $countb . " branches.</p>";
+					$avg = $sum / $countb;
+					echo "<p style='text-align: left; color: #002145;'>Average revenue: $" . $avg . " per branch.</p>"; ?>
+					<br>
 				</div>
 
 			</div>
 		</div>
 	</section>
 
-	<section class="footer-container" >
+	<section class="footer-container">
 		<div class="footer">
-			<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
-				<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
+			<a href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
+				<img src="https://image.flaticon.com/icons/svg/25/25231.svg">
 			</a>
-			<a  href="https://www.ubc.ca/">
-				<img src = "https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png" >
+			<a href="https://www.ubc.ca/">
+				<img src="https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png">
 			</a>
-			<a  href="https://www.cs.ubc.ca/">
-				<img src = "https://avatars0.githubusercontent.com/u/22601447?s=200&v=4" >
+			<a href="https://www.cs.ubc.ca/">
+				<img src="https://avatars0.githubusercontent.com/u/22601447?s=200&v=4">
 			</a>
 		</div>
 	</section>
@@ -238,7 +240,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		function ConfirmDelete() {
 			return confirm("Are you sure you want to delete?");
 		}
-
 	</script>
 </body>
+
 </html>

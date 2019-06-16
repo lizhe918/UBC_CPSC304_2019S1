@@ -38,9 +38,8 @@
       <div class="thetable">
         <table class="entities" style="width:100%">
           <tr>
-            <th>Abbreviation</th>
-            <th>Type</th>
-              <th>Rate (CAD/Day/m<sup>3</sup>)</th>
+            <th>Type Name</th>
+            <th>Rate</th>
           </tr>
       <?php
       $sql="SELECT * FROM ItemType";
@@ -50,18 +49,13 @@
         echo "<tr><td>";
         echo($row['typeName']);
         echo ("</td><td>");
-        echo($row['comment']);
-        echo ("</td><td>");
         echo($row['rate']);
         echo ("</td></tr>");
       }
       ?>
         </table>
-        <p style="text-align:left; color: red;">NOTE:<br> All chages are non-refundable. <br> $3 is required to make reservation.</p>
       </div>
-      
     </section>
-    
     <script>
     function mobileExpand() {
       var x = document.getElementById("thebar");
