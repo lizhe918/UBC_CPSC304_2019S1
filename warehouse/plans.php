@@ -40,7 +40,7 @@
           <tr>
             <th>Abbreviation</th>
             <th>Type</th>
-            <th>Rate (CAD/Day)</th>
+              <th>Rate (CAD/Day/m<sup>3</sup>)</th>
           </tr>
       <?php
       $sql="SELECT * FROM ItemType";
