@@ -102,6 +102,7 @@
     <title>Labour Registration</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/logout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         form {
@@ -126,7 +127,7 @@
         <a href="./index.php#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
-        <a  href="./clogin.php">MY ACCOUNT</a>
+			<a href="./logout.php" id="logout">LOG OUT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>
@@ -136,7 +137,7 @@
     <form method="post">
         <div class="form-content">
         <h2 style="color: #002145;">CPSC304 Group 1 Project</h2>
-        <h3 style="color: #002145;">Create New ZYXW Storage Emoplyee Labour Account:</h3>
+        <h3 style="color: #002145;">Create New ZYXW Storage Employee Labour Account:</h3>
         <p>First Name*:<br>
             <input class="medium" type="text" name="fName" required>
         </p>
@@ -175,7 +176,12 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="index.php">Back to Home Page</a>
+        <?php 
+        if ($_COOKIE['zyxwmanager']) {
+            echo '<a href="mlogin.php">Back</a>';
+        } else {
+            echo '<a href="dlogin.php">Back</a>';
+        } ?>
         <p></p>
         </div>
         </form>

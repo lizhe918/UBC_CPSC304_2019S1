@@ -3,7 +3,7 @@
     require_once "pdo_constructor.php";
 
     if (isset($_POST['cancel'])) {
-        header("Location: index.php");
+        header("Location: elogin.php");
     }
 
     $name = "";

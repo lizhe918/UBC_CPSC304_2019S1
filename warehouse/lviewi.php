@@ -30,6 +30,7 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 	<link rel="stylesheet" type="text/css" href="./css/profile.css">
 	<link rel="stylesheet" type="text/css" href="./css/table.css">
 	<link rel="stylesheet" type="text/css" href="./css/navbar.css">
+	<link rel="stylesheet" type="text/css" href="./css/logout.css">
 	<link rel="stylesheet" type="text/css" href="./css/input_button.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -41,7 +42,8 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.php#about">ABOUT</a>
 			<a href="./index.php#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a  href="./logout.php">LOG OUT</a>
+			<a  href="./elogin.php">EMPLOYEE</a>
+			<a href="./logout.php" id="logout">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
 			</a>

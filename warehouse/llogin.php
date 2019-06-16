@@ -3,7 +3,7 @@
     require_once "pdo_constructor.php";
 
     if (isset($_POST['cancel'])) {
-        header("Location: index.php");
+        header("Location: elogin.php");
     }
 
     $name = "";
@@ -38,7 +38,7 @@
       $stmt = $pdo->prepare($sql);
       $stmt->execute();
       $storedpswd = $stmt->fetch();
-      if ($storedpswd['password'] == $pswd) {
+      if ($storedpswd['innerPIN'] == $pswd) {
         header("Location: lviewm.php");
       } else {
         $message = "Incorrect employee ID or internal security number";
