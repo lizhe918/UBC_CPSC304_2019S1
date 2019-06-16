@@ -105,10 +105,11 @@
         </form>
     </div>
     </div>
-    <div class="thetable" style="width: 90%;">
+    <h2>Testing</h2>
+				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
-							<th>Branch Address</th>
+							<th>Branch</th>
 							<th>Room</th>
 							<th>Item Type(s)</th>
 							<th>Select</th>
@@ -118,11 +119,9 @@
 						<?php
 						$stmt = $pdo->prepare($sql);
                         $stmt->execute();
-                        if (!$stmt->rowCount() > 0) {
-                            echo "<h2>Your search returned no results. Please try another combination.</h2>";
-                        }
+                        $prev = '';
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            // print_r($row);
+                            print_r($row);
                             $sql = queryRoomTypes($row['branchID'], $row['roomNum']);
                             $rtypes = $pdo->prepare($sql);
 							$rtypes->execute();
