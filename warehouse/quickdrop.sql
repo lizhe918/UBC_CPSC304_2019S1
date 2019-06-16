@@ -1,0 +1,17 @@
+DROP TABLE Room_Type;
+DROP TABLE ItemClass;
+DROP TABLE ItemInfo;
+DROP TABLE Item;
+DROP TABLE Agreement;
+DROP TABLE Reservation;
+DROP TABLE UsedSpace;
+DROP TABLE Storeroom;
+DROP TABLE Payment;
+DROP TABLE Card;
+DROP TABLE Labourer;
+DROP TABLE Manager;
+DROP TABLE Director;
+DROP TABLE Employee;
+DROP TABLE Branch;
+DROP TABLE ItemType;
+DROP TABLE Customer;
