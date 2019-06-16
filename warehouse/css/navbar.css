@@ -7,7 +7,6 @@ body {
   position: fixed;
   width: 100%;
   z-index: 100;
-  
 }
 
 .items {
@@ -35,8 +34,6 @@ body {
   color: white;
 }
 
-
-
 #brandlabel {
   color: white;
   background-color: #002145;
@@ -46,6 +43,8 @@ body {
   background-color: #0055B7;
   color: white;
 }
+
+
 
 .items .icon {
   display: none;

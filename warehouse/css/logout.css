@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.items #logout {
+  border: none;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+  background-color: #c53929;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0s;
+  position: absolute;
+  right: 0px;
+
+}
+
+#logout:hover {
+  background-color: #ab2e20;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#logout:active {
+  opacity: 0.5;
+}

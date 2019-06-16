@@ -34,6 +34,7 @@
     <title>Create Reservation</title>
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="./css/logout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         form {
@@ -59,7 +60,8 @@
         <a href="./index.html#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
-        <a  href="./clogin.php">MY ACCOUNT</a>
+        <a  href="./citem.php">MY ACCOUNT</a>
+		<a href="./logout.php" id="logout">LOG OUT</a>
       <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
         <i class="fa fa-bars"></i>
       </a>
