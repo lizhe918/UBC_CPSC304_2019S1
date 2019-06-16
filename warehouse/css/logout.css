@@ -9,25 +9,21 @@ body {
   vertical-align: middle;
   overflow: hidden;
   text-decoration: none;
-  color: white !important;
-  background-color: #c53929 !important;
+  color: inherit !important;
+  background-color: inherit !important;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
-  transition: opacity 0s;
+  transition-duration: 0.4s;
   position: absolute;
   right: 0px;
-
 }
 
-#logout:hover {
-  background-color: #ab2e20;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.items #logout:hover {
+  background-color: #0055B7 !important;
+  color: white !important;
 }
 
-#logout:active {
-  opacity: 0.5;
-}
 
 @media screen and (max-width: 1080px) {
   .items #logout {display: none;}
