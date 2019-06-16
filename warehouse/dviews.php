@@ -18,7 +18,6 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<title>
 		<?php
@@ -37,7 +36,6 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
-
 <body>
 	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
@@ -45,7 +43,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.php#about">ABOUT</a>
 			<a href="./index.php#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a href="./elogin.php">EMPLOYEE</a>
+			<a  href="./elogin.php">EMPLOYEE</a>
 			<a href="./logout.php" id="logout">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
@@ -58,34 +56,34 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="username">
 				<h2>
 					<?php
-					echo ($director['fName'] . " " . $director['lName']);
+					echo($director['fName'] . " " . $director['lName']);
 					?>
 				</h2>
 				<p>
 					<?php
-					echo ($_COOKIE['zyxwdirector']);
+					echo($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo ($director['phoneNum']);
+					echo($director['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo ($director['address']);
+					echo($director['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo ($director['SINNum']);
+					echo($director['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo ($director['email']);
+					echo($director['email']);
 					?>
 				</p>
 				<a class="linkbutton" href="dupdate.php">Edit Profile</a>
@@ -94,7 +92,6 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
-					<a href="dviewa.php">Dashboard</a>
 					<a href="dviewe.php">Employees</a>
 					<a href="dviewb.php">Branches</a>
 					<a href="dviews.php">Storerooms</a>
@@ -111,7 +108,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 					<table class="entities" style="width:100%">
 						<tr>
 							<th>Storeroom Type</th>
-							<th>Quantity</th>
+							<th>Number</th>
 							<th>Total Revenue (CAD)</th>
 						</tr>
 						<?php
@@ -139,7 +136,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 								<td><?php echo $type; ?></td>
 								<td><?php echo $row['COUNT(*)']; ?></td>
 								<td><?php echo $revenue; ?></td>
-							<?php } ?>
+							<?php }?>
 						</tr>
 					</table>
 					<p style='text-align: left; color: #002145;'>NOTE: A room may have multiple types.</p>
@@ -156,7 +153,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Types</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM Storeroom";
+						$sql = "SELECT * FROM Storeroom ORDER BY branchID";
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -174,58 +171,57 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 								<td><?php echo $row['roomNum']; ?></td>
 								<td><?php echo $row['maxSpace']; ?></td>
 								<td>
-									<?php
-									while ($type = $types->fetch(PDO::FETCH_ASSOC)) {
+									<?php 
+									while($type = $types->fetch(PDO::FETCH_ASSOC)) {
 										echo $type['typeName'] . " ";
 									}
 									?></td>
-							<?php } ?>
-						</tr>
-					</table>
-					<?php
-					echo "<p style='text-align: left; color: #002145;'>There are " . $count . " storerooms.</p>";
-					?>
+								<?php }?>
+							</tr>
+						</table>
+						<?php
+						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " storerooms.</p>";
+						?>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section class="footer-container">
-		<div class="footer">
-			<a href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
-				<img src="https://image.flaticon.com/icons/svg/25/25231.svg">
-			</a>
-			<a href="https://www.ubc.ca/">
-				<img src="https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png">
-			</a>
-			<a href="https://www.cs.ubc.ca/">
-				<img src="https://avatars0.githubusercontent.com/u/22601447?s=200&v=4">
-			</a>
-		</div>
-	</section>
-	<script>
-		function mobileExpandMain() {
-			var x = document.getElementById("mainbar");
-			if (x.className === "items") {
-				x.className += " responsive";
-			} else {
-				x.className = "items";
+		<section class="footer-container" >
+			<div class="footer">
+				<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
+					<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
+				</a>
+				<a  href="https://www.ubc.ca/">
+					<img src = "https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png" >
+				</a>
+				<a  href="https://www.cs.ubc.ca/">
+					<img src = "https://avatars0.githubusercontent.com/u/22601447?s=200&v=4" >
+				</a>
+			</div>
+		</section>
+		<script>
+			function mobileExpandMain() {
+				var x = document.getElementById("mainbar");
+				if (x.className === "items") {
+					x.className += " responsive";
+				} else {
+					x.className = "items";
+				}
 			}
-		}
 
-		function mobileExpandFunc() {
-			var x = document.getElementById("funcbar");
-			if (x.className === "items") {
-				x.className += " responsive";
-			} else {
-				x.className = "items";
+			function mobileExpandFunc() {
+				var x = document.getElementById("funcbar");
+				if (x.className === "items") {
+					x.className += " responsive";
+				} else {
+					x.className = "items";
+				}
 			}
-		}
 
-		function ConfirmDelete() {
-			return confirm("Are you sure you want to delete?");
-		}
-	</script>
-</body>
-
-</html>
+			function ConfirmDelete() {
+				return confirm("Are you sure you want to delete?");
+			}
+		</script>
+	</body>
+	</html>

@@ -147,7 +147,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					</table>
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " reservations.</p>"; ?>
 				</div>
-				<a class="linkbutton" href="mkrsrv.php">New Reservation</a>
+				<a class="linkbutton" href="ckrsrv.php">New Reservation</a>
 			</div>
 		</div>
 	</section>

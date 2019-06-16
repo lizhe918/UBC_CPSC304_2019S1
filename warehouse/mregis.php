@@ -191,7 +191,7 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="dviewa.php">Back</a>
+        <a href="dviewe.php">Back</a>
         <p></p>
         </div>
         </form>
