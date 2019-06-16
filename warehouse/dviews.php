@@ -153,7 +153,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Types</th>
 						</tr>
 						<?php
-						$sql = "SELECT * FROM Storeroom";
+						$sql = "SELECT * FROM Storeroom ORDER BY branchID";
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
 						while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

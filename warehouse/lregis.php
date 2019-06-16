@@ -176,12 +176,13 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
+        <a href="elogin.php">Cancel</a>
         <?php 
-        if ($_COOKIE['zyxwmanager']) {
-            echo '<a href="mlogin.php">Back</a>';
-        } else {
-            echo '<a href="dlogin.php">Back</a>';
-        } ?>
+        // if ($_COOKIE['zyxwmanager']) {
+        //     echo '<a href="mlogin.php">Back</a>';
+        // } else {
+        //     echo '<a href="dlogin.php">Back</a>';
+        // } ?>
         <p></p>
         </div>
         </form>
