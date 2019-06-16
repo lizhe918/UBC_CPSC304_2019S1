@@ -1,6 +1,6 @@
 <?php 
 require_once "pdo_constructor.php";
-$isset = isset($_COOKIE['zyxwuser']);
+$isset = isset($_COOKIE['zyxwuser']) && isset($_COOKIE['zyxwpswd']);
 ?>
 
 
