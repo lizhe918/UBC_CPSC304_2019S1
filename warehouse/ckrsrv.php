@@ -65,7 +65,7 @@
       </a>
     </div>
     </div>
-    <div class="form-container">
+    <div class="form-container" style="background-color: white;">
     <form method="post">
         <div class="form-content">
         <h2 style="color: #002145;">CPSC304 Group 1 Project</h2>
