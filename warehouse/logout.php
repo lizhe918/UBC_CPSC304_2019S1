@@ -12,5 +12,5 @@
         setcookie("zyxwworker", "", time() - 3600);
         setcookie("zyxwwpswd", "", time() - 3600);
     }
-    header("Location: index.html");
+    header("Location: index.php");
 ?>

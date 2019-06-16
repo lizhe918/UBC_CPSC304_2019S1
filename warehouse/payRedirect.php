@@ -30,7 +30,7 @@
 
 <?php
 
-    header("Refresh: 1.5; URL=index.html");
+    header("Refresh: 1.5; URL=index.php");
     exit;
   
 ?>

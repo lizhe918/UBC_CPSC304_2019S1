@@ -4,7 +4,7 @@
 
 
     if (isset($_POST['cancel'])) {
-        header("Location: index.html");
+        header("Location: index.php");
     }
 
     if (isset($_POST) & !empty($_POST)) {
@@ -28,9 +28,9 @@
   <body>
     <div class="navbar">
     <div class="items" id="thebar">
-      <a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
-        <a href="./index.html#about">ABOUT</a>
-        <a href="./index.html#contact">CONTACT</a>
+      <a href="./index.php#home" id="brandlabel">ZYXW STORAGE</a>
+        <a href="./index.php#about">ABOUT</a>
+        <a href="./index.php#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
         

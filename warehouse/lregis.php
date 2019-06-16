@@ -121,9 +121,9 @@
 <body>
     <div class="navbar">
     <div class="items" id="thebar">
-      <a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
-        <a href="./index.html#about">ABOUT</a>
-        <a href="./index.html#contact">CONTACT</a>
+      <a href="./index.php#home" id="brandlabel">ZYXW STORAGE</a>
+        <a href="./index.php#about">ABOUT</a>
+        <a href="./index.php#contact">CONTACT</a>
         <a href="./plans.php">PLANS</a>
         <a  href="./elogin.php">EMPLOYEE</a>
         <a  href="./clogin.php">MY ACCOUNT</a>
@@ -175,7 +175,7 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="index.html">Back to Home Page</a>
+        <a href="index.php">Back to Home Page</a>
         <p></p>
         </div>
         </form>

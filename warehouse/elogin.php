@@ -1,8 +1,7 @@
 <?php
 require_once "pdo_constructor.php";
+$isset = isset($_COOKIE['zyxwuser']);
 ?>
-
-
 
 
 <html lang="en" dir="ltr">
@@ -16,18 +15,23 @@ require_once "pdo_constructor.php";
     <link rel="stylesheet" href="./css/paragraph.css">
     <link rel="stylesheet" href="./css/table.css">
     <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" type="text/css" href="./css/logout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <section class="navbar">
       <div class="items" id="thebar">
-        <a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
-          <a href="./index.html#about">ABOUT</a>
-          <a href="./index.html#contact">CONTACT</a>
+        <a href="./index.php#home" id="brandlabel">ZYXW STORAGE</a>
+          <a href="./index.php#about">ABOUT</a>
+          <a href="./index.php#contact">CONTACT</a>
           <a href="./plans.php">PLANS</a>
           <a  href="./elogin.php">EMPLOYEE</a>
           <a  href="./clogin.php">MY ACCOUNT</a>
-        <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
+          <?php
+            if ($isset) {
+              echo '<a href="./logout.php" id="logout">LOG OUT</a>';
+        } ?>
+          <a href="javascript:void(0);" class="icon" onclick="mobileExpand()">
           <i class="fa fa-bars"></i>
         </a>
       </div>

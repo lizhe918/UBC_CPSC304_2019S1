@@ -52,9 +52,9 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 <body>
 	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
-			<a href="./index.html#home" id="brandlabel">ZYXW STORAGE</a>
-			<a href="./index.html#about">ABOUT</a>
-			<a href="./index.html#contact">CONTACT</a>
+			<a href="./index.php#home" id="brandlabel">ZYXW STORAGE</a>
+			<a href="./index.php#about">ABOUT</a>
+			<a href="./index.php#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
 			<a  href="./logout.php">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
