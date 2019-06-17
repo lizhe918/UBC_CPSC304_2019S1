@@ -183,7 +183,7 @@
         </div>
         <div style="padding: 2em; padding-top:0;">
         <h4 style="margin-top:0;">OR</h4>
-        <a href="mviewe.php">back to profile page</a>
+        <a href="magrmt.php">Back</a>
         <p></p>
         </div>
         </form>

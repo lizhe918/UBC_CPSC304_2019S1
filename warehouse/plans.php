@@ -57,7 +57,7 @@
       }
       ?>
         </table>
-        <p style="text-align:left; color: red;">NOTE:<br> All chages are non-refundable. <br> $3 is required to make reservation.</p>
+        <p style="text-align:left; color: red;">NOTE:<br> All charges are non-refundable. <br> $3 is required to make a reservation.</p>
       </div>
       
     </section>

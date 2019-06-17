@@ -211,7 +211,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 					</table>
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " workers.</p>"; ?>
 					<br>
-					<a class="linkbutton" href="mregis.php">New Managers</a>
+					<a class="linkbutton" href="mregis.php">New Manager</a>
 					<a class="linkbutton" href="lregis.php">New Worker</a>
 				</div>
 				
