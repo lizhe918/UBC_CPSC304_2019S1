@@ -27,7 +27,7 @@ $eid = $user['employID'];
 $sql = "SELECT * FROM Employee WHERE employID = '$eid'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
-$manager = $stmt->fetch(PDO::FETCH_ASSOC);
+$director = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +70,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="username">
 				<h2>
 					<?php
-					echo($manager['fName'] . " " . $manager['lName']);
+					echo($director['fName'] . " " . $director['lName']);
 					?>
 				</h2>
 				<p>
@@ -82,22 +82,22 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo($manager['phoneNum']);
+					echo($director['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo($manager['address']);
+					echo($director['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo($manager['SINNum']);
+					echo($director['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo($manager['email']);
+					echo($director['email']);
 					?>
 				</p>
 				<a class="linkbutton" href="mupdate.php">Edit Profile</a>
@@ -106,6 +106,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
+					<a href="dviewa.php">Dashboard</a>
 					<a href="dviewe.php">Employees</a>
 					<a href="dviewb.php">Branches</a>
 					<a href="dviews.php">Storerooms</a>
@@ -165,7 +166,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						}
 						?>
 					</table>
-					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " managers .</p>"; 
+					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " managers.</p>"; 
 						  $count = 0;?>
 				</div>
 

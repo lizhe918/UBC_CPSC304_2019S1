@@ -92,6 +92,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
+				<a href="dviewa.php">Dashboard</a>
 				<a href="dviewe.php">Employees</a>
 				<a href="dviewb.php">Branches</a>
 				<a href="dviews.php">Storerooms</a>

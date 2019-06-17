@@ -18,6 +18,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>
 		<?php
@@ -36,6 +37,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <body>
 	<section class="navbar" style="z-index: 101;">
 		<div class="items" id="mainbar">
@@ -43,7 +45,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 			<a href="./index.php#about">ABOUT</a>
 			<a href="./index.php#contact">CONTACT</a>
 			<a href="./plans.php">PLANS</a>
-			<a  href="./elogin.php">EMPLOYEE</a>
+			<a href="./elogin.php">EMPLOYEE</a>
 			<a href="./logout.php" id="logout">LOG OUT</a>
 			<a href="javascript:void(0);" class="icon" onclick="mobileExpandMain()">
 				<i class="fa fa-bars"></i>
@@ -56,34 +58,34 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 			<div class="username">
 				<h2>
 					<?php
-					echo($director['fName'] . " " . $director['lName']);
+					echo ($director['fName'] . " " . $director['lName']);
 					?>
 				</h2>
 				<p>
 					<?php
-					echo($_COOKIE['zyxwdirector']);
+					echo ($_COOKIE['zyxwdirector']);
 					?>
 				</p>
 			</div>
 			<div class="info">
 				<p><img src="https://img.icons8.com/metro/420/phone.png">
 					<?php
-					echo($director['phoneNum']);
+					echo ($director['phoneNum']);
 					?>
 				</p>
 				<p><img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/19-512.png">
 					<?php
-					echo($director['address']);
+					echo ($director['address']);
 					?>
 				</p>
 				<p><img src="https://cdn3.iconfinder.com/data/icons/business-office-1-2/256/Identity_Document-512.png">
 					<?php
-					echo($director['SINNum']);
+					echo ($director['SINNum']);
 					?>
 				</p>
 				<p><img src="https://cdn1.iconfinder.com/data/icons/education-set-01/512/email-open-512.png">
 					<?php
-					echo($director['email']);
+					echo ($director['email']);
 					?>
 				</p>
 				<a class="linkbutton" href="dupdate.php">Edit Profile</a>
@@ -92,6 +94,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 		<div class="column function">
 			<div class="navbar" style="position: relative;">
 				<div class="items" id="funcbar">
+					<a href="dviewa.php">Dashboard</a>
 					<a href="dviewe.php">Employees</a>
 					<a href="dviewb.php">Branches</a>
 					<a href="dviews.php">Storerooms</a>
@@ -122,11 +125,11 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<tr>
 								<td><?php echo $amount['method']; ?></td>
 								<td><?php echo $amount['SUM(amount)']; ?></td>
-							<?php }?>
+							<?php } ?>
 						</tr>
 					</table>
 					<?php
-						echo "<p style='text-align: left; color: #002145;'>There are $" . $sum . " from all transactions.</p>";
+					echo "<p style='text-align: left; color: #002145;'>There are $" . $sum . " from all transactions.</p>";
 					?>
 				</div>
 			</div>
@@ -165,27 +168,27 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 								<td><?php echo $transaction['cardNum']; ?></td>
 								<td><?php echo $transaction['method']; ?></td>
 								<td><?php echo $transaction['amount']; ?></td>
-							<?php }?>
+							<?php } ?>
 						</tr>
 					</table>
 					<?php
-						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " transactions.</p>";
+					echo "<p style='text-align: left; color: #002145;'>There are " . $count . " transactions.</p>";
 					?>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="footer-container" >
+	<section class="footer-container">
 		<div class="footer">
-			<a  href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
-				<img src = "https://image.flaticon.com/icons/svg/25/25231.svg" >
+			<a href="https://github.com/lizhe918/UBC_CPSC304_2019S1">
+				<img src="https://image.flaticon.com/icons/svg/25/25231.svg">
 			</a>
-			<a  href="https://www.ubc.ca/">
-				<img src = "https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png" >
+			<a href="https://www.ubc.ca/">
+				<img src="https://bcchdigital.ca/wp-content/uploads/2018/11/ubc-emblem-black.png">
 			</a>
-			<a  href="https://www.cs.ubc.ca/">
-				<img src = "https://avatars0.githubusercontent.com/u/22601447?s=200&v=4" >
+			<a href="https://www.cs.ubc.ca/">
+				<img src="https://avatars0.githubusercontent.com/u/22601447?s=200&v=4">
 			</a>
 		</div>
 	</section>
@@ -213,4 +216,5 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 		}
 	</script>
 </body>
+
 </html>
