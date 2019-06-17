@@ -307,22 +307,22 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Amount Spent (CAD) | YTD</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT A.owner, C.fName, C.lName, A.address, SUM(a.rev) AS rev, COUNT(a.branch) AS count 
-                               FROM Customer C, (SELECT A.owner, B.address, A.rev, A.branch 
-                                                 FROM Branch B, (SELECT A.owner, A.branch, A.amount AS rev 
-                                                                 FROM (SELECT I.owner, P.payNum, P.amount, I.branch 
-                                                                       FROM Agreement A, Payment P, ItemInfo I 
-                                                                       WHERE A.payment = P.payNum AND 
-                                                                       I.agrmtNum = A.agrmtNum AND 
+                        $q1 = "SELECT A.owner, C.fName, C.lName, A.address, SUM(a.rev) AS rev, COUNT(a.branch) AS count
+                               FROM Customer C, (SELECT A.owner, B.address, A.rev, A.branch
+                                                 FROM Branch B, (SELECT A.owner, A.branch, A.amount AS rev
+                                                                 FROM (SELECT I.owner, P.payNum, P.amount, I.branch
+                                                                       FROM Agreement A, Payment P, ItemInfo I
+                                                                       WHERE A.payment = P.payNum AND
+                                                                       I.agrmtNum = A.agrmtNum AND
                                                                        A.startDay BETWEEN '2019-01-01' AND '2019-12-31'
                                                                        UNION
-                                                                       SELECT R.reserver, P.payNum, P.amount, R.branch 
-                                                                       FROM Reservation R, Payment P 
-                                                                       WHERE R.payment = P.payNum AND 
-                                                                       R.startDay BETWEEN '2019-01-01' AND '2019-12-31') A) A 
-                                                 WHERE B.branchID = A.branch) A 
-                               WHERE C.username = A.owner 
-                               GROUP BY C.fName, C.lName, A.owner, A.address 
+                                                                       SELECT R.reserver, P.payNum, P.amount, R.branch
+                                                                       FROM Reservation R, Payment P
+                                                                       WHERE R.payment = P.payNum AND
+                                                                       R.startDay BETWEEN '2019-01-01' AND '2019-12-31') A) A
+                                                 WHERE B.branchID = A.branch) A
+                               WHERE C.username = A.owner
+                               GROUP BY C.fName, C.lName, A.owner, A.address
                                ORDER BY rev DESC";
                         $s1 = $pdo->prepare($q1);
                         $s1->execute();
@@ -352,10 +352,10 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Revenue (CAD)</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT BB.branchID, address, rev FROM Branch, (SELECT AA.branch AS BranchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
+                        $q1 = "SELECT BB.branchID, address, rev FROM Branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
                         FROM Payment P, Agreement A, ItemInfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum
                         AND startday BETWEEN '$startDate' AND '$endDate'
-                        GROUP BY Branch) AS AA INNER JOIN (SELECT R.Branch, SUM(amount) AS R2 FROM Payment P, Reservation R WHERE R.payment = P.payNum
+                        GROUP BY branch) AS AA INNER JOIN (SELECT R.Branch, SUM(amount) AS R2 FROM Payment P, Reservation R WHERE R.payment = P.payNum
                         AND startday BETWEEN '$startDate' AND '$endDate'
                         GROUP BY R.branch) B on AA.branch = B.branch) AS BB
                         WHERE BB.branchID = Branch.branchID
@@ -366,7 +366,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                         for ($i = 0; $i < 3; $i++) {
                             $row = $s1->fetch(PDO::FETCH_ASSOC);
                             echo "<tr><td>";
-                            echo ($row['BranchID']);
+                            echo ($row['branchID']);
                             echo ("</td><td>");
                             echo ($row['address']);
                             echo ("</td><td>");
