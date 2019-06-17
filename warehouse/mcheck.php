@@ -31,12 +31,12 @@ if (isset($_POST) & !empty($_POST)) {
         $message = "Please Complete All Required fields";
     }else{
 
-        $sqlSelectedDates = "SELECT S.branchid AS branchID, S.roomnum AS roomNum, S.maxSpace, (S.maxSpace - used) AS Available
-        FROM Storeroom S, 
-        (SELECT branchid, roomnum, max(space) AS used
-        FROM usedspace
+        $sqlSelectedDates = "SELECT S.branchID AS branchID, S.roomNum AS roomNum, S.maxSpace, (S.maxSpace - used) AS available
+        FROM Storeroom S,
+        (SELECT branchID, roomNum, max(space) AS used
+        FROM UsedSpace
         WHERE date BETWEEN '$startDate' AND '$endDate'
-        GROUP BY branchid, roomnum) r
+        GROUP BY branchID, roomNum) r
         WHERE S.branchID = R.branchID AND S.roomNum = R.roomNum AND (S.maxSpace - used) >= $rsvSpace";
 
 
@@ -63,23 +63,23 @@ if (isset($_POST) & !empty($_POST)) {
         WHERE R.branchID = S.branchID AND R.roomNum = S.roomNum))";
 
 
-        $sqlEmptyRooms = "SELECT DISTINCT SR.branchid, SR.roomnum, SR.maxSpace, SR.maxSpace AS Available
-        FROM storeroom SR
+        $sqlEmptyRooms = "SELECT DISTINCT SR.branchID, SR.roomNum, SR.maxSpace, SR.maxSpace AS Available
+        FROM Storeroom SR
         WHERE SR.maxSpace >= $rsvSpace AND NOT EXISTS (
-        SELECT 1 FROM usedspace US
-        WHERE SR.branchid = US.branchid
-        AND SR.roomnum = US.roomnum
+        SELECT 1 FROM UsedSpace US
+        WHERE SR.branchID = US.branchID
+        AND SR.roomNum = US.roomNum
     )";
 
     $sqlDatesEmpty = $sqlSelectedDates . " UNION " . $sqlEmptyRooms;
 
-    $sqlAllCond = "SELECT A.branchid, A.roomnum, A.maxspace, A.available 
-    FROM (" . $sqlDatesEmpty . ") A INNER JOIN (" . $sqlSelectedTypes . ") Z 
-    WHERE A.branchid = Z.branchid AND A.roomnum = Z.roomnum";
+    $sqlAllCond = "SELECT A.branchID, A.roomNum, A.maxSpace, A.available
+    FROM (" . $sqlDatesEmpty . ") A INNER JOIN (" . $sqlSelectedTypes . ") Z
+    WHERE A.branchID = Z.branchID AND A.roomNum = Z.roomNum";
 
-    $sqlFinal = "SELECT BR.branchID, BR.address AS address, SR.roomnum AS roomNum, SR.maxspace AS maxSpace, C.available AS available 
-    FROM (" . $sqlAllCond . ") C INNER JOIN branch BR, storeroom SR 
-    WHERE BR.branchid = SR.branchid AND SR.branchid = C.branchid AND SR.roomnum = C.roomnum AND BR.branchid = '$branchid'
+    $sqlFinal = "SELECT BR.branchID, BR.address AS address, SR.roomNum AS roomNum, SR.maxSpace AS maxSpace, C.available AS available
+    FROM (" . $sqlAllCond . ") C INNER JOIN Branch BR, Storeroom SR
+    WHERE BR.branchID = SR.branchID AND SR.branchID = C.branchID AND SR.roomNum = C.roomNum AND BR.branchID = '$branchid'
     ORDER BY SR.roomNum";
 
 
@@ -209,7 +209,7 @@ if (isset($_POST) & !empty($_POST)) {
 
                 </form>
             </div>
-            <?php 
+            <?php
             if ($hasQuery) {
                 ?>
                 <div class="tableblock" style="background-color: white;">
@@ -217,7 +217,7 @@ if (isset($_POST) & !empty($_POST)) {
                     <div class="thetable" style="width: 100%;">
                         <table class="entities" style="width:100%;">
                           <tr>
-                            <th>Room Number</th> 
+                            <th>Room Number</th>
                             <th>Available Space (m<sup>3</sup>)</th>
                             <th>Max Space (m<sup>3</sup>)</th>
                             <th>Item Type(s)</th>
@@ -245,9 +245,9 @@ if (isset($_POST) & !empty($_POST)) {
                                 }
                                 echo ("</td></tr>");
                             }
-                        }?>           
+                        }?>
                     </table>
-                </div>        
+                </div>
             </div>
         <?php }?>
     </div>
