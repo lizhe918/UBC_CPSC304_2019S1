@@ -36,7 +36,7 @@ if (isset($_POST) & !empty($_POST)) {
         (SELECT branchID, roomNum, max(space) AS used
         FROM UsedSpace
         WHERE date BETWEEN '$startDate' AND '$endDate'
-        GROUP BY branchID, roomNum) r
+        GROUP BY branchID, roomNum) R
         WHERE S.branchID = R.branchID AND S.roomNum = R.roomNum AND (S.maxSpace - used) >= $rsvSpace";
 
 
@@ -63,7 +63,7 @@ if (isset($_POST) & !empty($_POST)) {
         WHERE R.branchID = S.branchID AND R.roomNum = S.roomNum))";
 
 
-        $sqlEmptyRooms = "SELECT DISTINCT SR.branchID, SR.roomNum, SR.maxSpace, SR.maxSpace AS Available
+        $sqlEmptyRooms = "SELECT DISTINCT SR.branchID, SR.roomNum, SR.maxSpace, SR.maxSpace AS available
         FROM Storeroom SR
         WHERE SR.maxSpace >= $rsvSpace AND NOT EXISTS (
         SELECT 1 FROM UsedSpace US
@@ -86,7 +86,7 @@ if (isset($_POST) & !empty($_POST)) {
     $stmt = $pdo->prepare($sqlFinal);
     $stmt->execute();
     $hasQuery = true;
-}  
+}
 }
 ?>
 
