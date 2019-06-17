@@ -122,7 +122,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <div class="tableblock" style="background-color: white;">
-                <h2>At A Glance</h2>
+                <h2>At a Glance</h2>
                 <div class="thetable" style="width: 90%; padding-bottom: 0;">
                     <table class="entities" style="width:100%">
                         <tr>
@@ -209,9 +209,9 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                     $s1 = $pdo->prepare($q1);
                     $s1->execute();
                     $r4 = $s1->fetch(PDO::FETCH_ASSOC);
-                    $q5 = "SELECT A.branchID AS branchID, RT.typeName, SUM(free) AS free FROM room_type RT, (SELECT branchID, roomNum, (maxSpace - sum) AS free 
-                    FROM (SELECT U.branchID, U.roomNum, maxSpace, SUM(space) as sum FROM usedspace U, storeroom S WHERE U.roomNum = S.roomNum 
-                    AND U.branchID = S.branchID GROUP BY U.branchID, U.roomNum, maxSpace) A) A WHERE A.branchID = RT.branchID AND A.roomNum = RT.roomNum 
+                    $q5 = "SELECT A.branchID AS branchID, RT.typeName, SUM(free) AS free FROM room_type RT, (SELECT branchID, roomNum, (maxSpace - sum) AS free
+                    FROM (SELECT U.branchID, U.roomNum, maxSpace, SUM(space) as sum FROM usedspace U, storeroom S WHERE U.roomNum = S.roomNum
+                    AND U.branchID = S.branchID GROUP BY U.branchID, U.roomNum, maxSpace) A) A WHERE A.branchID = RT.branchID AND A.roomNum = RT.roomNum
                     GROUP BY A.branchID, A.roomNum, typeName ORDER BY A.branchID, typeName";
                     $s5 = $pdo->prepare($q5);
                     $s5->execute();
@@ -252,7 +252,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Revenue (CAD)</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT BB.branchID, address, rev FROM branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1 
+                        $q1 = "SELECT BB.branchID, address, rev FROM branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
                         FROM payment P, agreement A, iteminfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum
                         AND startDay BETWEEN '$startDate' AND '$endDate'
                         GROUP BY branch) AS AA INNER JOIN (SELECT R.branch, SUM(amount) AS R2 FROM payment P, reservation R WHERE R.payment = P.payNum
@@ -282,9 +282,9 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Revenue</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT typeName, SUM(amount) AS rev FROM itemclass I, (SELECT A.agrmtNum, I.itemNum, A.amount FROM item I, 
+                        $q1 = "SELECT typeName, SUM(amount) AS rev FROM itemclass I, (SELECT A.agrmtNum, I.itemNum, A.amount FROM item I,
                         (SELECT A.payment, A.agrmtNum, P.amount FROM agreement A, payment P WHERE A.payment = P.payNum
-                        AND a.startDay BETWEEN '$startDate' AND '$endDate') a WHERE i.agrmtNum = a.agrmtNum) a 
+                        AND a.startDay BETWEEN '$startDate' AND '$endDate') a WHERE i.agrmtNum = a.agrmtNum) a
                         WHERE I.itemNum = A.itemNum GROUP BY typeName ORDER BY rev DESC";
                         $s1 = $pdo->prepare($q1);
                         $s1->execute();
@@ -307,11 +307,11 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Amount Spent (CAD) | YTD</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT A.owner, C.fName, C.lName, A.address, SUM(a.rev) AS rev, COUNT(a.branch) AS c FROM customer C, (SELECT A.owner, B.address, A.rev, A.branch FROM branch B, (SELECT A.owner, A.branch, A.amount AS rev FROM 
-                        (SELECT I.owner, P.payNum, P.amount, I.branch FROM agreement A, payment P, iteminfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum 
-                        AND A.startDay BETWEEN '2019-01-01' AND '2019-12-31' 
+                        $q1 = "SELECT A.owner, C.fName, C.lName, A.address, SUM(a.rev) AS rev, COUNT(a.branch) AS c FROM customer C, (SELECT A.owner, B.address, A.rev, A.branch FROM branch B, (SELECT A.owner, A.branch, A.amount AS rev FROM
+                        (SELECT I.owner, P.payNum, P.amount, I.branch FROM agreement A, payment P, iteminfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum
+                        AND A.startDay BETWEEN '2019-01-01' AND '2019-12-31'
                         UNION
-                        SELECT R.reserver, P.payNum, P.amount, R.branch FROM reservation R, payment P WHERE R.payment = P.payNum AND R.startDay BETWEEN '2019-01-01' 
+                        SELECT R.reserver, P.payNum, P.amount, R.branch FROM reservation R, payment P WHERE R.payment = P.payNum AND R.startDay BETWEEN '2019-01-01'
                         AND '2019-12-31') A) A WHERE B.branchID = A.branch) A WHERE C.username = A.owner GROUP BY C.fName, C.lName, A.owner, A.address ORDER BY rev DESC";
                         $s1 = $pdo->prepare($q1);
                         $s1->execute();
@@ -341,7 +341,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Revenue (CAD)</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT BB.branchID, address, rev FROM branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1 
+                        $q1 = "SELECT BB.branchID, address, rev FROM branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
                         FROM payment P, agreement A, iteminfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum
                         AND startday BETWEEN '$startDate' AND '$endDate'
                         GROUP BY branch) AS AA INNER JOIN (SELECT R.branch, SUM(amount) AS R2 FROM payment P, reservation R WHERE R.payment = P.payNum
