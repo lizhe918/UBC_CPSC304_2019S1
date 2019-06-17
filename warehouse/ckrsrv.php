@@ -32,18 +32,24 @@ if (isset($_POST) & !empty($_POST)) {
 
 
         $types = "SELECT * FROM ItemType WHERE false OR ";
-        if (isset($_POST['RGLR'])) {
-            $types = $types . "typeName = 'RGLR' OR ";
+        if (isset($_POST['type'])) {
+            $selectedTypes = $_POST['type'];
+            foreach ($selectedTypes as $value) {
+                $types = $types . "typeName = '" . $value . "' OR ";
+            }
         }
-        if (isset($_POST['FLAM'])) {
-            $types = $types . "typeName = 'FLAM' OR ";
-        }
-        if (isset($_POST['FRZN'])) {
-            $types = $types . "typeName = 'FRZN' OR ";
-        }
-        if (isset($_POST['FRGL'])) {
-            $types = $types . "typeName = 'FRGL' OR ";
-        }
+        // if (isset($_POST['RGLR'])) {
+        //     $types = $types . "typeName = 'RGLR' OR ";
+        // }
+        // if (isset($_POST['FLAM'])) {
+        //     $types = $types . "typeName = 'FLAM' OR ";
+        // }
+        // if (isset($_POST['FRZN'])) {
+        //     $types = $types . "typeName = 'FRZN' OR ";
+        // }
+        // if (isset($_POST['FRGL'])) {
+        //     $types = $types . "typeName = 'FRGL' OR ";
+        // }
         $types = $types . 'false';
 
         $sqlSelectedTypes = "SELECT branchID, roomNum, maxSpace FROM Storeroom S
@@ -192,11 +198,23 @@ if ($hasQuery) {
             <p>Reserve Space (m<sup>3</sup>)*:<br>
                 <input class="short" type="text" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
             </p>
-            <p>Select Item Type:<br>
-                <input type="checkbox" name="RGLR" value="Regular" <?php echo (isset($_POST["RGLR"])) ? 'checked="checked"' : ''?> />Regular<br>
-                <input type="checkbox" name="FRZN" value="Frozen" <?php echo (isset($_POST["FRZN"])) ? 'checked="checked"' : ''?> />Frozen<br>
-                <input type="checkbox" name="FLAM" value="Flammable" <?php echo (isset($_POST["FLAM"])) ? 'checked="checked"' : ''?> />Flammable<br>
-                <input type="checkbox" name="FRGL" value="Fragile" <?php echo (isset($_POST["FRGL"])) ? 'checked="checked"' : ''?> />Fragile<br>
+            <p>Select Item Type:<br><br>
+                <?php
+                $sqlAllTypes = "SELECT * FROM ItemType ORDER BY rate";
+                $allTypes = $pdo->prepare($sqlAllTypes);
+                $allTypes->execute();
+                while ($oneType = $allTypes->fetch(PDO::FETCH_ASSOC)) {
+                    $abbrev = $oneType['typeName'];
+                    ?>
+                    <input
+                        type="checkbox"
+                        name="type[]"
+                        value='<?php echo $abbrev; ?>'
+                        <?php echo (isset($_POST["RGLR"])) ? 'checked="checked"' : ''?>
+                    /><?php echo "$abbrev"; ?>
+                    <?php
+                }
+                ?>
             </p>
             <?php
             if ($message != false) {
