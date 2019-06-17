@@ -201,7 +201,7 @@ INSERT INTO `Item` (`itemNum`, `agrmtNum`, `size`) VALUES
 -- 触发器 `item`
 --
 DELIMITER $$
-CREATE TRIGGER `totalItemClass` AFTER INSERT ON `item` FOR EACH ROW INSERT INTO ItemClass(itemNUM, typeName) 
+CREATE TRIGGER `totalItemClass` AFTER INSERT ON `Item` FOR EACH ROW INSERT INTO ItemClass(itemNUM, typeName) 
 
 VALUES(new.itemNum, 'RGLR')
 $$
@@ -439,7 +439,7 @@ INSERT INTO `Storeroom` (`roomNum`, `branchID`, `maxSpace`) VALUES
 -- 触发器 `storeroom`
 --
 DELIMITER $$
-CREATE TRIGGER `totalRoomClass` AFTER INSERT ON `storeroom` FOR EACH ROW INSERT INTO Room_Type(roomNUM, branchID, typeName) 
+CREATE TRIGGER `totalRoomClass` AFTER INSERT ON `Storeroom` FOR EACH ROW INSERT INTO Room_Type(roomNUM, branchID, typeName) 
 
 VALUES(new.roomNUM, new.branchID, 'RGLR')
 $$
