@@ -72,37 +72,22 @@ $isset = isset($_COOKIE['zyxwuser']) && isset($_COOKIE['zyxwpswd']);
       <table class="entities" style="width:100%">
         <tr>
           <th>Name</th>
-          <th>Student Number</th>
-          <th>CS ID</th>
-          <th>Tutorial Section</th>
           <th>Email Address</th>
         </tr>
         <tr>
           <td>Zhe Li</td>
-          <td>88792486</td>
-          <td>d3q1b</td>
-          <td>T1D</td>
           <td>lizhe1313@outlook.com</td>
         </tr>
         <tr>
           <td>Yi Xuan Qi</td>
-          <td>95411336</td>
-          <td>b6t1b</td>
-          <td>T1D</td>
           <td>yixuan99316@gmail.com</td>
         </tr>
         <tr>
           <td>Yuxin Tian</td>
-          <td>59056218</td>
-          <td>f0z1b</td>
-          <td>T1F</td>
           <td>tian19yuxin@163.com</td>
         </tr>
         <tr>
           <td>Justin Wong</td>
-          <td>31494157</td>
-          <td>j6h1b</td>
-          <td>T1D</td>
           <td>justinc.s.wong@gmail.com</td>
         </tr>
       </table>
