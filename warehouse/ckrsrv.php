@@ -22,12 +22,12 @@ if (isset($_POST) & !empty($_POST)) {
         $message = "Please Complete All Required fields";
     }else{
 
-        $sqlSelectedDates = "SELECT S.branchid AS branchID, S.roomnum AS roomNum, S.maxSpace, (S.maxSpace - used) AS Available
-        FROM Storeroom S, 
-        (SELECT branchid, roomnum, max(space) AS used
-        FROM usedspace
+        $sqlSelectedDates = "SELECT S.branchID AS branchID, S.roomNum AS roomNum, S.maxSpace, (S.maxSpace - used) AS available
+        FROM Storeroom S,
+        (SELECT branchID, roomNum, max(space) AS used
+        FROM UsedSpace
         WHERE date BETWEEN '$startDate' AND '$endDate'
-        GROUP BY branchid, roomnum) r
+        GROUP BY branchID, roomNum) R
         WHERE S.branchID = R.branchID AND S.roomNum = R.roomNum AND (S.maxSpace - used) >= $rsvSpace";
 
 
@@ -54,29 +54,29 @@ if (isset($_POST) & !empty($_POST)) {
         WHERE R.branchID = S.branchID AND R.roomNum = S.roomNum))";
 
 
-        $sqlEmptyRooms = "SELECT DISTINCT SR.branchid, SR.roomnum, SR.maxSpace, SR.maxSpace AS Available
-        FROM storeroom SR
+        $sqlEmptyRooms = "SELECT DISTINCT SR.branchid, SR.roomnum, SR.maxSpace, SR.maxSpace AS available
+        FROM Storeroom SR
         WHERE SR.maxSpace >= $rsvSpace AND NOT EXISTS (
-        SELECT 1 FROM usedspace US
-        WHERE SR.branchid = US.branchid
-        AND SR.roomnum = US.roomnum
+        SELECT 1 FROM UsedSpace US
+        WHERE SR.branchID = US.branchID
+        AND SR.roomNum = US.roomNum
     )";
 
     $sqlDatesEmpty = $sqlSelectedDates . " UNION " . $sqlEmptyRooms;
 
-    $sqlAllCond = "SELECT A.branchid, A.roomnum, A.maxspace, A.available 
-    FROM (" . $sqlDatesEmpty . ") A INNER JOIN (" . $sqlSelectedTypes . ") Z 
-    WHERE A.branchid = Z.branchid AND A.roomnum = Z.roomnum";
+    $sqlAllCond = "SELECT A.branchID, A.roomNum, A.maxSpace, A.available
+    FROM (" . $sqlDatesEmpty . ") A INNER JOIN (" . $sqlSelectedTypes . ") Z
+    WHERE A.branchID = Z.branchID AND A.roomNum = Z.roomNum";
 
-    $sqlFinal = "SELECT BR.branchID, BR.address AS address, SR.roomnum AS roomNum, SR.maxspace AS maxSpace, C.available AS available 
-    FROM (" . $sqlAllCond . ") C INNER JOIN branch BR, storeroom SR 
-    WHERE BR.branchid = SR.branchid AND SR.branchid = C.branchid AND SR.roomnum = C.roomnum";
+    $sqlFinal = "SELECT BR.branchID, BR.address AS address, SR.roomnum AS roomNum, SR.maxspace AS maxSpace, C.available AS available
+    FROM (" . $sqlAllCond . ") C INNER JOIN Branch BR, Storeroom SR
+    WHERE BR.branchID = SR.branchID AND SR.branchID = C.branchID AND SR.roomNum = C.roomNum";
 
 
     $stmt = $pdo->prepare($sqlFinal);
     $stmt->execute();
     $hasQuery = true;
-    }  
+    }
 }
 ?>
 
@@ -128,7 +128,7 @@ if (isset($_POST) & !empty($_POST)) {
         </a>
     </div>
 </div>
-<?php 
+<?php
 if ($hasQuery) {
 ?>
 <div class="tableblock" style="background-color: white; padding-top: 8em;">
@@ -137,7 +137,7 @@ if ($hasQuery) {
     <table class="entities" style="width:100%;">
       <tr>
         <th>Branch Address</th>
-        <th>Room Number</th> 
+        <th>Room Number</th>
         <th>Item Type(s)</th>
         <th>Operation</th>
     </tr>
@@ -149,7 +149,7 @@ if ($hasQuery) {
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $bid = $row['branchID'];
             $rid = $row['roomNum'];
-            $sql = "select r.typeName as typeName from room_type r where r.branchid = '$bid' and r.roomnum = '$rid'";
+            $sql = "SELECT R.typeName AS typeName FROM Room_Type R WHERE R.branchID = '$bid' and R.roomNum = '$rid'";
             $rtypes = $pdo->prepare($sql);
             $rtypes->execute();
             echo "<tr><td>";
@@ -161,18 +161,18 @@ if ($hasQuery) {
                 echo ($rtype['typeName'] . " ");
             }
             echo ("</td><td>");
-            $url = "pay.php?branchid=" . urlencode($bid) . 
-            "&roomnum=" . urlencode($rid) . 
-            "&startDate=" . urlencode($startDate) . 
-            "&endDate=" . urlencode($endDate) . 
+            $url = "pay.php?branchid=" . urlencode($bid) .
+            "&roomnum=" . urlencode($rid) .
+            "&startDate=" . urlencode($startDate) .
+            "&endDate=" . urlencode($endDate) .
             "&username=" . urlencode($cusername) .
             "&space=" . urlencode($rsvSpace);
             echo '<a href="' . $url . '">SELECT</a>';
             echo "</td></tr>";
         }
-    }?>           
+    }?>
 </table>
-</div>        
+</div>
 </div>
 <?php }?>
 <div class="form-container">
@@ -207,7 +207,7 @@ if ($hasQuery) {
                 <input class="button confirm" type="submit" name="submit" value="Submit">
             </div>
         </div>
-             
+
     </form>
 </div>
 </div>
