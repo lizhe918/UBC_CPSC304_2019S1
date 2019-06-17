@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- 表的结构 `agreement`
 --
 
-CREATE TABLE `agreement` (
+CREATE TABLE `Agreement` (
   `agrmtNum` int(8) NOT NULL,
   `startDay` date NOT NULL,
   `endDay` date NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `agreement` (
 -- 转存表中的数据 `agreement`
 --
 
-INSERT INTO `agreement` (`agrmtNum`, `startDay`, `endDay`, `payment`, `pickDay`, `fromResv`) VALUES
+INSERT INTO `Agreement` (`agrmtNum`, `startDay`, `endDay`, `payment`, `pickDay`, `fromResv`) VALUES
 (1, '2019-05-01', '2019-05-31', 10000001, NULL, NULL),
 (2, '2019-05-02', '2019-06-01', 10000002, NULL, NULL),
 (3, '2019-05-03', '2019-06-03', 10000003, NULL, NULL),
@@ -54,7 +54,7 @@ INSERT INTO `agreement` (`agrmtNum`, `startDay`, `endDay`, `payment`, `pickDay`,
 -- 表的结构 `branch`
 --
 
-CREATE TABLE `branch` (
+CREATE TABLE `Branch` (
   `branchID` int(5) NOT NULL,
   `address` varchar(128) NOT NULL,
   `phoneNum` char(10) NOT NULL
@@ -64,7 +64,7 @@ CREATE TABLE `branch` (
 -- 转存表中的数据 `branch`
 --
 
-INSERT INTO `branch` (`branchID`, `address`, `phoneNum`) VALUES
+INSERT INTO `Branch` (`branchID`, `address`, `phoneNum`) VALUES
 (1, '9 Hurricane Avenue, Surry, BC', '6045555555'),
 (2, '2205 Lower Mall, Vancouver, BC', '7788623284'),
 (3, '798-47 Main Mall, Vancouver, BC', '7782936837'),
@@ -77,17 +77,17 @@ INSERT INTO `branch` (`branchID`, `address`, `phoneNum`) VALUES
 -- 表的结构 `card`
 --
 
-CREATE TABLE `card` (
+CREATE TABLE `Card` (
   `cardNum` char(16) NOT NULL,
   `cardExp` date DEFAULT NULL,
   `method` char(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- 转存表中的数据 `card`
+-- 转存表中的数据 `Card`
 --
 
-INSERT INTO `card` (`cardNum`, `cardExp`, `method`) VALUES
+INSERT INTO `Card` (`cardNum`, `cardExp`, `method`) VALUES
 ('4514025831240001', '2019-09-19', 'VISA'),
 ('4514025831240002', '2019-05-31', 'VISA'),
 ('6002025831240003', '2019-12-26', 'MSTR'),
@@ -100,7 +100,7 @@ INSERT INTO `card` (`cardNum`, `cardExp`, `method`) VALUES
 -- 表的结构 `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE `Customer` (
   `username` varchar(12) NOT NULL,
   `password` varchar(16) NOT NULL,
   `IDNum` varchar(32) NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `customer` (
 -- 转存表中的数据 `customer`
 --
 
-INSERT INTO `customer` (`username`, `password`, `IDNum`, `lName`, `fName`, `phoneNum`, `address`, `email`) VALUES
+INSERT INTO `Customer` (`username`, `password`, `IDNum`, `lName`, `fName`, `phoneNum`, `address`, `email`) VALUES
 ('ada728', '19990728', 'STUC88888888', 'Tang', 'Ada', '7783021185', '888 61 St Vancouver', 'tangadaa@hotmail,com'),
 ('justin218', 'password', 'PSPTE12345678', 'Wong', 'Justin', '7782888218', '2600 East Broadway Street, Vancouver, BC, V5B 1Y5', 'justinc.s.wong@gmail.com'),
 ('lizhe1313', 'yxsy0102', 'STUC88792486', 'Li', 'Zhe', '7785227568', '788-2205 Lower Mall, Vancouver, BC, V6T1Z4', 'lizhe1313@outlook.com'),
@@ -128,7 +128,7 @@ INSERT INTO `customer` (`username`, `password`, `IDNum`, `lName`, `fName`, `phon
 -- 表的结构 `director`
 --
 
-CREATE TABLE `director` (
+CREATE TABLE `Director` (
   `employID` int(4) NOT NULL,
   `username` varchar(12) NOT NULL,
   `password` varchar(16) NOT NULL
@@ -138,7 +138,7 @@ CREATE TABLE `director` (
 -- 转存表中的数据 `director`
 --
 
-INSERT INTO `director` (`employID`, `username`, `password`) VALUES
+INSERT INTO `Director` (`employID`, `username`, `password`) VALUES
 (3001, 'gary1999', '12345678');
 
 -- --------------------------------------------------------
@@ -147,7 +147,7 @@ INSERT INTO `director` (`employID`, `username`, `password`) VALUES
 -- 表的结构 `employee`
 --
 
-CREATE TABLE `employee` (
+CREATE TABLE `Employee` (
   `employID` int(4) NOT NULL,
   `lName` varchar(32) DEFAULT NULL,
   `fName` varchar(32) NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE `employee` (
 -- 转存表中的数据 `employee`
 --
 
-INSERT INTO `employee` (`employID`, `lName`, `fName`, `SINNum`, `phoneNum`, `email`, `address`) VALUES
+INSERT INTO `Employee` (`employID`, `lName`, `fName`, `SINNum`, `phoneNum`, `email`, `address`) VALUES
 (1001, 'Jefferson', 'Thomas', 123468592, '5781657923', 'jthomas@outlook.com', '8973 Penn Avenue, DC, US'),
 (1002, 'Chen', 'Kevin', 123456780, '6048749999', 'kevinchen@gmail.com', '1235 Lois Lane, Gotham City, BC, V2Y 5X3'),
 (1003, 'Chen', 'Xian', 123123123, '6046046044', 'xianchen@gmail.com', '1234 Candycane Lane, Chocklit City, BC, V3Y 3X4'),
@@ -180,7 +180,7 @@ INSERT INTO `employee` (`employID`, `lName`, `fName`, `SINNum`, `phoneNum`, `ema
 -- 表的结构 `item`
 --
 
-CREATE TABLE `item` (
+CREATE TABLE `Item` (
   `itemNum` int(12) NOT NULL,
   `agrmtNum` int(12) NOT NULL,
   `size` double NOT NULL
@@ -190,7 +190,7 @@ CREATE TABLE `item` (
 -- 转存表中的数据 `item`
 --
 
-INSERT INTO `item` (`itemNum`, `agrmtNum`, `size`) VALUES
+INSERT INTO `Item` (`itemNum`, `agrmtNum`, `size`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 3, 3),
@@ -213,7 +213,7 @@ DELIMITER ;
 -- 表的结构 `itemclass`
 --
 
-CREATE TABLE `itemclass` (
+CREATE TABLE `ItemClass` (
   `itemNum` int(12) NOT NULL,
   `typeName` char(4) NOT NULL DEFAULT 'RGLR'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -222,7 +222,7 @@ CREATE TABLE `itemclass` (
 -- 转存表中的数据 `itemclass`
 --
 
-INSERT INTO `itemclass` (`itemNum`, `typeName`) VALUES
+INSERT INTO `ItemClass` (`itemNum`, `typeName`) VALUES
 (1, 'RGLR'),
 (2, 'RGLR'),
 (3, 'RGLR'),
@@ -235,7 +235,7 @@ INSERT INTO `itemclass` (`itemNum`, `typeName`) VALUES
 -- 表的结构 `iteminfo`
 --
 
-CREATE TABLE `iteminfo` (
+CREATE TABLE `ItemInfo` (
   `agrmtNum` int(12) NOT NULL,
   `owner` varchar(12) NOT NULL,
   `branch` int(5) NOT NULL,
@@ -246,7 +246,7 @@ CREATE TABLE `iteminfo` (
 -- 转存表中的数据 `iteminfo`
 --
 
-INSERT INTO `iteminfo` (`agrmtNum`, `owner`, `branch`, `roomNum`) VALUES
+INSERT INTO `ItemInfo` (`agrmtNum`, `owner`, `branch`, `roomNum`) VALUES
 (1, 'ada728', 1, 101),
 (2, 'justin218', 2, 101),
 (3, 'lizhe1313', 3, 101),
@@ -259,7 +259,7 @@ INSERT INTO `iteminfo` (`agrmtNum`, `owner`, `branch`, `roomNum`) VALUES
 -- 表的结构 `itemtype`
 --
 
-CREATE TABLE `itemtype` (
+CREATE TABLE `ItemType` (
   `typeName` char(4) NOT NULL,
   `rate` int(11) DEFAULT NULL,
   `comment` varchar(128) NOT NULL
@@ -269,7 +269,7 @@ CREATE TABLE `itemtype` (
 -- 转存表中的数据 `itemtype`
 --
 
-INSERT INTO `itemtype` (`typeName`, `rate`, `comment`) VALUES
+INSERT INTO `ItemType` (`typeName`, `rate`, `comment`) VALUES
 ('CPGS', 3, 'Compressed Gas'),
 ('EXPL', 4, 'Explosive Material'),
 ('FLAM', 2, 'Flammable Material'),
@@ -285,7 +285,7 @@ INSERT INTO `itemtype` (`typeName`, `rate`, `comment`) VALUES
 -- 表的结构 `labourer`
 --
 
-CREATE TABLE `labourer` (
+CREATE TABLE `Labourer` (
   `employID` int(4) NOT NULL,
   `innerPIN` int(4) DEFAULT NULL,
   `branchID` int(5) DEFAULT NULL
@@ -295,7 +295,7 @@ CREATE TABLE `labourer` (
 -- 转存表中的数据 `labourer`
 --
 
-INSERT INTO `labourer` (`employID`, `innerPIN`, `branchID`) VALUES
+INSERT INTO `Labourer` (`employID`, `innerPIN`, `branchID`) VALUES
 (2001, 20000001, 1),
 (2002, 20000002, 2),
 (2003, 20000003, 3),
@@ -308,7 +308,7 @@ INSERT INTO `labourer` (`employID`, `innerPIN`, `branchID`) VALUES
 -- 表的结构 `manager`
 --
 
-CREATE TABLE `manager` (
+CREATE TABLE `Manager` (
   `employID` int(4) NOT NULL,
   `username` varchar(12) NOT NULL,
   `password` varchar(16) NOT NULL,
@@ -319,7 +319,7 @@ CREATE TABLE `manager` (
 -- 转存表中的数据 `manager`
 --
 
-INSERT INTO `manager` (`employID`, `username`, `password`, `branchID`) VALUES
+INSERT INTO `Manager` (`employID`, `username`, `password`, `branchID`) VALUES
 (1001, 'jeff01', '00000001', 1),
 (1002, 'kevin02', '00000002', 2),
 (1003, 'chen03', '00000003', 3),
@@ -332,7 +332,7 @@ INSERT INTO `manager` (`employID`, `username`, `password`, `branchID`) VALUES
 -- 表的结构 `payment`
 --
 
-CREATE TABLE `payment` (
+CREATE TABLE `Payment` (
   `payNum` int(8) NOT NULL,
   `amount` double NOT NULL,
   `cardNum` char(16) DEFAULT NULL
@@ -342,7 +342,7 @@ CREATE TABLE `payment` (
 -- 转存表中的数据 `payment`
 --
 
-INSERT INTO `payment` (`payNum`, `amount`, `cardNum`) VALUES
+INSERT INTO `Payment` (`payNum`, `amount`, `cardNum`) VALUES
 (10000001, 50, '4514025831240001'),
 (10000002, 55, '4514025831240002'),
 (10000003, 60, '6002025831240003'),
@@ -360,7 +360,7 @@ INSERT INTO `payment` (`payNum`, `amount`, `cardNum`) VALUES
 -- 表的结构 `reservation`
 --
 
-CREATE TABLE `reservation` (
+CREATE TABLE `Reservation` (
   `confNum` int(8) NOT NULL,
   `reserver` varchar(12) NOT NULL,
   `startDay` date NOT NULL,
@@ -375,7 +375,7 @@ CREATE TABLE `reservation` (
 -- 转存表中的数据 `reservation`
 --
 
-INSERT INTO `reservation` (`confNum`, `reserver`, `startDay`, `endDay`, `rsvSpace`, `branch`, `roomNum`, `payment`) VALUES
+INSERT INTO `Reservation` (`confNum`, `reserver`, `startDay`, `endDay`, `rsvSpace`, `branch`, `roomNum`, `payment`) VALUES
 (10000001, 'ada728', '2019-06-01', '2019-06-03', 1, 1, 101, 10000006),
 (10000002, 'justin218', '2019-06-01', '2019-06-07', 2, 2, 101, 10000007),
 (10000003, 'lizhe1313', '2019-06-13', '2019-05-17', 3, 3, 101, 10000008),
@@ -388,7 +388,7 @@ INSERT INTO `reservation` (`confNum`, `reserver`, `startDay`, `endDay`, `rsvSpac
 -- 表的结构 `room_type`
 --
 
-CREATE TABLE `room_type` (
+CREATE TABLE `Room_Type` (
   `roomNum` int(3) NOT NULL,
   `branchID` int(5) NOT NULL,
   `typeName` char(4) NOT NULL DEFAULT 'RGLR'
@@ -398,7 +398,7 @@ CREATE TABLE `room_type` (
 -- 转存表中的数据 `room_type`
 --
 
-INSERT INTO `room_type` (`roomNum`, `branchID`, `typeName`) VALUES
+INSERT INTO `Room_Type` (`roomNum`, `branchID`, `typeName`) VALUES
 (101, 1, 'FLAM'),
 (101, 1, 'FRZN'),
 (101, 1, 'RGLR'),
@@ -416,7 +416,7 @@ INSERT INTO `room_type` (`roomNum`, `branchID`, `typeName`) VALUES
 -- 表的结构 `storeroom`
 --
 
-CREATE TABLE `storeroom` (
+CREATE TABLE `Storeroom` (
   `roomNum` int(3) NOT NULL,
   `branchID` int(5) NOT NULL,
   `maxSpace` double NOT NULL
@@ -426,7 +426,7 @@ CREATE TABLE `storeroom` (
 -- 转存表中的数据 `storeroom`
 --
 
-INSERT INTO `storeroom` (`roomNum`, `branchID`, `maxSpace`) VALUES
+INSERT INTO `Storeroom` (`roomNum`, `branchID`, `maxSpace`) VALUES
 (101, 1, 100),
 (101, 2, 200),
 (101, 3, 300),
@@ -451,7 +451,7 @@ DELIMITER ;
 -- 表的结构 `usedspace`
 --
 
-CREATE TABLE `usedspace` (
+CREATE TABLE `UsedSpace` (
   `roomNum` int(3) NOT NULL,
   `branchID` int(5) NOT NULL,
   `date` date NOT NULL,
@@ -463,9 +463,9 @@ CREATE TABLE `usedspace` (
 --
 
 --
--- 表的索引 `agreement`
+-- 表的索引 `Agreement`
 --
-ALTER TABLE `agreement`
+ALTER TABLE `Agreement`
   ADD PRIMARY KEY (`agrmtNum`),
   ADD UNIQUE KEY `payment` (`payment`),
   ADD UNIQUE KEY `fromResv` (`fromResv`);
@@ -473,7 +473,7 @@ ALTER TABLE `agreement`
 --
 -- 表的索引 `branch`
 --
-ALTER TABLE `branch`
+ALTER TABLE `Branch`
   ADD PRIMARY KEY (`branchID`),
   ADD UNIQUE KEY `address` (`address`),
   ADD UNIQUE KEY `phoneNum` (`phoneNum`);
@@ -481,13 +481,13 @@ ALTER TABLE `branch`
 --
 -- 表的索引 `card`
 --
-ALTER TABLE `card`
+ALTER TABLE `Card`
   ADD PRIMARY KEY (`cardNum`);
 
 --
 -- 表的索引 `customer`
 --
-ALTER TABLE `customer`
+ALTER TABLE `Customer`
   ADD PRIMARY KEY (`username`),
   ADD UNIQUE KEY `IDNum` (`IDNum`),
   ADD UNIQUE KEY `phoneNum` (`phoneNum`),
@@ -496,14 +496,14 @@ ALTER TABLE `customer`
 --
 -- 表的索引 `director`
 --
-ALTER TABLE `director`
+ALTER TABLE `Director`
   ADD PRIMARY KEY (`employID`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
 -- 表的索引 `employee`
 --
-ALTER TABLE `employee`
+ALTER TABLE `Employee`
   ADD PRIMARY KEY (`employID`),
   ADD UNIQUE KEY `SINNum` (`SINNum`),
   ADD UNIQUE KEY `phoneNum` (`phoneNum`),
@@ -512,21 +512,21 @@ ALTER TABLE `employee`
 --
 -- 表的索引 `item`
 --
-ALTER TABLE `item`
+ALTER TABLE `Item`
   ADD PRIMARY KEY (`itemNum`),
   ADD KEY `agrmtNum` (`agrmtNum`);
 
 --
 -- 表的索引 `itemclass`
 --
-ALTER TABLE `itemclass`
+ALTER TABLE `ItemClass`
   ADD PRIMARY KEY (`itemNum`,`typeName`),
   ADD KEY `typeName` (`typeName`);
 
 --
 -- 表的索引 `iteminfo`
 --
-ALTER TABLE `iteminfo`
+ALTER TABLE `ItemInfo`
   ADD PRIMARY KEY (`agrmtNum`),
   ADD KEY `owner` (`owner`),
   ADD KEY `branch` (`branch`),
@@ -535,13 +535,13 @@ ALTER TABLE `iteminfo`
 --
 -- 表的索引 `itemtype`
 --
-ALTER TABLE `itemtype`
+ALTER TABLE `ItemType`
   ADD PRIMARY KEY (`typeName`);
 
 --
 -- 表的索引 `labourer`
 --
-ALTER TABLE `labourer`
+ALTER TABLE `Labourer`
   ADD PRIMARY KEY (`employID`),
   ADD UNIQUE KEY `innerPIN` (`innerPIN`),
   ADD KEY `branchID` (`branchID`);
@@ -549,7 +549,7 @@ ALTER TABLE `labourer`
 --
 -- 表的索引 `manager`
 --
-ALTER TABLE `manager`
+ALTER TABLE `Manager`
   ADD PRIMARY KEY (`employID`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `branchID` (`branchID`);
@@ -557,14 +557,14 @@ ALTER TABLE `manager`
 --
 -- 表的索引 `payment`
 --
-ALTER TABLE `payment`
+ALTER TABLE `Payment`
   ADD PRIMARY KEY (`payNum`),
   ADD KEY `cardNum` (`cardNum`);
 
 --
 -- 表的索引 `reservation`
 --
-ALTER TABLE `reservation`
+ALTER TABLE `Reservation`
   ADD PRIMARY KEY (`confNum`),
   ADD UNIQUE KEY `payment` (`payment`),
   ADD KEY `reserver` (`reserver`),
@@ -574,7 +574,7 @@ ALTER TABLE `reservation`
 --
 -- 表的索引 `room_type`
 --
-ALTER TABLE `room_type`
+ALTER TABLE `Room_Type`
   ADD PRIMARY KEY (`branchID`,`roomNum`,`typeName`),
   ADD KEY `roomNum` (`roomNum`,`branchID`),
   ADD KEY `typeName` (`typeName`);
@@ -582,14 +582,14 @@ ALTER TABLE `room_type`
 --
 -- 表的索引 `storeroom`
 --
-ALTER TABLE `storeroom`
+ALTER TABLE `Storeroom`
   ADD PRIMARY KEY (`roomNum`,`branchID`),
   ADD KEY `branchID` (`branchID`);
 
 --
 -- 表的索引 `usedspace`
 --
-ALTER TABLE `usedspace`
+ALTER TABLE `UsedSpace`
   ADD PRIMARY KEY (`roomNum`,`branchID`,`date`),
   ADD KEY `branchID` (`branchID`);
 
@@ -600,37 +600,37 @@ ALTER TABLE `usedspace`
 --
 -- 使用表AUTO_INCREMENT `agreement`
 --
-ALTER TABLE `agreement`
+ALTER TABLE `Agreement`
   MODIFY `agrmtNum` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 使用表AUTO_INCREMENT `branch`
 --
-ALTER TABLE `branch`
+ALTER TABLE `Branch`
   MODIFY `branchID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 使用表AUTO_INCREMENT `employee`
 --
-ALTER TABLE `employee`
+ALTER TABLE `Employee`
   MODIFY `employID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3002;
 
 --
 -- 使用表AUTO_INCREMENT `item`
 --
-ALTER TABLE `item`
+ALTER TABLE `Item`
   MODIFY `itemNum` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 使用表AUTO_INCREMENT `payment`
 --
-ALTER TABLE `payment`
+ALTER TABLE `Payment`
   MODIFY `payNum` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10000011;
 
 --
 -- 使用表AUTO_INCREMENT `reservation`
 --
-ALTER TABLE `reservation`
+ALTER TABLE `Reservation`
   MODIFY `confNum` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10000006;
 
 --
@@ -638,89 +638,89 @@ ALTER TABLE `reservation`
 --
 
 --
--- 限制表 `agreement`
+-- 限制表 `Agreement`
 --
-ALTER TABLE `agreement`
-  ADD CONSTRAINT `agreement_ibfk_1` FOREIGN KEY (`payment`) REFERENCES `payment` (`payNum`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `agreement_ibfk_2` FOREIGN KEY (`fromResv`) REFERENCES `reservation` (`confNum`) ON UPDATE CASCADE;
+ALTER TABLE `Agreement`
+  ADD CONSTRAINT `agreement_ibfk_1` FOREIGN KEY (`payment`) REFERENCES `Payment` (`payNum`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `agreement_ibfk_2` FOREIGN KEY (`fromResv`) REFERENCES `Reservation` (`confNum`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `director`
 --
-ALTER TABLE `director`
-  ADD CONSTRAINT `director_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Director`
+  ADD CONSTRAINT `director_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `Employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `item`
 --
-ALTER TABLE `item`
-  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`agrmtNum`) REFERENCES `agreement` (`agrmtNum`) ON UPDATE CASCADE;
+ALTER TABLE `Item`
+  ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`agrmtNum`) REFERENCES `Agreement` (`agrmtNum`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `itemclass`
 --
-ALTER TABLE `itemclass`
-  ADD CONSTRAINT `itemclass_ibfk_1` FOREIGN KEY (`itemNum`) REFERENCES `item` (`itemNum`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `itemclass_ibfk_2` FOREIGN KEY (`typeName`) REFERENCES `itemtype` (`typeName`) ON UPDATE CASCADE;
+ALTER TABLE `ItemClass`
+  ADD CONSTRAINT `itemclass_ibfk_1` FOREIGN KEY (`itemNum`) REFERENCES `Item` (`itemNum`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `itemclass_ibfk_2` FOREIGN KEY (`typeName`) REFERENCES `ItemType` (`typeName`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `iteminfo`
 --
-ALTER TABLE `iteminfo`
-  ADD CONSTRAINT `iteminfo_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `customer` (`username`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `iteminfo_ibfk_2` FOREIGN KEY (`agrmtNum`) REFERENCES `agreement` (`agrmtNum`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `iteminfo_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `branch` (`branchID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `iteminfo_ibfk_4` FOREIGN KEY (`roomNum`,`branch`) REFERENCES `storeroom` (`roomNum`, `branchID`) ON UPDATE CASCADE;
+ALTER TABLE `ItemInfo`
+  ADD CONSTRAINT `iteminfo_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `Customer` (`username`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `iteminfo_ibfk_2` FOREIGN KEY (`agrmtNum`) REFERENCES `Agreement` (`agrmtNum`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `iteminfo_ibfk_3` FOREIGN KEY (`branch`) REFERENCES `Branch` (`branchID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `iteminfo_ibfk_4` FOREIGN KEY (`roomNum`,`branch`) REFERENCES `Storeroom` (`roomNum`, `branchID`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `labourer`
 --
-ALTER TABLE `labourer`
-  ADD CONSTRAINT `labourer_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `labourer_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Labourer`
+  ADD CONSTRAINT `labourer_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `Employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `labourer_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `Branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `manager`
 --
-ALTER TABLE `manager`
-  ADD CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `manager_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Manager`
+  ADD CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`employID`) REFERENCES `Employee` (`employID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `manager_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `Branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `payment`
 --
-ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cardNum`) REFERENCES `card` (`cardNum`);
+ALTER TABLE `Payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cardNum`) REFERENCES `Card` (`cardNum`);
 
 --
 -- 限制表 `reservation`
 --
-ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reserver`) REFERENCES `customer` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `branch` (`branchID`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`roomNum`,`branch`) REFERENCES `storeroom` (`roomNum`, `branchID`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`payment`) REFERENCES `payment` (`payNum`) ON UPDATE CASCADE;
+ALTER TABLE `Reservation`
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`reserver`) REFERENCES `Customer` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`branch`) REFERENCES `Branch` (`branchID`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`roomNum`,`branch`) REFERENCES `Storeroom` (`roomNum`, `branchID`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_4` FOREIGN KEY (`payment`) REFERENCES `Payment` (`payNum`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `room_type`
 --
-ALTER TABLE `room_type`
-  ADD CONSTRAINT `room_type_ibfk_1` FOREIGN KEY (`roomNum`,`branchID`) REFERENCES `storeroom` (`roomNum`, `branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `room_type_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `room_type_ibfk_3` FOREIGN KEY (`typeName`) REFERENCES `itemtype` (`typeName`) ON UPDATE CASCADE;
+ALTER TABLE `Room_Type`
+  ADD CONSTRAINT `room_type_ibfk_1` FOREIGN KEY (`roomNum`,`branchID`) REFERENCES `Storeroom` (`roomNum`, `branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `room_type_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `Branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `room_type_ibfk_3` FOREIGN KEY (`typeName`) REFERENCES `ItemType` (`typeName`) ON UPDATE CASCADE;
 
 --
 -- 限制表 `storeroom`
 --
-ALTER TABLE `storeroom`
-  ADD CONSTRAINT `storeroom_ibfk_1` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Storeroom`
+  ADD CONSTRAINT `storeroom_ibfk_1` FOREIGN KEY (`branchID`) REFERENCES `Branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 限制表 `usedspace`
 --
-ALTER TABLE `usedspace`
-  ADD CONSTRAINT `usedspace_ibfk_1` FOREIGN KEY (`roomNum`,`branchID`) REFERENCES `storeroom` (`roomNum`, `branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `usedspace_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `UsedSpace`
+  ADD CONSTRAINT `usedspace_ibfk_1` FOREIGN KEY (`roomNum`,`branchID`) REFERENCES `Storeroom` (`roomNum`, `branchID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usedspace_ibfk_2` FOREIGN KEY (`branchID`) REFERENCES `Branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
