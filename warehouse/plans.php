@@ -57,11 +57,16 @@
       }
       ?>
         </table>
-        <p style="text-align:left; color: red;">NOTE:<br> All charges are non-refundable. <br> $3 is required to make a reservation.</p>
+        <p style="text-align:left; color: red;">NOTE:
+        <ul style="text-align:left; color: red;">
+            <li>All charges are non-refundable.</li>
+            <li>$0.2 is required to make a reservation per m<sup>3</sup> per day.</li>
+            <li>At least 1 m<sup>3</sup> is required for every reservation and agreement.</li>
+        </ul>
       </div>
-      
+
     </section>
-    
+
     <script>
     function mobileExpand() {
       var x = document.getElementById("thebar");

@@ -105,6 +105,7 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 						<tr>
 							<th>Item Number</th>
 							<th>Owner</th>
+							<th>Owner ID</th>
 							<th>Room Number</th>
 							<th>Type</th>
 							<th>Size (m<sup>3</sup>)</th>
@@ -113,6 +114,8 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 						$branch = $user['branchID'];
 						$sql = "SELECT * FROM ItemInfo INNER JOIN Item ON
 						Item.agrmtNum = ItemInfo.agrmtNum
+						INNER JOIN Customer
+						ON ItemInfo.owner = Customer.username
 						WHERE branch = '$branch'" ;
 						$stmt = $pdo->prepare($sql);
 						$stmt->execute();
@@ -122,6 +125,8 @@ $worker = $stmt->fetch(PDO::FETCH_ASSOC);
 								echo($row['itemNum']);
 								echo ("</td><td>");
 								echo ($row['owner']);
+								echo ("</td><td>");
+								echo ($row['IDNum']);
 								echo ("</td><td>");
 								echo($row['roomNum']);
 								echo ("</td><td>");
