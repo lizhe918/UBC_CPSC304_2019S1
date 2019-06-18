@@ -128,7 +128,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                         <tr>
                             <th>New Customers | YTD</th>
                             <th colspan='4'>Total Revenue (CAD)</th>
-                            <th>Average Weekly Revenue (CAD)</th>
+                            <th>Average Weekly Revenue (CAD) | YTD</th>
                             
                         </tr>
                         <?php
