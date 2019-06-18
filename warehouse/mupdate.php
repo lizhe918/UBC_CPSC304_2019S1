@@ -101,7 +101,8 @@
             $sql = "UPDATE Employee SET  address ='$address' WHERE  employID ='$employID'";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
-
+                header("Location:magrmt.php");
+                exit;
             }
         }
     }
