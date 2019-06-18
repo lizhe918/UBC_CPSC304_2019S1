@@ -124,7 +124,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							?>
 							<tr>
 								<td><?php echo $amount['method']; ?></td>
-								<td><?php echo $amount['SUM(amount)']; ?></td>
+								<td><?php echo '$' . $amount['SUM(amount)']; ?></td>
 							<?php } ?>
 						</tr>
 					</table>
@@ -167,7 +167,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 								<td><?php echo $transaction['owner']; ?></td>
 								<td><?php echo $transaction['cardNum']; ?></td>
 								<td><?php echo $transaction['method']; ?></td>
-								<td><?php echo $transaction['amount']; ?></td>
+								<td><?php echo '$' . $transaction['amount']; ?></td>
 							<?php } ?>
 						</tr>
 					</table>

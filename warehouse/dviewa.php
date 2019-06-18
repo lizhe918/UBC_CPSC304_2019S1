@@ -127,8 +127,9 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                     <table class="entities" style="width:100%">
                         <tr>
                             <th>New Customers | YTD</th>
-                            <th>Total Revenue (CAD)</th>
+                            <th colspan='4'>Total Revenue (CAD)</th>
                             <th>Average Weekly Revenue (CAD)</th>
+                            
                         </tr>
                         <?php
 
@@ -147,34 +148,98 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                         $q6 = "SELECT COUNT(*) as count FROM Branch";
                         $q7 = "SELECT COUNT(DISTINCT C.username) as count FROM Customer C, ItemInfo I, Agreement A WHERE I.agrmtNum = A.agrmtNum
                         AND C.username = I.owner AND startDay BETWEEN '$startDate' AND '$endDate'";
+                        $qdate1 = date('Y') . '-01-01';
+                        $qdate2 = date('Y') . '-03-31';
+                        $qtr1agr = "SELECT SUM(amount) AS rev FROM Payment P, Agreement A WHERE A.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qtr1res = "SELECT SUM(amount) AS rev FROM Payment P, Reservation R WHERE R.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qdate1 = date('Y') . '-04-01';
+                        $qdate2 = date('Y') . '-06-30';
+                        $qtr2agr = "SELECT SUM(amount) AS rev FROM Payment P, Agreement A WHERE A.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qtr2res = "SELECT SUM(amount) AS rev FROM Payment P, Reservation R WHERE R.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qdate1 = date('Y') . '-07-01';
+                        $qdate2 = date('Y') . '-09-30';
+                        $qtr3agr = "SELECT SUM(amount) AS rev FROM Payment P, Agreement A WHERE A.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qtr3res = "SELECT SUM(amount) AS rev FROM Payment P, Reservation R WHERE R.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qdate1 = date('Y') . '-10-01';
+                        $qdate2 = date('Y') . '-12-31';
+                        $qtr4agr = "SELECT SUM(amount) AS rev FROM Payment P, Agreement A WHERE A.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
+                        $qtr4res = "SELECT SUM(amount) AS rev FROM Payment P, Reservation R WHERE R.payment = P.payNum
+                        AND startDay BETWEEN '$qdate1' AND '$qdate2'";
                         $s1 = $pdo->prepare($q1);
                         $s2 = $pdo->prepare($q2);
                         $s3 = $pdo->prepare($q3);
                         $s5 = $pdo->prepare($q5);
                         $s6 = $pdo->prepare($q6);
                         $s7 = $pdo->prepare($q7);
+                        $sqtr1agr = $pdo->prepare($qtr1agr);
+                        $sqtr1res = $pdo->prepare($qtr1res);
+                        $sqtr2agr = $pdo->prepare($qtr2agr);
+                        $sqtr2res = $pdo->prepare($qtr2res);
+                        $sqtr3agr = $pdo->prepare($qtr3agr);
+                        $sqtr3res = $pdo->prepare($qtr3res);
+                        $sqtr4agr = $pdo->prepare($qtr4agr);
+                        $sqtr4res = $pdo->prepare($qtr4res);
                         $s1->execute();
                         $s2->execute();
                         $s3->execute();
                         $s5->execute();
                         $s6->execute();
                         $s7->execute();
+                        $sqtr1agr->execute();
+                        $sqtr1res->execute();
+                        $sqtr2agr->execute();
+                        $sqtr2res->execute();
+                        $sqtr3agr->execute();
+                        $sqtr3res->execute();
+                        $sqtr4agr->execute();
+                        $sqtr4res->execute();
                         $r1 = $s1->fetch(PDO::FETCH_ASSOC);
                         $r2 = $s2->fetch(PDO::FETCH_ASSOC);
                         $r3 = $s3->fetch(PDO::FETCH_ASSOC);
                         $r5 = $s5->fetch(PDO::FETCH_ASSOC);
                         $r6 = $s6->fetch(PDO::FETCH_ASSOC);
                         $r7 = $s7->fetch(PDO::FETCH_ASSOC);
+                        $rqtr1agr = $sqtr1agr->fetch(PDO::FETCH_ASSOC);
+                        $rqtr1res = $sqtr1res->fetch(PDO::FETCH_ASSOC);
+                        $rqtr2agr = $sqtr2agr->fetch(PDO::FETCH_ASSOC);
+                        $rqtr2res = $sqtr2res->fetch(PDO::FETCH_ASSOC);
+                        $rqtr3agr = $sqtr3agr->fetch(PDO::FETCH_ASSOC);
+                        $rqtr3res = $sqtr3res->fetch(PDO::FETCH_ASSOC);
+                        $rqtr4agr = $sqtr4agr->fetch(PDO::FETCH_ASSOC);
+                        $rqtr4res = $sqtr4res->fetch(PDO::FETCH_ASSOC);
 
                         echo "<tr><td>";
                         echo ($r1 = $r1['count']);
-                        echo "</td><td rowspan='3'>";
+                        echo "</td><td colspan='4'>";
                         echo ('$' . $r4 = $r2['rev'] + $r3['rev']);
                         echo ("</td><td>");
                         echo ('$' . number_format($r4 / 52, 2, '.', ''));
-                        echo ("</td></tr><tr><th>Returning Customers | YTD</th><th>Average Branch Revenue (CAD) | YTD</th><tr><td>");
+                        echo '<tr>
+                        <th>Returning Customers | YTD</th>
+                        <td>Q1</td>
+                        <td>Q2</td>
+                        <td>Q3</td>
+                        <td>Q4</td>
+                        <th>Average Branch Revenue (CAD) | YTD</th>
+                        </tr>';
+                        echo ("</td><td>");
                         echo ($r5 = $r5['count']);
                         echo "</td><td>";
+                        echo ('$' . $qtr1rev = $rqtr1agr['rev'] + $rqtr1res['rev']);
+                        echo ("</td><td>");
+                        echo ('$' . $qtr2rev = $rqtr2agr['rev'] + $rqtr2res['rev']);
+                        echo ("</td><td>");
+                        echo ('$' . $qtr3rev = $rqtr3agr['rev'] + $rqtr3res['rev']);
+                        echo ("</td><td>");
+                        echo ('$' . $qtr4rev = $rqtr4agr['rev'] + $rqtr4res['rev']);
+                        echo ("</td><td>");
                         echo ('$' . $r4 / $r6['count']);
 
                         $new = $r1;
