@@ -135,7 +135,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							  echo "<tr><td>";
 								echo($payment['payNum']);
 								echo ("</td><td>");
-								echo($payment['amount']);
+								echo('$' . $payment['amount']);
 								$sum += $payment['amount'];
 								echo ("</td><td>");
 								echo($payment['method']);
@@ -146,7 +146,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 						?>
 					</table>
 					<?php
-						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " tranctions.</p>";
+						echo "<p style='text-align: left; color: #002145;'>There are " . $count . " transactions.</p>";
 						echo "<p style='text-align: left; color: #002145;'>Total value: $" . $sum . ".</p>";
 					?>
 				</div>

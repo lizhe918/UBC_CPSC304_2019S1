@@ -125,7 +125,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 							echo "<tr><td>";
 							echo $row['payNum'];
 							echo "</td><td>";
-                            echo $row['amount'];
+                            echo '$' . $row['amount'];
                             $sum += $row['amount'];
 							echo "</td><td>";
 							echo $row['cardNum'];

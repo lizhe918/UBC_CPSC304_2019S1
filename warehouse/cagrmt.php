@@ -138,7 +138,7 @@ $count = 0;
 								echo ("</td><td>");
 								echo($row['payment']);
 								echo ("</td><td>");
-								echo($row['amount']);
+								echo('$' . $row['amount']);
 								echo ("</td></tr>");
 							}
 						?>

@@ -148,7 +148,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 								echo ("</td><td>");
 								echo($row['owner']);
 								echo ("</td><td>");
-								echo($row['amount']);
+								echo('$' . $row['amount']);
                 						echo ("</td><td>");
 								echo($row['payNum']);
                						 	echo ("</td><td>");
