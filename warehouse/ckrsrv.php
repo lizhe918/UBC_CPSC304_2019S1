@@ -208,7 +208,7 @@ if ($hasQuery) {
                     ?>
                     <input
                         type="checkbox"
-                        name= '<?php echo "$abbrev"; ?>'
+                        name= 'type[]'
                         value='<?php echo "$abbrev"; ?>'
                         <?php echo (isset($_POST["$abbrev"])) ? 'checked="checked"' : ''?>
                     /><?php echo "$abbrev"; ?>
