@@ -1,21 +1,7 @@
 <?php
 require_once "pdo_constructor.php";
 
-$msg = false;
 $count = 0;
-
-if (isset($_POST['delete'])) {
-	$itemtobedelete =  $_POST['delete'];
-	$sql = "DELETE FROM Item WHERE itemNum = '$itemtobedelete'";
-	$stmt = $pdo->prepare($sql);
-	try {
-		$stmt->execute();
-		$msg = "Item numbered $itemtobedelete deleted successfully!";
-	} catch (PDOException $e) {
-		$msg = "Failed to delete the item numbered $itemtobedelete";
-	}
-
-}
 
 
 $username = $_COOKIE['zyxwmanager'];
@@ -119,13 +105,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			</div>
 			<div class="tableblock" style="background-color: white;">
 				<h2>Items</h2>
-				<?php
-				if ($msg != false) {
-					echo "<p style='color: red;''>";
-					echo "$msg";
-					echo "</p>";
-				}
-				?>
+
 				<div class="thetable" style="width: 90%;">
 					<table class="entities" style="width:100%">
 						<tr>
@@ -135,7 +115,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							<th>Room Number</th>
 							<th>Type</th>
 							<th>Size (m<sup>3</sup>)</th>
-							<th>Operation</th>
+
 						</tr>
 						<?php
 						$branch = $user['branchID'];
@@ -164,10 +144,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 								}
 								echo ("</td><td>");
 								echo ($row['size']);
-								echo ("</td><td>");
-								echo ("<form method='POST'>");
-								echo "<button type='submit' name='delete' value=".$row['itemNum']." onclick='return ConfirmDelete()'> DELETE </button>";
-								echo ("</form>");
+
 								echo ("</td></tr>");
 							}
 						?>
@@ -210,9 +187,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			}
 		}
 
-		function ConfirmDelete() {
-  			return confirm("Are you sure you want to delete?");
-		}
+		
 	</script>
 </body>
 </html>

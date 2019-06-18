@@ -3,6 +3,23 @@ require_once "pdo_constructor.php";
 
 $count = 0;
 
+$msg = false;
+
+if (isset($_POST['delete'])) {
+	$agrmtToBePicked =  $_POST['delete'];
+	$sql = "DELETE FROM Item WHERE agrmtNum = '$agrmtToBePicked'";
+	$stmt = $pdo->prepare($sql);
+	try {
+		$stmt->execute();
+		$sql = "UPDATE Agreement SET pickDay = CURDATE() WHERE agrmtNum = '$agrmtToBePicked'";
+		$pick = $pdo->prepare($sql);
+		$pick->execute();
+		$msg = "Items in agreement numbered $agrmtToBePicked deleted successfully!";
+	} catch (PDOException $e) {
+		$msg = "Failed to delete the item in agreement numbered $agrmtToBePicked";
+	}
+}
+
 $username = $_COOKIE['zyxwmanager'];
 $sql = "SELECT * FROM Manager WHERE username = '$username'";
 $stmt = $pdo->prepare($sql);
@@ -139,9 +156,15 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
                 						echo ("</td><td>");
 								echo($row['endDay']);
 								echo ("</td><td>");
-								echo($row['pickDay']);
+
 								if (is_null($row['pickDay'])) {
 									$count++;
+									echo ("<form method='POST'>");
+									echo "<button type='submit' name='delete' value=".$row['agrmtNum']." onclick='return ConfirmDelete()'> PICK UP </button>";
+									echo ("</form>");
+
+								} else {
+									echo($row['pickDay']);
 								}
 								echo ("</td><td>");
 								echo($row['fromResv']);
@@ -188,6 +211,10 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 			} else {
 				x.className = "items";
 			}
+		}
+
+		function ConfirmDelete() {
+  			return confirm("Are you sure you want to pick up this agreement?");
 		}
 	</script>
 </body>
