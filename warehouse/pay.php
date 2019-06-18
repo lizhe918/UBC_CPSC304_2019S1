@@ -6,16 +6,20 @@
     $space = $_GET['space'];
     $branchid = $_GET['branchid'];
     $roomnum = $_GET['roomnum'];
+    
+    $branchidN = intval($branchid);
+    $roomnumN = intval($roomnum);
 
     $earlier = new DateTime($startDate);
     $later = new DateTime($endDate);
     $diffString = $later->diff($earlier)->format("%a");
     $diffNumDay = intval($diffString);
-        $sql =  "SELECT MAX(rate) AS r FROM Room_Type R, ItemType I WHERE R.typeName=I.typeName AND roomNum = '$roomnum' AND branchID = '$branchid'";
-        $stmt = $pdo->prepare($sql);
-        $Rate = $stmt->fetch(PDO::FETCH_ASSOC);
-        $Rate = $Rate["r"];
-        $fee = $Rate*$diffNumDay*$space;
+    $sql =  "SELECT MAX(rate) FROM ItemType I WHERE I.typeName IN (SELECT typeName FROM Room_Type WHERE roomNum = '$roomnumN' AND branchID = '$branchidN')" ;
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $Rate = $stmt->fetch(PDO::FETCH_ASSOC);
+    $Rate = $Rate["MAX(rate)"];
+    $fee = $Rate*$diffNumDay*$space;
     $message = false;
 
     if (isset($_POST['cancel'])) {
