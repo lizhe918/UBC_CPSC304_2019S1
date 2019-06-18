@@ -101,7 +101,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					echo ($manager['email']);
 					?>
 				</p>
-				<a class="linkbutton" href="mupdate.php">Edit Profile</a>
+				<a class="linkbutton" href="dupdate.php">Edit Profile</a>
 			</div>
 		</div>
 		<div class="column function">
