@@ -175,7 +175,6 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 					</table>
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " agreements in progress.</p>"; ?>
 				</div>
-				<a class="linkbutton" href="mrtoa.php">From Reservation</a>
 				<a class="linkbutton" href="mkagrmt.php">New Agreement</a>
 			</div>
 		</div>
