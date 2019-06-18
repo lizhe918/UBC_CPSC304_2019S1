@@ -196,7 +196,7 @@ if ($hasQuery) {
                 <input class="short" id="theDate" type="date"  name="endDate" value=<?php echo $endDate; ?>>
             </p>
             <p>Reserve Space (m<sup>3</sup>)*:<br>
-                <input class="short" type="text" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
+                <input class="short" type="number" min="1" name="rsvSpace" value=<?php echo $rsvSpace; ?>>
             </p>
             <p>Select Item Type:<br><br>
                 <?php
