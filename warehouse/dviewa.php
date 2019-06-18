@@ -252,7 +252,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Revenue (CAD)</th>
                         </tr>
                         <?php
-                        $q1 = "SELECT BB.BranchID, address, rev FROM Branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
+                        $q1 = "SELECT BB.branchID, address, rev FROM Branch, (SELECT AA.branch AS branchID, (AA.r1 + B.r2) AS rev FROM (SELECT I.branch, SUM(amount) AS R1
                         FROM Payment P, Agreement A, ItemInfo I WHERE A.payment = P.payNum AND I.agrmtNum = A.agrmtNum
                         AND startDay BETWEEN '$startDate' AND '$endDate'
                         GROUP BY branch) AS AA INNER JOIN (SELECT R.branch, SUM(amount) AS R2 FROM Payment P, Reservation R WHERE R.payment = P.payNum
