@@ -52,7 +52,7 @@
         echo ("</td><td>");
         echo($row['comment']);
         echo ("</td><td>");
-        echo($row['rate']);
+        echo('$' . $row['rate']);
         echo ("</td></tr>");
       }
       ?>

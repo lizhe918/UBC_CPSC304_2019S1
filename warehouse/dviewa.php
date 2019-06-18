@@ -169,13 +169,13 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                         echo "<tr><td>";
                         echo ($r1 = $r1['count']);
                         echo "</td><td rowspan='3'>";
-                        echo ($r4 = $r2['rev'] + $r3['rev']);
+                        echo ('$' . $r4 = $r2['rev'] + $r3['rev']);
                         echo ("</td><td>");
-                        echo (number_format($r4 / 52, 2, '.', ''));
+                        echo ('$' . number_format($r4 / 52, 2, '.', ''));
                         echo ("</td></tr><tr><th>Returning Customers | YTD</th><th>Average Branch Revenue (CAD) | YTD</th><tr><td>");
                         echo ($r5 = $r5['count']);
                         echo "</td><td>";
-                        echo ($r4 / $r6['count']);
+                        echo ('$' . $r4 / $r6['count']);
 
                         $new = $r1;
                         $returning = $r5;
@@ -270,7 +270,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo ("</td><td>");
                             echo ($row['address']);
                             echo ("</td><td>");
-                            echo ($row['rev']);
+                            echo ('$' .     $row['rev']);
                         }
                         ?>
                     </table>
@@ -292,7 +292,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo "<tr><td>";
                             echo ($row['typeName']);
                             echo ("</td><td>");
-                            echo ($row['rev']);
+                            echo ('$' . $row['rev']);
                         }
                         ?>
                     </table>
@@ -327,7 +327,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo ("</td><td>");
                             echo ($row['count']);
                             echo ("</td><td>");
-                            echo ($row['rev']);
+                            echo ('$' . $row['rev']);
                         }
                         ?>
                     </table>
@@ -360,7 +360,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo ("</td><td>");
                             echo ($row['address']);
                             echo ("</td><td>");
-                            echo ($row['rev']);
+                            echo ('$' . $row['rev']);
                         }
                         ?>
                     </table>

@@ -190,7 +190,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							echo ("</td><td>");
 							echo ($counts['COUNT(*)']);
 							echo ("</td><td>");
-							echo ($income);
+							echo ('$' . $income);
 							echo ("</td></tr>");
 						}
 						?>

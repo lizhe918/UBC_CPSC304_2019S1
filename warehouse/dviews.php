@@ -138,7 +138,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<tr>
 								<td><?php echo $type; ?></td>
 								<td><?php echo $row['COUNT(*)']; ?></td>
-								<td><?php echo $revenue; ?></td>
+								<td><?php echo '$' . $revenue; ?></td>
 							<?php } ?>
 						</tr>
 					</table>
