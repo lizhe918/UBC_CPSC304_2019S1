@@ -11,11 +11,11 @@
     $later = new DateTime($endDate);
     $diffString = $later->diff($earlier)->format("%a");
     $diffNumDay = intval($diffString);
-    $fee = 0.2*$diffNumDay*$space;
-        // $sql =  "SELECT MAX(rate) FROM Room_Type INNER JOIN ItemType ON typeName WHERE roomNum = '$roomnum'";
-        // $stmt = $pdo->prepare($sql);
-        // $stmt->execute();
-        // $Rate = $stmt->fetch(PDO::FETCH_ASSOC);
+        $sql =  "SELECT MAX(rate) AS r FROM Room_Type R, ItemType I WHERE R.typeName=I.typeName AND roomNum = '$roomnum' AND branchID = '$branchid'";
+        $stmt = $pdo->prepare($sql);
+        $Rate = $stmt->fetch(PDO::FETCH_ASSOC);
+        $Rate = $Rate["r"];
+        $fee = $Rate*$diffNumDay*$space;
     $message = false;
 
     if (isset($_POST['cancel'])) {
