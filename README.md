@@ -15,6 +15,7 @@ The folder, infrastructure, contains all the html and css templates that are use
 <p>
 The file, warehouse.sql, in the folder, warehouse, provides the source code for the database. For development purpose, please construct your own local mySQL database on the local mySQL server. You can do so by using the phpMyAdmin in XAMPP or MAMP. To let your file get access to your database, please check the comment in pdo_constructor.php and pdo_common_operations.php inside the infrastructure folder. 
 </p>
-<h2>Development</h2>
+<h2>Version: 1.0.0</h2>
 <p>
-When developing this project, please make sure your commit will not influence other files because many of the html and php files share the css.  
+  Version 1.0.0 is now online at practices.isaaczheli.com for public test!
+</p>
