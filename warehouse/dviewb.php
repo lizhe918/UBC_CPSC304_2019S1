@@ -159,14 +159,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							$stmts->execute();
 							$counts = $stmts->fetch(PDO::FETCH_ASSOC);
 
-							$sql = "SELECT SUM(amount) FROM ItemInfo I, Agreement A, Payment P
-									WHERE 
-									I.agrmtNum = A.agrmtNum AND 
-									A.payment = P.payNum AND
-									I.branch = '$lmanager'";
-							$stmt = $pdo->prepare($sql);
-							$stmt->execute();
-							$arevenue = $stmt->fetch(PDO::FETCH_ASSOC);
+							
 
 							$sql = "SELECT SUM(amount) FROM Reservation R, Payment P
 									WHERE 
@@ -176,7 +169,7 @@ $manager = $stmt->fetch(PDO::FETCH_ASSOC);
 							$stmt->execute();
 							$rrevenue = $stmt->fetch(PDO::FETCH_ASSOC);
 
-							$income = $arevenue['SUM(amount)'] + $rrevenue['SUM(amount)'];
+							$income = $rrevenue['SUM(amount)'];
 							$sum += $income;
 
 							echo "<tr><td>";
