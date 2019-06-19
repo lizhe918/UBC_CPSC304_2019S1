@@ -249,8 +249,8 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                     $s1 = $pdo->prepare($q1);
                     $s1->execute();
                     $r4 = $s1->fetch(PDO::FETCH_ASSOC);
-                    $q5 = "SELECT A.branchID AS branchID, RT.typeName, SUM(free) AS free FROM Room_Type RT, (SELECT branchID, roomNum, (maxSpace - sum) AS free
-                    FROM (SELECT U.BranchID, U.roomNum, maxSpace, SUM(space) as sum FROM UsedSpace U, Storeroom S WHERE U.roomNum = S.roomNum
+                    $q5 = "SELECT A.branchID AS branchID, RT.typeName, free FROM Room_Type RT, (SELECT branchID, roomNum, (maxSpace - sum) AS free
+                    FROM (SELECT U.BranchID, U.roomNum, maxSpace, MAX(space) as sum FROM UsedSpace U, Storeroom S WHERE U.roomNum = S.roomNum
                     AND U.branchID = S.branchID GROUP BY U.branchID, U.roomNum, maxSpace) A) A WHERE A.branchID = RT.branchID AND A.roomNum = RT.roomNum
                     GROUP BY A.branchID, A.roomNum, typeName ORDER BY A.branchID, typeName";
                     $s5 = $pdo->prepare($q5);
@@ -260,7 +260,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
                         $tn = $r5['typeName'];
                         $free = $r5['free'];
                         if ($free < 30) {
-                            echo '<p>There is limited ' . $tn . ' space left at branch ' . $bid . '. Requires attention immediately!</p>';
+                            echo '<p>There is limited ' . $tn . ' space (' . $free . ')left at branch ' . $bid . '. Requires attention immediately!</p>';
                         }
                     }
 
