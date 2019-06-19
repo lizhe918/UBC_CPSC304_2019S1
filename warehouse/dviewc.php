@@ -140,7 +140,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							<td><?php echo $customer['IDNum']; ?></td>
 							<td><?php echo $customer['phoneNum']; ?></td>
 							<td><?php echo $customer['email']; ?></td>
-							<td><?php echo '$' . $value['SUM(amount)']; ?></td>
+							<td><?php echo '$' . $sum; ?></td>
 						<?php }?>
 					</table>
 					<?php echo "<p style='text-align: left; color: #002145;'>There are " . $count . " customers.</p>"; 
