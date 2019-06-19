@@ -33,7 +33,8 @@ if (isset($_POST['submit'])) {
     $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum) .
     "&branch=" . urlencode($branch) .
     "&roomNum=" . urlencode($roomNum) .
-    "&rsvSpace=" . urlencode($rsvSpace);
+    "&rsvSpace=" . urlencode($rsvSpace).
+    "&added=".urlencode(false);
 
     header("Location:" . $url);
 }
