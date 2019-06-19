@@ -1,5 +1,9 @@
 
+<?php
 
+    header("Refresh: 1.5; index.php");
+  
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -28,9 +32,3 @@
   </body>
 </html>
 
-<?php
-
-    header("Refresh: 1.5; URL=index.php");
-    exit;
-  
-?>
