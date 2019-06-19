@@ -1,17 +1,25 @@
 <?php
 require_once "pdo_constructor.php";
 
-$msg = false;
-
 $agrmtNum = $_GET['agrmtNum'];
 $branch = $_GET['branch'];
 $roomNum = $_GET['roomNum'];
+$Space = $_GET['rsvSpace'];
+$added = $_GET['added'];
 
+$msg = false;
+ if($added){
+        $msg = "You have successfully added an item";
+    }
 
 if (isset($_POST['submit'])) {
     if (!isset($_POST['type'])) {
         $msg = "Please select at least one type!";
-    } else{
+        $added = false;
+    } else if ($Space-$_POST['size'] < 0){
+        $msg = "Input item size greater than reserved space, Please Verify.";
+        $added = false;
+    }else{
         $size = $_POST['size'];
         $sql = "INSERT INTO Item VALUES('0', '$agrmtNum', '$size')";
         $stmt = $pdo->prepare($sql);
@@ -28,9 +36,12 @@ if (isset($_POST['submit'])) {
             $sql = "INSERT INTO ItemClass VALUES('$itemNum', '$value')";
         }
 
+        $Space = $Space - $size;
+        $added = true;
         $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum) .
         "&branch=" . urlencode($branch) .
-        "&roomNum=" . urlencode($roomNum);
+        "&roomNum=" . urlencode($roomNum)."&rsvSpace=".urlencode($Space).
+        "&added=".urldecode($added);
 
         header("Location:" . $url);
     }
