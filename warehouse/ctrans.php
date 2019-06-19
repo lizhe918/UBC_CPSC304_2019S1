@@ -108,12 +108,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                             <th>Method</th>
 						</tr>
 						<?php
-						$sql = "SELECT P.payNum, P.amount, P.cardNum, C.method FROM Iteminfo I, Agreement A, Payment P, Card C 
-                                WHERE I.agrmtNum = A.agrmtNum 
-                                    AND A.payment = P.payNum 
-                                    AND P.cardNum = C.cardNum 
-                                    AND I.owner = '$username'
-                                UNION
+						$sql = "
                                 SELECT P.payNum, P.amount, P.cardNum, C.method FROM Reservation R, Payment P, Card C 
                                 WHERE R.payment = P.payNum
                                     AND P.cardNum = C.cardNum
