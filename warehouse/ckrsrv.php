@@ -65,7 +65,7 @@ if (isset($_POST) & !empty($_POST)) {
         WHERE SR.maxSpace >= $rsvSpace AND NOT EXISTS (
         SELECT 1 FROM UsedSpace US
         WHERE SR.branchID = US.branchID
-        AND SR.roomNum = US.roomNum
+        AND SR.roomNum = US.roomNum AND date BETWEEN '$startDate' AND '$endDate'
     )";
 
     $sqlDatesEmpty = $sqlSelectedDates . " UNION " . $sqlEmptyRooms;
