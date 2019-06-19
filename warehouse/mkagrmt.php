@@ -19,17 +19,21 @@ if (isset($_POST['submit'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    $sql = "SELECT agrmtNum FROM Agreement WHERE agrmtNum = '$payment'";
+    $sql = "SELECT agrmtNum FROM Agreement WHERE payment = '$payment'";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $Num = $stmt->fetch(PDO::FETCH_ASSOC);
     $agrmtNum = $Num['agrmtNum'];
+    echo $agrmtNum;
 
     $sql = "INSERT INTO ItemInfo VALUES('$agrmtNum', '$reserver', '$branch', '$roomNum')";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum);
+    $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum) .
+    "&branch=" . urlencode($branch) .
+    "&roomNum=" . urlencode($roomNum) .
+    "&rsvSpace=" . urlencode($rsvSpace);
 
     header("Location:" . $url);
 }

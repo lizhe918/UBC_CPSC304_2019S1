@@ -4,6 +4,8 @@ require_once "pdo_constructor.php";
 $msg = false;
 
 $agrmtNum = $_GET['agrmtNum'];
+$branch = $_GET['branch'];
+$roomNum = $_GET['roomNum'];
 
 
 if (isset($_POST['submit'])) {
@@ -26,7 +28,9 @@ if (isset($_POST['submit'])) {
             $sql = "INSERT INTO ItemClass VALUES('$itemNum', '$value')";
         }
 
-        $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum);
+        $url = "maddi.php?agrmtNum=" . urlencode($agrmtNum) .
+        "&branch=" . urlencode($branch) .
+        "&roomNum=" . urlencode($roomNum);
 
         header("Location:" . $url);
     }
@@ -95,7 +99,7 @@ if (isset($_POST['submit'])) {
             </p>
             <p>Type(s):<br><br>
                 <?php
-                $sqlAllTypes = "SELECT * FROM Room_Type WHERE branchID = '$branch' AND roomNum = '$roomNum' ORDER BY rate";
+                $sqlAllTypes = "SELECT * FROM Room_Type WHERE branchID = '$branch' AND roomNum = '$roomNum'";
                 $allTypes = $pdo->prepare($sqlAllTypes);
                 $allTypes->execute();
                 while ($oneType = $allTypes->fetch(PDO::FETCH_ASSOC)) {
