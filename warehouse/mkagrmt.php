@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
     "&branch=" . urlencode($branch) .
     "&roomNum=" . urlencode($roomNum) .
     "&rsvSpace=" . urlencode($rsvSpace).
-    "&added=".urlencode(false);
+    "&added=".urlencode(0);
 
     header("Location:" . $url);
 }
