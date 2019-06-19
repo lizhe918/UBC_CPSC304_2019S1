@@ -121,12 +121,7 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 						$customers->execute();
 						while ($customer = $customers->fetch(PDO::FETCH_ASSOC)) {
 							$cuser = $customer['username'];
-							$sql = "SELECT SUM(amount) FROM ItemInfo I, Agreement A, Payment P
-									WHERE 
-									I.agrmtNum = A.agrmtNum AND A.payment = P.payNum AND I.owner = '$cuser'";
-							$amount = $pdo->prepare($sql);
-							$amount->execute();
-							$value = $amount->fetch(PDO::FETCH_ASSOC);
+							
 
 							$sql = "SELECT SUM(amount) FROM Reservation R, Payment P
 									WHERE
@@ -135,8 +130,8 @@ $director = $stmt->fetch(PDO::FETCH_ASSOC);
 							$amount = $pdo->prepare($sql);
 							$amount->execute();
 							$rvalue = $amount->fetch(PDO::FETCH_ASSOC);
-							$value['SUM(amount)'] += $rvalue['SUM(amount)']; 
-							$sum += $value['SUM(amount)'];
+							
+							$sum += $rvalue['SUM(amount)']; 
 							$count++;
 						?>
 						<tr>
