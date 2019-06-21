@@ -17,5 +17,5 @@ The file, warehouse.sql, in the folder, warehouse, provides the source code for 
 </p>
 <h2>Version: 1.0.0</h2>
 <p>
-  Version 1.0.0 is now online at practices.isaaczheli.com for public test!
+  Version 1.0.0 is now online at practices.isaaczheli.com!
 </p>
